@@ -1,0 +1,32 @@
+'use strict';
+const $=id=>document.getElementById(id);
+const names=['Ironsoul','Tavian','Brodus'];
+const initial=()=>({fighters:names.map((name,i)=>({name,id:i+1,x:[281,939,1598][i],y:1248,inspired:false,wounds:0})),log:[],rolls:{attack:[],defence:[]}});
+let state;try{state=JSON.parse(localStorage.getItem('whu-online-v1'));if(!state||state.fighters.length!==3)throw Error();}catch{state=initial();}
+let selected=1,opened=null,history=[],suppress=false;
+const cardPath=(id,inspired=false)=>`assets/ironsouls-condemners-${id}${inspired?'-inspired':''}.png`;
+function save(){try{localStorage.setItem('whu-online-v1',JSON.stringify(state));}catch{}}
+function before(){history.push(JSON.stringify(state));if(history.length>60)history.shift();}
+function note(t){state.log.unshift(t);state.log=state.log.slice(0,80);}
+const cells=[];
+// Flat-top hexes: measured against the supplied board, in its original pixels.
+for(let col=0;col<11;col++){let start=col%2?96:0;let top=[384,288,192,96,192,96,192,96,192,288,384][col];for(let y=top;y<=1730-top;y+=192){const x=115+col*165;cells.push({x,y});}}
+$('grid').innerHTML=cells.map(c=>`<polygon points="${Array.from({length:6},(_,i)=>{let a=i*Math.PI/3;return `${c.x+110*Math.cos(a)},${c.y+96*Math.sin(a)}`}).join(' ')}" data-x="${c.x}" data-y="${c.y}"/>`).join('');
+function move(id,x,y){const c=cells.reduce((a,b)=>Math.hypot(b.x-x,b.y-y)<Math.hypot(a.x-x,a.y-y)?b:a);const f=state.fighters.find(f=>f.id===id);if(f.x===c.x&&f.y===c.y)return;before();f.x=c.x;f.y=c.y;note(`${f.name}: přesun`);render();}
+$('grid').onclick=e=>{if(e.target.dataset.x)move(selected,+e.target.dataset.x,+e.target.dataset.y);};
+function show(id){opened=id;$('card').src=id===0?cardPath(0):cardPath(id,state.fighters[id-1].inspired);$('flip').hidden=id===0;$('viewer').showModal();}
+$('close').onclick=()=>$('viewer').close();$('viewer').onclick=e=>{if(e.target===$('viewer'))$('viewer').close();};$('warscroll').onclick=()=>show(0);
+function inspire(id){before();const f=state.fighters[id-1];f.inspired=!f.inspired;note(`${f.name}: ${f.inspired?'inspirován':'základní strana'}`);render();if(opened===id)$('card').src=cardPath(id,f.inspired);}
+$('flip').onclick=()=>inspire(opened);
+function render(){save();$('tokens').innerHTML=state.fighters.map(f=>`<button aria-label="${f.name}, přesunout; dvojklik otevře kartu" class="token ${f.inspired?'inspired':''} ${selected===f.id?'selected':''}" data-id="${f.id}" style="left:${f.x/1887*100}%;top:${f.y/1730*100}%;background-image:url('${cardPath(f.id)}')"><span>${f.name}</span>${f.wounds?`<b class="wounds">${f.wounds}</b>`:''}</button>`).join('');
+ document.querySelectorAll('.token').forEach(el=>{el.ondblclick=()=>show(+el.dataset.id);el.onpointerdown=e=>{e.preventDefault();selected=+el.dataset.id;let startX=e.clientX,startY=e.clientY;el.setPointerCapture(e.pointerId);el.onpointermove=p=>{let r=$('board').getBoundingClientRect();el.style.left=(p.clientX-r.left)/r.width*100+'%';el.style.top=(p.clientY-r.top)/r.height*100+'%';};el.onpointerup=p=>{el.onpointermove=null;const r=$('board').getBoundingClientRect();if(Math.hypot(p.clientX-startX,p.clientY-startY)>6)move(selected,(p.clientX-r.left)/r.width*1887,(p.clientY-r.top)/r.height*1730);else render();};el.onpointercancel=()=>render();};});
+ $('roster').innerHTML=state.fighters.map(f=>`<div class="fighter"><div class="row"><b>${f.name}</b><small>${f.inspired?'Inspirován':''}</small><button data-card="${f.id}">Karta ↗</button></div><div class="row"><button data-inspire="${f.id}">Otočit</button><span>Zranění: ${f.wounds}</span><button aria-label="Ubrat zranění ${f.name}" data-wound="${f.id}" data-delta="-1">−</button><button aria-label="Přidat zranění ${f.name}" data-wound="${f.id}" data-delta="1">+</button></div></div>`).join('');
+ document.querySelectorAll('[data-card]').forEach(b=>b.onclick=()=>show(+b.dataset.card));document.querySelectorAll('[data-inspire]').forEach(b=>b.onclick=()=>inspire(+b.dataset.inspire));document.querySelectorAll('[data-wound]').forEach(b=>b.onclick=()=>{before();const f=state.fighters[+b.dataset.wound-1];f.wounds=Math.max(0,f.wounds+(+b.dataset.delta));note(`${f.name}: ${f.wounds} zranění`);render();});
+ $('log').replaceChildren(...state.log.map(t=>{const li=document.createElement('li');li.textContent=t;return li;}));renderDice();}
+const faces={attack:['💥','⚒','⚒','⚔','◐','●'],defence:['💥','🛡','🛡','↪','◐','●']};
+const labels={'💥':'Kritický úspěch','⚒':'Kladivo','⚔':'Meče','◐':'Jedna podpora','●':'Dvě podpory','🛡':'Štít','↪':'Úhyb'};
+function randomFace(type){const a=new Uint32Array(1);do{crypto.getRandomValues(a);}while(a[0]>=4294967292);return faces[type][a[0]%6];}
+$('diceControls').innerHTML=['attack','defence'].map(type=>`<div class="dice-group"><label>${type==='attack'?'Útočné':'Obranné'} kostky</label><input id="count-${type}" aria-label="Počet kostek" type="number" min="1" max="20" value="3"><button id="roll-${type}">Hodit</button><div class="results" id="results-${type}"></div><button id="reroll-${type}">Přehodit vybrané</button></div>`).join('')+'<p class="hint">💥 kritický úspěch · ⚒ kladivo · ⚔ meče · 🛡 štít · ↪ úhyb · ◐ jedna podpora · ● dvě podpory</p>';
+for(const type of ['attack','defence']){$('roll-'+type).onclick=()=>{const n=Math.max(1,Math.min(20,parseInt($('count-'+type).value)||1));before();state.rolls[type]=Array.from({length:n},()=>({face:randomFace(type),chosen:false}));note(`${type==='attack'?'Útok':'Obrana'}: ${state.rolls[type].map(d=>labels[d.face]).join(', ')}`);render();};$('reroll-'+type).onclick=()=>{if(!state.rolls[type].some(d=>d.chosen))return;before();state.rolls[type].forEach(d=>{if(d.chosen){d.face=randomFace(type);d.chosen=false;}});note(`Přehození (${type==='attack'?'útok':'obrana'}): ${state.rolls[type].map(d=>labels[d.face]).join(', ')}`);render();};}
+function renderDice(){for(const type of ['attack','defence']){$('results-'+type).innerHTML=state.rolls[type].map((d,i)=>`<button class="die ${d.chosen?'chosen':''}" title="${labels[d.face]}" aria-label="${labels[d.face]}" aria-pressed="${d.chosen}" data-i="${i}">${d.face}</button>`).join('');$('results-'+type).querySelectorAll('button').forEach(b=>b.onclick=()=>{state.rolls[type][+b.dataset.i].chosen=!state.rolls[type][+b.dataset.i].chosen;save();renderDice();});}}
+$('undo').onclick=()=>{if(history.length){state=JSON.parse(history.pop());render();}};$('reset').onclick=()=>{if(confirm('Vymazat lokální stůl a začít znovu?')){before();state=initial();render();}};render();
