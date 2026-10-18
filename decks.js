@@ -13,7 +13,7 @@ function parseDeckLink(text,catalog=deckCatalog){
 function deckStatus(n,text){document.getElementById('deckStatus'+n).textContent=text;}
 const deckImportGeneration=[0,0];
 async function loadDeck(n){
- const generation=++deckImportGeneration[n-1];pendingDecks[n-1]=null;const button=document.getElementById('importDeck'+n);button.disabled=true;
+ const generation=++deckImportGeneration[n-1];pendingDecks[n-1]=null;document.getElementById('openDeckOverview'+n).disabled=true;const button=document.getElementById('importDeck'+n);button.disabled=true;
  try{const d=parseDeckLink(document.getElementById('deckUrl'+n).value);
  const list=document.getElementById('deckList'+n);list.replaceChildren();
  for(const id of d.ids){const c=deckCatalog[id],b=document.createElement('button');b.type='button';b.className='deck-card';b.textContent=c?`${id} · ${c.name} (${c.type})`:`${id} · neznámá karta`;b.disabled=!c;b.onclick=()=>previewDeckCard(id);list.append(b);}
@@ -22,7 +22,7 @@ async function loadDeck(n){
  const report=await window.WHUCardCache.preload(d.ids.map(id=>deckCatalog[id]),r=>{if(generation===deckImportGeneration[n-1])deckStatus(n,`Obrázky ${r.done}/${r.total} · staženo ${r.downloaded} · z mezipaměti ${r.cached} · chyby ${r.failed.length}`);});
  if(generation!==deckImportGeneration[n-1])return;
  if(report.failed.length){deckStatus(n,'Obrázky se nepodařilo připravit: '+report.failed.map(c=>c.id).join(', ')+'. Klikni znovu na Načíst balíček.');return;}
- pendingDecks[n-1]=d;
+ pendingDecks[n-1]=d;document.getElementById('openDeckOverview'+n).disabled=false;
  deckStatus(n,`${d.ids.length} karet · Objective ${d.counts.objective} · Power ${d.counts.power} · ${d.format} · Obrázky připraveny (${report.downloaded} staženo, ${report.cached} z mezipaměti)${d.duplicates.length?' · Opakované kódy: '+d.duplicates.join(', '):''}`);
  }catch(e){if(generation===deckImportGeneration[n-1])deckStatus(n,e.message);}
  finally{if(generation===deckImportGeneration[n-1])button.disabled=false;}
@@ -30,7 +30,36 @@ async function loadDeck(n){
 function previewDeckCard(id){const c=deckCatalog[id];document.getElementById('deckCardTitle').textContent=`${id} · ${c.name}`;const img=document.getElementById('deckCardImage');img.onerror=()=>{document.getElementById('deckCardError').textContent='Obrázek se nepodařilo načíst. Karta zůstává v seznamu.';};document.getElementById('deckCardError').textContent='';img.src=c.image;img.alt=c.name;document.getElementById('deckViewer').showModal();}
 for(const n of [1,2]){
  document.getElementById('importDeck'+n).onclick=()=>loadDeck(n);
- document.getElementById('deckUrl'+n).oninput=()=>{deckImportGeneration[n-1]++;pendingDecks[n-1]=null;document.getElementById('importDeck'+n).disabled=false;document.getElementById('deckList'+n).replaceChildren();deckStatus(n,'Odkaz změněn. Klikni na Načíst balíček.');};
+ document.getElementById('deckUrl'+n).oninput=()=>{deckImportGeneration[n-1]++;document.getElementById('openDeckOverview'+n).disabled=true;pendingDecks[n-1]=null;document.getElementById('importDeck'+n).disabled=false;document.getElementById('deckList'+n).replaceChildren();deckStatus(n,'Odkaz změněn. Klikni na Načíst balíček.');};
 }
 document.getElementById('closeDeckCard').onclick=()=>document.getElementById('deckViewer').close();
-function prepareDeckForm(decks){for(const n of [1,2]){const d=decks?.[n-1];document.getElementById('deckUrl'+n).value=d?.source||'';if(d)loadDeck(n);else{deckImportGeneration[n-1]++;document.getElementById('importDeck'+n).disabled=false;pendingDecks[n-1]=null;document.getElementById('deckList'+n).replaceChildren();deckStatus(n,'Vlož sdílený odkaz z UnderworldsDB.');}}}
+function prepareDeckForm(decks){for(const n of [1,2]){const d=decks?.[n-1];document.getElementById('deckUrl'+n).value=d?.source||'';if(d)loadDeck(n);else{document.getElementById('openDeckOverview'+n).disabled=true;deckImportGeneration[n-1]++;document.getElementById('importDeck'+n).disabled=false;pendingDecks[n-1]=null;document.getElementById('deckList'+n).replaceChildren();deckStatus(n,'Vlož sdílený odkaz z UnderworldsDB.');}}}
+
+function groupDeckCards(deck,catalog=deckCatalog){
+ const groups={Objective:[],Ploys:[],Upgrades:[]};
+ for(const id of deck.ids){const card=catalog[id];if(!card)continue;
+  if(card.type==='Objective')groups.Objective.push(card);
+  else if(card.type==='Upgrade')groups.Upgrades.push(card);
+  else if(card.type==='Ploy'||card.type==='Gambit')groups.Ploys.push(card);
+ }
+ return groups;
+}
+function openDeckOverview(n){
+ const deck=pendingDecks[n-1];if(!deck)return;
+ const name=document.getElementById('name'+n).value.trim()||'Hráč '+n;
+ document.getElementById('deckOverviewTitle').textContent=name+' — '+deck.name;
+ document.getElementById('deckOverviewSummary').textContent=deck.ids.length+' karet · '+deck.format;
+ const columns=document.getElementById('deckOverviewColumns');columns.replaceChildren();
+ for(const [title,cards] of Object.entries(groupDeckCards(deck))){
+  const column=document.createElement('section'),heading=document.createElement('h3');heading.textContent=title+' ('+cards.length+')';column.append(heading);
+  if(!cards.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='Žádné karty';column.append(empty);}
+  for(const card of cards){const button=document.createElement('button');button.type='button';button.className='overview-card';button.setAttribute('aria-label',card.id+' · '+card.name+' — zvětšit');
+   const img=document.createElement('img');img.alt=card.name;img.loading='lazy';img.src=card.image;img.onerror=()=>{img.hidden=true;};
+   const label=document.createElement('span');label.textContent=card.id+' · '+card.name;button.append(img,label);button.onclick=()=>previewDeckCard(card.id);column.append(button);
+  }
+  columns.append(column);
+ }
+ document.getElementById('deckOverview').showModal();
+}
+for(const n of [1,2])document.getElementById('openDeckOverview'+n).onclick=()=>openDeckOverview(n);
+document.getElementById('closeDeckOverview').onclick=()=>document.getElementById('deckOverview').close();
