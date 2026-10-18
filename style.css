@@ -46,3 +46,5 @@
 svg#treasureLayer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.hex-token circle{fill:#8b621d;stroke:#ffe3a0;stroke-width:4}.hex-token text{fill:#fff1c9;font:bold 40px system-ui}.hex-aqua circle{fill:#1d657f;stroke:#9ae6ed}.hex-aqua text{fill:#d6ffff}
 
 #grid #treasureLayer{display:inline;visibility:visible;opacity:1;pointer-events:none}#grid .hex-token{display:inline;visibility:visible;opacity:1}
+
+#deploymentPanel{padding:16px;margin-bottom:16px;border:1px solid #6e6849;border-radius:8px;background:#202820}#deploymentPanel[hidden],.token[hidden]{display:none!important}#deploymentRoster{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}#deploymentRoster button[aria-pressed=true]{outline:2px solid #ffe09a}polygon.deploy-legal{fill:#73d8f54d;stroke:#99ecff;stroke-width:3}
