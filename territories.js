@@ -12,5 +12,5 @@ for(const n of [1,2])$('setupRoll'+n).onclick=()=>{const t=ensureTerritories();i
 $('boardOrientation').onchange=()=>{const t=ensureTerritories();if(!t.winner||t.confirmed)return;t.orientation=$('boardOrientation').value;t.side=null;save();renderTerritories();};
 $('winnerTerritory').onchange=()=>{const t=ensureTerritories();if(!t.winner||t.confirmed)return;t.side=$('winnerTerritory').value;save();renderTerritories();};
 $('confirmTerritories').onclick=()=>{const t=ensureTerritories();if(!t.winner||!t.side||t.confirmed)return;t.confirmed=true;t.firstTreasurePlayer=3-t.winner;save();renderTerritories();};
-$('closeTerritories').onclick=()=>$('territorySetup').close();$('openTerritories').onclick=openTerritories;$('territorySetup').addEventListener('cancel',e=>{if(!state.territories?.confirmed)e.preventDefault();});new ResizeObserver(applyBoardOrientation).observe($('board'));
+$('closeTerritories').onclick=()=>{$('territorySetup').close();beginTreasures();};$('openTerritories').onclick=openTerritories;$('territorySetup').addEventListener('cancel',e=>{if(!state.territories?.confirmed)e.preventDefault();});new ResizeObserver(applyBoardOrientation).observe($('board'));
 setTimeout(()=>{applyBoardOrientation();if(state.hands?.every(h=>h.confirmed)&&!state.territories?.confirmed)openTerritories();},0);
