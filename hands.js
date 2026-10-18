@@ -10,5 +10,5 @@ for(const n of [1,2])$('handPlayer'+n).onclick=()=>{handPlayer=n;renderStartingH
 for(const type of ['Objective','Power'])$('redraw'+type).onchange=()=>{$('performRedraw').disabled=!($('redrawObjective').checked||$('redrawPower').checked);};
 $('performRedraw').onclick=()=>{try{WHUHands.redraw(state.hands[handPlayer-1],$('redrawObjective').checked,$('redrawPower').checked);save();renderStartingHands();}catch(e){$('handStatus').textContent=e.message;}};
 $('confirmHand').onclick=()=>{state.hands[handPlayer-1].confirmed=true;save();const next=state.hands.findIndex(h=>!h.confirmed);if(next>=0)handPlayer=next+1;renderStartingHands();};
-$('finishHands').onclick=()=>$('startingHands').close();$('resumeHands').onclick=openStartingHands;
+$('finishHands').onclick=()=>{$('startingHands').close();openTerritories();};$('resumeHands').onclick=openStartingHands;
 $('startingHands').addEventListener('cancel',e=>{if(!state.hands.every(h=>h.confirmed))e.preventDefault();});
