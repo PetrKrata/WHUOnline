@@ -1,0 +1,2306 @@
+{
+  "BL1": {
+    "id": "BL1",
+    "name": "Strike the Head",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Strike-the-Head.png"
+  },
+  "BL2": {
+    "id": "BL2",
+    "name": "Branching Fate",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Branching-Fate.png"
+  },
+  "BL3": {
+    "id": "BL3",
+    "name": "Perfect Strike",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Perfect-Strike.png"
+  },
+  "BL4": {
+    "id": "BL4",
+    "name": "Critical Effort",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Critical-Effort.png"
+  },
+  "BL5": {
+    "id": "BL5",
+    "name": "Get Stuck In",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Get-Stuck-In.png"
+  },
+  "BL6": {
+    "id": "BL6",
+    "name": "Strong Start",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Strong-Start.png"
+  },
+  "BL7": {
+    "id": "BL7",
+    "name": "Keep Choppin'",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Keep-Choppin.png"
+  },
+  "BL8": {
+    "id": "BL8",
+    "name": "Fields of Blood",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Fields-of-Blood.png"
+  },
+  "BL9": {
+    "id": "BL9",
+    "name": "Go All Out",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Go-All-Out.png"
+  },
+  "BL10": {
+    "id": "BL10",
+    "name": "On the Edge",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/On-the-Edge.png"
+  },
+  "BL11": {
+    "id": "BL11",
+    "name": "Denial",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Denial.png"
+  },
+  "BL12": {
+    "id": "BL12",
+    "name": "Annihilation",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Annihilation.png"
+  },
+  "BL13": {
+    "id": "BL13",
+    "name": "Determined Effort",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Determined-Effort.png"
+  },
+  "BL14": {
+    "id": "BL14",
+    "name": "Twist the Knife",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Twist-the-Knife.png"
+  },
+  "BL15": {
+    "id": "BL15",
+    "name": "Lure of Battle",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Lure-of-Battle.png"
+  },
+  "BL16": {
+    "id": "BL16",
+    "name": "Sidestep",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Sidestep.png"
+  },
+  "BL17": {
+    "id": "BL17",
+    "name": "Commanding Stride",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Commanding-Stride.png"
+  },
+  "BL18": {
+    "id": "BL18",
+    "name": "Illusory Fighter",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Illusory-Fighter.png"
+  },
+  "BL19": {
+    "id": "BL19",
+    "name": "Wings of War",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Wings-of-War.png"
+  },
+  "BL20": {
+    "id": "BL20",
+    "name": "Shields Up!",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Shields-Up.png"
+  },
+  "BL21": {
+    "id": "BL21",
+    "name": "Scream of Anger",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Scream-of-Anger.png"
+  },
+  "BL22": {
+    "id": "BL22",
+    "name": "Healing Potion",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Healing-Potion.png"
+  },
+  "BL23": {
+    "id": "BL23",
+    "name": "Brawler",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Brawler.png"
+  },
+  "BL24": {
+    "id": "BL24",
+    "name": "Hidden Aid",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Hidden-Aid.png"
+  },
+  "BL25": {
+    "id": "BL25",
+    "name": "Accurate",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Accurate.png"
+  },
+  "BL26": {
+    "id": "BL26",
+    "name": "Great Strength",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Great-Strength.png"
+  },
+  "BL27": {
+    "id": "BL27",
+    "name": "Deadly Aim",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Deadly-Aim.png"
+  },
+  "BL28": {
+    "id": "BL28",
+    "name": "Sharpened Points",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Sharpened-Points.png"
+  },
+  "BL29": {
+    "id": "BL29",
+    "name": "Duellist",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Duellist.png"
+  },
+  "BL30": {
+    "id": "BL30",
+    "name": "Tough",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Tough.png"
+  },
+  "BL31": {
+    "id": "BL31",
+    "name": "Great Fortitude",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Great-Fortitude.png"
+  },
+  "BL32": {
+    "id": "BL32",
+    "name": "Keen Eye",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/blazing%20assault/Keen-Eye.png"
+  },
+  "ES1": {
+    "id": "ES1",
+    "name": "Sally Forth",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Sally-Forth.png"
+  },
+  "ES2": {
+    "id": "ES2",
+    "name": "Stand Firm",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Stand-Firm.png"
+  },
+  "ES3": {
+    "id": "ES3",
+    "name": "Step by Step",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Step-by-Step.png"
+  },
+  "ES4": {
+    "id": "ES4",
+    "name": "Unassailable",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Unassailable.png"
+  },
+  "ES5": {
+    "id": "ES5",
+    "name": "Aggressive Defender",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Aggressive-Defender.png"
+  },
+  "ES6": {
+    "id": "ES6",
+    "name": "Careful Advance",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Careful-Advance.png"
+  },
+  "ES7": {
+    "id": "ES7",
+    "name": "Hold Treasure Token 1 or 2",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Hold-Treasure-Token-1-or-2.png"
+  },
+  "ES8": {
+    "id": "ES8",
+    "name": "Hold Treasure Token 3 or 4",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Hold-Treasure-Token-3-or-4.png"
+  },
+  "ES9": {
+    "id": "ES9",
+    "name": "Hold Treasure Token 5",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Hold-Treasure-Token-5.png"
+  },
+  "ES10": {
+    "id": "ES10",
+    "name": "Slow Advance",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Slow-Advance.png"
+  },
+  "ES11": {
+    "id": "ES11",
+    "name": "Iron Grasp",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Iron-Grasp.png"
+  },
+  "ES12": {
+    "id": "ES12",
+    "name": "Supremacy",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Supremacy.png"
+  },
+  "ES13": {
+    "id": "ES13",
+    "name": "Switch Things Up",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Switch-Things-Up.png"
+  },
+  "ES14": {
+    "id": "ES14",
+    "name": "Sidestep",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Sidestep.png"
+  },
+  "ES15": {
+    "id": "ES15",
+    "name": "The Extra Mile",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/The-Extra-Mile.png"
+  },
+  "ES16": {
+    "id": "ES16",
+    "name": "Settle In",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Settle-In.png"
+  },
+  "ES17": {
+    "id": "ES17",
+    "name": "Healing Potion",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Healing-Potion.png"
+  },
+  "ES18": {
+    "id": "ES18",
+    "name": "Hidden Paths",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Hidden-Paths.png"
+  },
+  "ES19": {
+    "id": "ES19",
+    "name": "Confusion",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Confusion.png"
+  },
+  "ES20": {
+    "id": "ES20",
+    "name": "Hold the Line!",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Hold-the-Line.png"
+  },
+  "ES21": {
+    "id": "ES21",
+    "name": "Shoulder Throw",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Shoulder-Throw.png"
+  },
+  "ES22": {
+    "id": "ES22",
+    "name": "By the Numbers",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/By-the-Numbers.png"
+  },
+  "ES23": {
+    "id": "ES23",
+    "name": "Stubborn to the End",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Stubborn-to-the-End.png"
+  },
+  "ES24": {
+    "id": "ES24",
+    "name": "Inviolate",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Inviolate.png"
+  },
+  "ES25": {
+    "id": "ES25",
+    "name": "Great Speed",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Great-Speed.png"
+  },
+  "ES26": {
+    "id": "ES26",
+    "name": "Sharp Reflexes",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Sharp-Reflexes.png"
+  },
+  "ES27": {
+    "id": "ES27",
+    "name": "Brute Momentum",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Brute-Momentum.png"
+  },
+  "ES28": {
+    "id": "ES28",
+    "name": "Agile",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Agile.png"
+  },
+  "ES29": {
+    "id": "ES29",
+    "name": "Duellist",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Duellist.png"
+  },
+  "ES30": {
+    "id": "ES30",
+    "name": "Great Fortitude",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Great-Fortitude.png"
+  },
+  "ES31": {
+    "id": "ES31",
+    "name": "Keen Eye",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Keen-Eye.png"
+  },
+  "ES32": {
+    "id": "ES32",
+    "name": "Great Strength",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/emberstone%20sentinels/Great-Strength.png"
+  },
+  "PL1": {
+    "id": "PL1",
+    "name": "Broken Prospects",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Broken-Prospects.png"
+  },
+  "PL2": {
+    "id": "PL2",
+    "name": "Against the Odds",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Against-the-Odds.png"
+  },
+  "PL3": {
+    "id": "PL3",
+    "name": "Lost in the Depths",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Lost-in-the-Depths.png"
+  },
+  "PL4": {
+    "id": "PL4",
+    "name": "Desolate Homeland",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Desolate-Homeland.png"
+  },
+  "PL5": {
+    "id": "PL5",
+    "name": "Torn Landscape",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Torn-Landscape.png"
+  },
+  "PL6": {
+    "id": "PL6",
+    "name": "Strip the Realm",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Strip-the-Realm.png"
+  },
+  "PL7": {
+    "id": "PL7",
+    "name": "Aggressive Claimant",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Aggressive-Claimant.png"
+  },
+  "PL8": {
+    "id": "PL8",
+    "name": "Claim the Prize",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Claim-the-Prize.png"
+  },
+  "PL9": {
+    "id": "PL9",
+    "name": "Delving for Wealth",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Delving-for-Wealth.png"
+  },
+  "PL10": {
+    "id": "PL10",
+    "name": "Share the Load",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Share-the-Load.png"
+  },
+  "PL11": {
+    "id": "PL11",
+    "name": "Hostile Takeover",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Hostile-Takeover.png"
+  },
+  "PL12": {
+    "id": "PL12",
+    "name": "Careful Survey",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Careful-Survey.png"
+  },
+  "PL13": {
+    "id": "PL13",
+    "name": "Sidestep",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Sidestep.png"
+  },
+  "PL14": {
+    "id": "PL14",
+    "name": "Prideful Duellist",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Prideful-Duellist.png"
+  },
+  "PL15": {
+    "id": "PL15",
+    "name": "Commanding Stride",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Commanding-Stride.png"
+  },
+  "PL16": {
+    "id": "PL16",
+    "name": "Crumbling Mine",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Crumbling-Mine.png"
+  },
+  "PL17": {
+    "id": "PL17",
+    "name": "Explosive Charges",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Explosive-Charges.png"
+  },
+  "PL18": {
+    "id": "PL18",
+    "name": "Wary Delver",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Wary-Delver.png"
+  },
+  "PL19": {
+    "id": "PL19",
+    "name": "Brash Scout",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Brash-Scout.png"
+  },
+  "PL20": {
+    "id": "PL20",
+    "name": "Sudden Blast",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Sudden-Blast.png"
+  },
+  "PL21": {
+    "id": "PL21",
+    "name": "Tunnelling Terror",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Tunnelling-Terror.png"
+  },
+  "PL22": {
+    "id": "PL22",
+    "name": "Trapped Cache",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Trapped-Cache.png"
+  },
+  "PL23": {
+    "id": "PL23",
+    "name": "Great Speed",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Great-Speed.png"
+  },
+  "PL24": {
+    "id": "PL24",
+    "name": "Swift Step",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Swift-Step.png"
+  },
+  "PL25": {
+    "id": "PL25",
+    "name": "Burrowing Strike",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Burrowing-Strike.png"
+  },
+  "PL26": {
+    "id": "PL26",
+    "name": "Tough Enough",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Tough-Enough.png"
+  },
+  "PL27": {
+    "id": "PL27",
+    "name": "Canny Sapper",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Canny-Sapper.png"
+  },
+  "PL28": {
+    "id": "PL28",
+    "name": "Impossibly Quick",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Impossibly-Quick.png"
+  },
+  "PL29": {
+    "id": "PL29",
+    "name": "Linebreaker",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Linebreaker.png"
+  },
+  "PL30": {
+    "id": "PL30",
+    "name": "Excavating Blast",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Excavating-Blast.png"
+  },
+  "PL31": {
+    "id": "PL31",
+    "name": "Gloryseeker",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Gloryseeker.png"
+  },
+  "PL32": {
+    "id": "PL32",
+    "name": "Frenzy of Greed",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/pillage%20and%20plunder/Frenzy-of-Greed.png"
+  },
+  "CC1": {
+    "id": "CC1",
+    "name": "Spread Havoc",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Spread-Havoc.png"
+  },
+  "CC2": {
+    "id": "CC2",
+    "name": "Hounds of War",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Hounds-of-War.png"
+  },
+  "CC3": {
+    "id": "CC3",
+    "name": "Set Explosives",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Set-Explosives.png"
+  },
+  "CC4": {
+    "id": "CC4",
+    "name": "Wreckers",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Wreckers.png"
+  },
+  "CC5": {
+    "id": "CC5",
+    "name": "Uneven Contest",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Uneven-Contest.png"
+  },
+  "CC6": {
+    "id": "CC6",
+    "name": "Loaded for Bear",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Loaded-for-Bear.png"
+  },
+  "CC7": {
+    "id": "CC7",
+    "name": "Collateral Damage",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Collateral-Damage.png"
+  },
+  "CC8": {
+    "id": "CC8",
+    "name": "Too Close for Comfort",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Too-Close-for-Comfort.png"
+  },
+  "CC9": {
+    "id": "CC9",
+    "name": "Shocking Assault",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Shocking-Assault.png"
+  },
+  "CC10": {
+    "id": "CC10",
+    "name": "Nowhere to Run",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Nowhere-to-Run.png"
+  },
+  "CC11": {
+    "id": "CC11",
+    "name": "The Perfect Cut",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/The-Perfect-Cut.png"
+  },
+  "CC12": {
+    "id": "CC12",
+    "name": "Overwhelming Force",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Overwhelming-Force.png"
+  },
+  "CC13": {
+    "id": "CC13",
+    "name": "Savage Blow",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Savage-Blow.png"
+  },
+  "CC14": {
+    "id": "CC14",
+    "name": "The End is Nigh",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/The-End-is-Nigh.png"
+  },
+  "CC15": {
+    "id": "CC15",
+    "name": "Growing Concerns",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Growing-Concerns.png"
+  },
+  "CC16": {
+    "id": "CC16",
+    "name": "Total Collapse",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Total-Collapse.png"
+  },
+  "CC17": {
+    "id": "CC17",
+    "name": "Violent Blast",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Violent-Blast.png"
+  },
+  "CC18": {
+    "id": "CC18",
+    "name": "Sunder the Realm",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Sunder-the-Realm.png"
+  },
+  "CC19": {
+    "id": "CC19",
+    "name": "Raging Tremors",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Raging-Tremors.png"
+  },
+  "CC20": {
+    "id": "CC20",
+    "name": "Counter-charge",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Counter-charge.png"
+  },
+  "CC21": {
+    "id": "CC21",
+    "name": "Do or Die",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Do-or-Die.png"
+  },
+  "CC22": {
+    "id": "CC22",
+    "name": "Improvised Attack",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Improvised-Attack.png"
+  },
+  "CC23": {
+    "id": "CC23",
+    "name": "Bringer of Doom",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Bringer-of-Doom.png"
+  },
+  "CC24": {
+    "id": "CC24",
+    "name": "Visions of Ruin",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Visions-of-Ruin.png"
+  },
+  "CC25": {
+    "id": "CC25",
+    "name": "Extinction's Edge",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Extinctions-Edge.png"
+  },
+  "CC26": {
+    "id": "CC26",
+    "name": "Driven by Pain",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Driven-by-Pain.png"
+  },
+  "CC27": {
+    "id": "CC27",
+    "name": "Inescapable Grasp",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Inescapable-Grasp.png"
+  },
+  "CC28": {
+    "id": "CC28",
+    "name": "Utter Conviction",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Utter-Conviction.png"
+  },
+  "CC29": {
+    "id": "CC29",
+    "name": "Burnt Out",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Burnt-Out.png"
+  },
+  "CC30": {
+    "id": "CC30",
+    "name": "Great Fortitude",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Great-Fortitude.png"
+  },
+  "CC31": {
+    "id": "CC31",
+    "name": "Hurled Weapon",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Hurled-Weapon.png"
+  },
+  "CC32": {
+    "id": "CC32",
+    "name": "Desperate Rage",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/countdown%20to%20cataclysm/Desperate-Rage.png"
+  },
+  "RF1": {
+    "id": "RF1",
+    "name": "Aim for the Top",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Aim-for-the-Top.png"
+  },
+  "RF2": {
+    "id": "RF2",
+    "name": "Arena Mortis",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Arena-Mortis.png"
+  },
+  "RF3": {
+    "id": "RF3",
+    "name": "Best Foot Forward",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Best-Foot-Forward.png"
+  },
+  "RF4": {
+    "id": "RF4",
+    "name": "Bloodbathed Rampager",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Bloodbathed-Rampager.png"
+  },
+  "RF5": {
+    "id": "RF5",
+    "name": "Bloody Momentum",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Bloody-Momentum.png"
+  },
+  "RF6": {
+    "id": "RF6",
+    "name": "Frenzied Rush",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Frenzied-Rush.png"
+  },
+  "RF7": {
+    "id": "RF7",
+    "name": "Living Bludgeon",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Living-Bludgeon.png"
+  },
+  "RF8": {
+    "id": "RF8",
+    "name": "Red Aftermath",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Red-Aftermath.png"
+  },
+  "RF9": {
+    "id": "RF9",
+    "name": "Sally Forth",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Sally-Forth.png"
+  },
+  "RF10": {
+    "id": "RF10",
+    "name": "Savage Sprinter",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Savage-Sprinter.png"
+  },
+  "RF11": {
+    "id": "RF11",
+    "name": "Unrelenting Massacre",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Unrelenting-Massacre.png"
+  },
+  "RF12": {
+    "id": "RF12",
+    "name": "Vicious Brawl",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Vicious-Brawl.png"
+  },
+  "RF13": {
+    "id": "RF13",
+    "name": "Braced",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Braced.png"
+  },
+  "RF14": {
+    "id": "RF14",
+    "name": "Catch Weapon",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Catch-Weapon.png"
+  },
+  "RF15": {
+    "id": "RF15",
+    "name": "Diving In",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Diving-In.png"
+  },
+  "RF16": {
+    "id": "RF16",
+    "name": "Get It Done",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Get-It-Done.png"
+  },
+  "RF17": {
+    "id": "RF17",
+    "name": "Lost Legacy",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Lost-Legacy.png"
+  },
+  "RF18": {
+    "id": "RF18",
+    "name": "Outburst",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Outburst.png"
+  },
+  "RF19": {
+    "id": "RF19",
+    "name": "Over to You",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Over-to-You.png"
+  },
+  "RF20": {
+    "id": "RF20",
+    "name": "Push Through",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Push-Through.png"
+  },
+  "RF21": {
+    "id": "RF21",
+    "name": "Quick Shift",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Quick-Shift.png"
+  },
+  "RF22": {
+    "id": "RF22",
+    "name": "Reckless Attitudes",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Reckless-Attitudes.png"
+  },
+  "RF23": {
+    "id": "RF23",
+    "name": "Bellowing Tyrant",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Bellowing-Tyrant.png"
+  },
+  "RF24": {
+    "id": "RF24",
+    "name": "Bladecatcher",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Bladecatcher.png"
+  },
+  "RF25": {
+    "id": "RF25",
+    "name": "Blades of Wrath",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Blades-of-Wrath.png"
+  },
+  "RF26": {
+    "id": "RF26",
+    "name": "Furious Might",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Furious-Might.png"
+  },
+  "RF27": {
+    "id": "RF27",
+    "name": "Fury of Aqshy",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Fury-of-Aqshy.png"
+  },
+  "RF28": {
+    "id": "RF28",
+    "name": "Headcase",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Headcase.png"
+  },
+  "RF29": {
+    "id": "RF29",
+    "name": "Headlong Charge",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Headlong-Charge.png"
+  },
+  "RF30": {
+    "id": "RF30",
+    "name": "Keen Eye",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Keen-Eye.png"
+  },
+  "RF31": {
+    "id": "RF31",
+    "name": "Still Swinging",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Still-Swinging.png"
+  },
+  "RF32": {
+    "id": "RF32",
+    "name": "Utter Ignorance",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/reckless%20fury/Utter-Ignorance.png"
+  },
+  "WR1": {
+    "id": "WR1",
+    "name": "Alone in the Dark",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Alone-in-the-Dark.png"
+  },
+  "WR2": {
+    "id": "WR2",
+    "name": "Bloody and Bruised",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Bloody-and-Bruised.png"
+  },
+  "WR3": {
+    "id": "WR3",
+    "name": "Careful Advance",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Careful-Advance.png"
+  },
+  "WR4": {
+    "id": "WR4",
+    "name": "Living on the Edge",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Living-on-the-Edge.png"
+  },
+  "WR5": {
+    "id": "WR5",
+    "name": "Low on Options",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Low-on-Options.png"
+  },
+  "WR6": {
+    "id": "WR6",
+    "name": "Out of the Frying Pan",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Out-of-the-Frying-Pan.png"
+  },
+  "WR7": {
+    "id": "WR7",
+    "name": "Ploymaster",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Ploymaster.png"
+  },
+  "WR8": {
+    "id": "WR8",
+    "name": "Predictable End",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Predictable-End.png"
+  },
+  "WR9": {
+    "id": "WR9",
+    "name": "Spread Out!",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Spread-Out.png"
+  },
+  "WR10": {
+    "id": "WR10",
+    "name": "Stay Close",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Stay-Close.png"
+  },
+  "WR11": {
+    "id": "WR11",
+    "name": "Strong Start",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Strong-Start.png"
+  },
+  "WR12": {
+    "id": "WR12",
+    "name": "Unsafe Ground",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Unsafe-Ground.png"
+  },
+  "WR13": {
+    "id": "WR13",
+    "name": "Confusion",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Confusion.png"
+  },
+  "WR14": {
+    "id": "WR14",
+    "name": "Damned if you Do",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Damned-if-you-Do.png"
+  },
+  "WR15": {
+    "id": "WR15",
+    "name": "Deadly Traps",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Deadly-Traps.png"
+  },
+  "WR16": {
+    "id": "WR16",
+    "name": "Fault Lines",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Fault-Lines.png"
+  },
+  "WR17": {
+    "id": "WR17",
+    "name": "Fireproof",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Fireproof.png"
+  },
+  "WR18": {
+    "id": "WR18",
+    "name": "Flee!",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Flee.png"
+  },
+  "WR19": {
+    "id": "WR19",
+    "name": "Ominous Rumbling",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Ominous-Rumbling.png"
+  },
+  "WR20": {
+    "id": "WR20",
+    "name": "Sidle Up",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Sidle-Up.png"
+  },
+  "WR21": {
+    "id": "WR21",
+    "name": "Vicious Intent",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Vicious-Intent.png"
+  },
+  "WR22": {
+    "id": "WR22",
+    "name": "Volcanic Eruption",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Volcanic-Eruption.png"
+  },
+  "WR23": {
+    "id": "WR23",
+    "name": "Barge",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Barge.png"
+  },
+  "WR24": {
+    "id": "WR24",
+    "name": "Desperate Defence",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Desperate-Defence.png"
+  },
+  "WR25": {
+    "id": "WR25",
+    "name": "Fiery Temper",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Fiery-Temper.png"
+  },
+  "WR26": {
+    "id": "WR26",
+    "name": "Great Speed",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Great-Speed.png"
+  },
+  "WR27": {
+    "id": "WR27",
+    "name": "Henchman",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Henchman.png"
+  },
+  "WR28": {
+    "id": "WR28",
+    "name": "Misfortune",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Misfortune.png"
+  },
+  "WR29": {
+    "id": "WR29",
+    "name": "Rock-splitting Tread",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Rock-splitting-Tread.png"
+  },
+  "WR30": {
+    "id": "WR30",
+    "name": "Sundering Weapon",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Sundering-Weapon.png"
+  },
+  "WR31": {
+    "id": "WR31",
+    "name": "Unstoppable",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Unstoppable.png"
+  },
+  "WR32": {
+    "id": "WR32",
+    "name": "Wary Tread",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/wrack%20and%20ruin/Wary-Tread.png"
+  },
+  "EK1": {
+    "id": "EK1",
+    "name": "Aggressive Defender",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Aggressive-Defender.png"
+  },
+  "EK2": {
+    "id": "EK2",
+    "name": "All In",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/All-In.png"
+  },
+  "EK3": {
+    "id": "EK3",
+    "name": "Behind Enemy Lines",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Behind-Enemy-Lines.png"
+  },
+  "EK4": {
+    "id": "EK4",
+    "name": "Calm Before the Storm",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Calm-Before-the-Storm.png"
+  },
+  "EK5": {
+    "id": "EK5",
+    "name": "Double Team",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Double-Team.png"
+  },
+  "EK6": {
+    "id": "EK6",
+    "name": "Immovable",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Immovable.png"
+  },
+  "EK7": {
+    "id": "EK7",
+    "name": "Power in Numbers",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Power-in-Numbers.png"
+  },
+  "EK8": {
+    "id": "EK8",
+    "name": "Risky Position",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Risky-Position.png"
+  },
+  "EK9": {
+    "id": "EK9",
+    "name": "Sneak Into Position",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Sneak-Into-Position.png"
+  },
+  "EK10": {
+    "id": "EK10",
+    "name": "Trial of the Tempered",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Trial-of-the-Tempered.png"
+  },
+  "EK11": {
+    "id": "EK11",
+    "name": "Two-pronged Assault",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Two-pronged-Assault.png"
+  },
+  "EK12": {
+    "id": "EK12",
+    "name": "Usurper",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Usurper.png"
+  },
+  "EK13": {
+    "id": "EK13",
+    "name": "Death Throes",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Death-Throes.png"
+  },
+  "EK14": {
+    "id": "EK14",
+    "name": "Fake Out!",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Fake-Out.png"
+  },
+  "EK15": {
+    "id": "EK15",
+    "name": "Final Stand",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Final-Stand.png"
+  },
+  "EK16": {
+    "id": "EK16",
+    "name": "Opportunity Strikes",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Opportunity-Strikes.png"
+  },
+  "EK17": {
+    "id": "EK17",
+    "name": "Power from Death",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Power-from-Death.png"
+  },
+  "EK18": {
+    "id": "EK18",
+    "name": "Running Riot",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Running-Riot.png"
+  },
+  "EK19": {
+    "id": "EK19",
+    "name": "Sidestep",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Sidestep.png"
+  },
+  "EK20": {
+    "id": "EK20",
+    "name": "Spiteful Traps",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Spiteful-Traps.png"
+  },
+  "EK21": {
+    "id": "EK21",
+    "name": "Synchronised Effort",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Synchronised-Effort.png"
+  },
+  "EK22": {
+    "id": "EK22",
+    "name": "The Uprising!",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/The-Uprising.png"
+  },
+  "EK23": {
+    "id": "EK23",
+    "name": "Dark Horse",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Dark-Horse.png"
+  },
+  "EK24": {
+    "id": "EK24",
+    "name": "Deadly Aim",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Deadly-Aim.png"
+  },
+  "EK25": {
+    "id": "EK25",
+    "name": "Fuelled by Pain",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Fuelled-by-Pain.png"
+  },
+  "EK26": {
+    "id": "EK26",
+    "name": "Great Fortitude",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Great-Fortitude.png"
+  },
+  "EK27": {
+    "id": "EK27",
+    "name": "Impervious",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Impervious.png"
+  },
+  "EK28": {
+    "id": "EK28",
+    "name": "Lash Out",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Lash-Out.png"
+  },
+  "EK29": {
+    "id": "EK29",
+    "name": "Mobbed!",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Mobbed.png"
+  },
+  "EK30": {
+    "id": "EK30",
+    "name": "Parting Shot",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Parting-Shot.png"
+  },
+  "EK31": {
+    "id": "EK31",
+    "name": "Pesky Nuisance",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Pesky-Nuisance.png"
+  },
+  "EK32": {
+    "id": "EK32",
+    "name": "Sharpened Points",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/edge%20of%20the%20knife/Sharpened-Points.png"
+  },
+  "RS1": {
+    "id": "RS1",
+    "name": "A Sure Bet",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/A-Sure-Bet.png"
+  },
+  "RS2": {
+    "id": "RS2",
+    "name": "Certain Aggression",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Certain-Aggression.png"
+  },
+  "RS3": {
+    "id": "RS3",
+    "name": "Critical Risk",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Critical-Risk.png"
+  },
+  "RS4": {
+    "id": "RS4",
+    "name": "Emberstone Stash",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Emberstone-Stash.png"
+  },
+  "RS5": {
+    "id": "RS5",
+    "name": "Hoarder's Hovel",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Hoarders-Hovel.png"
+  },
+  "RS6": {
+    "id": "RS6",
+    "name": "Invade",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Invade.png"
+  },
+  "RS7": {
+    "id": "RS7",
+    "name": "Looted Realmstone",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Looted-Realmstone.png"
+  },
+  "RS8": {
+    "id": "RS8",
+    "name": "Pillage",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Pillage.png"
+  },
+  "RS9": {
+    "id": "RS9",
+    "name": "Ragerock Strike",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Ragerock-Strike.png"
+  },
+  "RS10": {
+    "id": "RS10",
+    "name": "Realmstone Raid",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Realmstone-Raid.png"
+  },
+  "RS11": {
+    "id": "RS11",
+    "name": "Reckless Gambit",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Reckless-Gambit.png"
+  },
+  "RS12": {
+    "id": "RS12",
+    "name": "Roused Violence",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Roused-Violence.png"
+  },
+  "RS13": {
+    "id": "RS13",
+    "name": "Ambush",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Ambush.png"
+  },
+  "RS14": {
+    "id": "RS14",
+    "name": "Angered Focus",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Angered-Focus.png"
+  },
+  "RS15": {
+    "id": "RS15",
+    "name": "A Step Ahead",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/A-Step-Ahead.png"
+  },
+  "RS16": {
+    "id": "RS16",
+    "name": "Fortune Faded",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Fortune-Faded.png"
+  },
+  "RS17": {
+    "id": "RS17",
+    "name": "Hidden Knowledge",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Hidden-Knowledge.png"
+  },
+  "RS18": {
+    "id": "RS18",
+    "name": "Intoxicated with Rage",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Intoxicated-with-Rage.png"
+  },
+  "RS19": {
+    "id": "RS19",
+    "name": "Manipulated Fate",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Manipulated-Fate.png"
+  },
+  "RS20": {
+    "id": "RS20",
+    "name": "Misstep",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Misstep.png"
+  },
+  "RS21": {
+    "id": "RS21",
+    "name": "Raider's Rapture",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Raiders-Rapture.png"
+  },
+  "RS22": {
+    "id": "RS22",
+    "name": "Raider's Premonition",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Raiders-Premonition.png"
+  },
+  "RS23": {
+    "id": "RS23",
+    "name": "Armour Piercer",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Armour-Piercer.png"
+  },
+  "RS24": {
+    "id": "RS24",
+    "name": "Brightstone Vigour",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Brightstone-Vigour.png"
+  },
+  "RS25": {
+    "id": "RS25",
+    "name": "Call to Power",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Call-to-Power.png"
+  },
+  "RS26": {
+    "id": "RS26",
+    "name": "Emberstone Edge",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Emberstone-Edge.png"
+  },
+  "RS27": {
+    "id": "RS27",
+    "name": "Forgotten Fortune",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Forgotten-Fortune.png"
+  },
+  "RS28": {
+    "id": "RS28",
+    "name": "Great Fortitude",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Great-Fortitude.png"
+  },
+  "RS29": {
+    "id": "RS29",
+    "name": "Great Speed",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Great-Speed.png"
+  },
+  "RS30": {
+    "id": "RS30",
+    "name": "Great Strength",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Great-Strength.png"
+  },
+  "RS31": {
+    "id": "RS31",
+    "name": "Keen Eye",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Keen-Eye.png"
+  },
+  "RS32": {
+    "id": "RS32",
+    "name": "Reforged Aid",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/realmstone%20raiders/Reforged-Aid.png"
+  },
+  "RG1": {
+    "id": "RG1",
+    "name": "Aggressive Expansion",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Aggressive-Expansion.png"
+  },
+  "RG2": {
+    "id": "RG2",
+    "name": "Best Foot Forward",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Best-Foot-Forward.png"
+  },
+  "RG3": {
+    "id": "RG3",
+    "name": "Blinded by Rage",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Blinded-by-Rage.png"
+  },
+  "RG4": {
+    "id": "RG4",
+    "name": "Coordinated Assault",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Coordinated-Assault.png"
+  },
+  "RG5": {
+    "id": "RG5",
+    "name": "Into the Fire",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Into-the-Fire.png"
+  },
+  "RG6": {
+    "id": "RG6",
+    "name": "No Contest",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/No-Contest.png"
+  },
+  "RG7": {
+    "id": "RG7",
+    "name": "No Escape",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/No-Escape.png"
+  },
+  "RG8": {
+    "id": "RG8",
+    "name": "No Respite",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/No-Respite.png"
+  },
+  "RG9": {
+    "id": "RG9",
+    "name": "Overwhelming Presence",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Overwhelming-Presence.png"
+  },
+  "RG10": {
+    "id": "RG10",
+    "name": "Sever the Head",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Sever-the-Head.png"
+  },
+  "RG11": {
+    "id": "RG11",
+    "name": "Supreme Slayer",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Supreme-Slayer.png"
+  },
+  "RG12": {
+    "id": "RG12",
+    "name": "Unrelenting Massacre",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Unrelenting-Massacre.png"
+  },
+  "RG13": {
+    "id": "RG13",
+    "name": "Adrenaline Rush",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Adrenaline-Rush.png"
+  },
+  "RG14": {
+    "id": "RG14",
+    "name": "Honed Reflexes",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Honed-Reflexes.png"
+  },
+  "RG15": {
+    "id": "RG15",
+    "name": "Knife to the Heart",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Knife-to-the-Heart.png"
+  },
+  "RG16": {
+    "id": "RG16",
+    "name": "Murderlust",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Murderlust.png"
+  },
+  "RG17": {
+    "id": "RG17",
+    "name": "Senseless Haste",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Senseless-Haste.png"
+  },
+  "RG18": {
+    "id": "RG18",
+    "name": "Slayer's Aid",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Slayers-Aid.png"
+  },
+  "RG19": {
+    "id": "RG19",
+    "name": "Slayer's Arena",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Slayers-Arena.png"
+  },
+  "RG20": {
+    "id": "RG20",
+    "name": "Venting Strike",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Venting-Strike.png"
+  },
+  "RG21": {
+    "id": "RG21",
+    "name": "What Pain?",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/What-Pain.png"
+  },
+  "RG22": {
+    "id": "RG22",
+    "name": "Wrong-footed Stance",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Wrong-footed-Stance.png"
+  },
+  "RG23": {
+    "id": "RG23",
+    "name": "Agile",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Agile.png"
+  },
+  "RG24": {
+    "id": "RG24",
+    "name": "Aggressive Ambusher",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Aggressive-Ambusher.png"
+  },
+  "RG25": {
+    "id": "RG25",
+    "name": "Angered Swing",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Angered-Swing.png"
+  },
+  "RG26": {
+    "id": "RG26",
+    "name": "Assured Bloodshed",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Assured-Bloodshed.png"
+  },
+  "RG27": {
+    "id": "RG27",
+    "name": "Gifted Vitality",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Gifted-Vitality.png"
+  },
+  "RG28": {
+    "id": "RG28",
+    "name": "Haymaker",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Haymaker.png"
+  },
+  "RG29": {
+    "id": "RG29",
+    "name": "Keen Eye",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Keen-Eye.png"
+  },
+  "RG30": {
+    "id": "RG30",
+    "name": "Murderous Instincts",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Murderous-Instincts.png"
+  },
+  "RG31": {
+    "id": "RG31",
+    "name": "Stubborn to the Bone",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/Stubborn-to-the-Bone.png"
+  },
+  "RG32": {
+    "id": "RG32",
+    "name": "United in Anger",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/embergard/raging%20slayers/United-in-Anger.png"
+  },
+  "HG1": {
+    "id": "HG1",
+    "name": "Back Off!",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Back-Off.png"
+  },
+  "HG2": {
+    "id": "HG2",
+    "name": "Bloodscent",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Bloodscent.png"
+  },
+  "HG3": {
+    "id": "HG3",
+    "name": "Hands Off!",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Hands-Off.png"
+  },
+  "HG4": {
+    "id": "HG4",
+    "name": "Home Advantage",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Home-Advantage.png"
+  },
+  "HG5": {
+    "id": "HG5",
+    "name": "Lead by Example",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Lead-by-Example.png"
+  },
+  "HG6": {
+    "id": "HG6",
+    "name": "No Business Here",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/No-Business-Here.png"
+  },
+  "HG7": {
+    "id": "HG7",
+    "name": "No Trespassers",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/No-Trespassers.png"
+  },
+  "HG8": {
+    "id": "HG8",
+    "name": "Pinned!",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Pinned.png"
+  },
+  "HG9": {
+    "id": "HG9",
+    "name": "Ready or Not",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Ready-or-Not.png"
+  },
+  "HG10": {
+    "id": "HG10",
+    "name": "Spoiling for a Fight",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Spoiling-for-a-Fight.png"
+  },
+  "HG11": {
+    "id": "HG11",
+    "name": "This is Our Turf!",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/This-is-Our-Turf.png"
+  },
+  "HG12": {
+    "id": "HG12",
+    "name": "Usurped",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Usurped.png"
+  },
+  "HG13": {
+    "id": "HG13",
+    "name": "Audacious Denial",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Audacious-Denial.png"
+  },
+  "HG14": {
+    "id": "HG14",
+    "name": "Deny Invaders",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Deny-Invaders.png"
+  },
+  "HG15": {
+    "id": "HG15",
+    "name": "Hidden Snares",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Hidden-Snares.png"
+  },
+  "HG16": {
+    "id": "HG16",
+    "name": "Keep Them at Bay",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Keep-Them-at-Bay.png"
+  },
+  "HG17": {
+    "id": "HG17",
+    "name": "Mind Your Step",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Mind-Your-Step.png"
+  },
+  "HG18": {
+    "id": "HG18",
+    "name": "Mystical Misdirection",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Mystical-Misdirection.png"
+  },
+  "HG19": {
+    "id": "HG19",
+    "name": "Paths Unknown",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Paths-Unknown.png"
+  },
+  "HG20": {
+    "id": "HG20",
+    "name": "Poor Footing",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Poor-Footing.png"
+  },
+  "HG21": {
+    "id": "HG21",
+    "name": "Secrets of the Realm",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Secrets-of-the-Realm.png"
+  },
+  "HG22": {
+    "id": "HG22",
+    "name": "Sidestep",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Sidestep.png"
+  },
+  "HG23": {
+    "id": "HG23",
+    "name": "Balance of Ghyran",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Balance-of-Ghyran.png"
+  },
+  "HG24": {
+    "id": "HG24",
+    "name": "Blocked!",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Blocked.png"
+  },
+  "HG25": {
+    "id": "HG25",
+    "name": "Bounty of Ghyran",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Bounty-of-Ghyran.png"
+  },
+  "HG26": {
+    "id": "HG26",
+    "name": "Crippling Blow",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Crippling-Blow.png"
+  },
+  "HG27": {
+    "id": "HG27",
+    "name": "Goading Defender",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Goading-Defender.png"
+  },
+  "HG28": {
+    "id": "HG28",
+    "name": "Great Speed",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Great-Speed.png"
+  },
+  "HG29": {
+    "id": "HG29",
+    "name": "Hidden Aid",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Hidden-Aid.png"
+  },
+  "HG30": {
+    "id": "HG30",
+    "name": "Hidden Traps",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Hidden-Traps.png"
+  },
+  "HG31": {
+    "id": "HG31",
+    "name": "Killing Blow",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/Killing-Blow.png"
+  },
+  "HG32": {
+    "id": "HG32",
+    "name": "True Grit",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/hunting%20grounds/True-Grit.png"
+  },
+  "DY1": {
+    "id": "DY1",
+    "name": "Aggressive Unity",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Aggressive-Unity.png"
+  },
+  "DY2": {
+    "id": "DY2",
+    "name": "Beatdown",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Beatdown.png"
+  },
+  "DY3": {
+    "id": "DY3",
+    "name": "Closed Down",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Closed-Down.png"
+  },
+  "DY4": {
+    "id": "DY4",
+    "name": "Got Your Back!",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Got-Your-Back.png"
+  },
+  "DY5": {
+    "id": "DY5",
+    "name": "Helping Hand",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Helping-Hand.png"
+  },
+  "DY6": {
+    "id": "DY6",
+    "name": "Hemmed In",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Hemmed-In.png"
+  },
+  "DY7": {
+    "id": "DY7",
+    "name": "Inevitable Outcome",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Inevitable-Outcome.png"
+  },
+  "DY8": {
+    "id": "DY8",
+    "name": "Infiltrate",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Infiltrate.png"
+  },
+  "DY9": {
+    "id": "DY9",
+    "name": "Outmuscle",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Outmuscle.png"
+  },
+  "DY10": {
+    "id": "DY10",
+    "name": "Tag Team",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Tag-Team.png"
+  },
+  "DY11": {
+    "id": "DY11",
+    "name": "Tandem Assault",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Tandem-Assault.png"
+  },
+  "DY12": {
+    "id": "DY12",
+    "name": "United Aid",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/United-Aid.png"
+  },
+  "DY13": {
+    "id": "DY13",
+    "name": "Another Swing",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Another-Swing.png"
+  },
+  "DY14": {
+    "id": "DY14",
+    "name": "Army of Two",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Army-of-Two.png"
+  },
+  "DY15": {
+    "id": "DY15",
+    "name": "Brother-in-Arms",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Brother-in-Arms.png"
+  },
+  "DY16": {
+    "id": "DY16",
+    "name": "Defiant Duo",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Defiant-Duo.png"
+  },
+  "DY17": {
+    "id": "DY17",
+    "name": "Out of Nowhere",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Out-of-Nowhere.png"
+  },
+  "DY18": {
+    "id": "DY18",
+    "name": "Selfless Parry",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Selfless-Parry.png"
+  },
+  "DY19": {
+    "id": "DY19",
+    "name": "Sidestep",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Sidestep.png"
+  },
+  "DY20": {
+    "id": "DY20",
+    "name": "Take One for the Team",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Take-One-for-the-Team.png"
+  },
+  "DY21": {
+    "id": "DY21",
+    "name": "Timed Strike",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Timed-Strike.png"
+  },
+  "DY22": {
+    "id": "DY22",
+    "name": "Unified Front",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Unified-Front.png"
+  },
+  "DY23": {
+    "id": "DY23",
+    "name": "Battering Ram",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Battering-Ram.png"
+  },
+  "DY24": {
+    "id": "DY24",
+    "name": "Coordinated Deathblow",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Coordinated-Deathblow.png"
+  },
+  "DY25": {
+    "id": "DY25",
+    "name": "Duellist",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Duellist.png"
+  },
+  "DY26": {
+    "id": "DY26",
+    "name": "Entangling Strike",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Entangling-Strike.png"
+  },
+  "DY27": {
+    "id": "DY27",
+    "name": "Great Fortitude",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Great-Fortitude.png"
+  },
+  "DY28": {
+    "id": "DY28",
+    "name": "Keen Eye",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Keen-Eye.png"
+  },
+  "DY29": {
+    "id": "DY29",
+    "name": "Rush to Aid",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Rush-to-Aid.png"
+  },
+  "DY30": {
+    "id": "DY30",
+    "name": "Shared Incentive",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Shared-Incentive.png"
+  },
+  "DY31": {
+    "id": "DY31",
+    "name": "Spurred Momentum",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Spurred-Momentum.png"
+  },
+  "DY32": {
+    "id": "DY32",
+    "name": "Titan of Combat",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/deadly%20synergy/Titan-of-Combat.png"
+  },
+  "NP1": {
+    "id": "NP1",
+    "name": "Seized",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Seized.png"
+  },
+  "NP2": {
+    "id": "NP2",
+    "name": "Break Out",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Break-Out.png"
+  },
+  "NP3": {
+    "id": "NP3",
+    "name": "Claimed",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Claimed.png"
+  },
+  "NP4": {
+    "id": "NP4",
+    "name": "Pound for Pound",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Pound-for-Pound.png"
+  },
+  "NP5": {
+    "id": "NP5",
+    "name": "All Part of the Plan",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/All-Part-of-the-Plan.png"
+  },
+  "NP6": {
+    "id": "NP6",
+    "name": "Calculated Strike",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Calculated-Strike.png"
+  },
+  "NP7": {
+    "id": "NP7",
+    "name": "Audacity",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Audacity.png"
+  },
+  "NP8": {
+    "id": "NP8",
+    "name": "Close the Vice",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Close-the-Vice.png"
+  },
+  "NP9": {
+    "id": "NP9",
+    "name": "Slow Advance",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Slow-Advance.png"
+  },
+  "NP10": {
+    "id": "NP10",
+    "name": "Domination",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Domination.png"
+  },
+  "NP11": {
+    "id": "NP11",
+    "name": "Lone Wolves",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Lone-Wolves.png"
+  },
+  "NP12": {
+    "id": "NP12",
+    "name": "Skin of Their Teeth",
+    "type": "Objective",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Skin-of-Their-Teeth.png"
+  },
+  "NP13": {
+    "id": "NP13",
+    "name": "Pilfer",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Pilfer.png"
+  },
+  "NP14": {
+    "id": "NP14",
+    "name": "Move at the Opening",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Move-at-the-Opening.png"
+  },
+  "NP15": {
+    "id": "NP15",
+    "name": "Organised Efforts",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Organised-Efforts.png"
+  },
+  "NP16": {
+    "id": "NP16",
+    "name": "Defiance",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Defiance.png"
+  },
+  "NP17": {
+    "id": "NP17",
+    "name": "Into the Deepwoods",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Into-the-Deepwoods.png"
+  },
+  "NP18": {
+    "id": "NP18",
+    "name": "Unearthed Treasure",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Unearthed-Treasure.png"
+  },
+  "NP19": {
+    "id": "NP19",
+    "name": "Territorial Welcome",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Territorial-Welcome.png"
+  },
+  "NP20": {
+    "id": "NP20",
+    "name": "Hold the Line!",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Hold-the-Line.png"
+  },
+  "NP21": {
+    "id": "NP21",
+    "name": "Dig In",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Dig-In.png"
+  },
+  "NP22": {
+    "id": "NP22",
+    "name": "The High Ground",
+    "type": "Ploy",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/The-High-Ground.png"
+  },
+  "NP23": {
+    "id": "NP23",
+    "name": "Wily Prospector",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Wily-Prospector.png"
+  },
+  "NP24": {
+    "id": "NP24",
+    "name": "Cautious Attitude",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Cautious-Attitude.png"
+  },
+  "NP25": {
+    "id": "NP25",
+    "name": "Mirror Shield",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Mirror-Shield.png"
+  },
+  "NP26": {
+    "id": "NP26",
+    "name": "Driven by Pain",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Driven-by-Pain.png"
+  },
+  "NP27": {
+    "id": "NP27",
+    "name": "Inviolate",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Inviolate.png"
+  },
+  "NP28": {
+    "id": "NP28",
+    "name": "Opportunist",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Opportunist.png"
+  },
+  "NP29": {
+    "id": "NP29",
+    "name": "Overreach",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Overreach.png"
+  },
+  "NP30": {
+    "id": "NP30",
+    "name": "Spiteful Defender",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Spiteful-Defender.png"
+  },
+  "NP31": {
+    "id": "NP31",
+    "name": "I Like Those Odds",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/I-Like-Those-Odds.png"
+  },
+  "NP32": {
+    "id": "NP32",
+    "name": "Starmaw",
+    "type": "Upgrade",
+    "image": "https://www.underworldsdb.com/cards/spitewood/nexus%20of%20power/Starmaw.png"
+  }
+}
