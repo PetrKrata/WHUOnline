@@ -48,3 +48,5 @@ svg#treasureLayer{position:absolute;inset:0;width:100%;height:100%;pointer-event
 #grid #treasureLayer{display:inline;visibility:visible;opacity:1;pointer-events:none}#grid .hex-token{display:inline;visibility:visible;opacity:1}
 
 #deploymentPanel{padding:16px;margin-bottom:16px;border:1px solid #6e6849;border-radius:8px;background:#202820}#deploymentPanel[hidden],.token[hidden]{display:none!important}#deploymentRoster{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}#deploymentRoster button[aria-pressed=true]{outline:2px solid #ffe09a}polygon.deploy-legal{fill:#73d8f54d;stroke:#99ecff;stroke-width:3}
+
+#firstTurnDialog{width:min(680px,94vw);padding:24px;line-height:1.5}#firstTurnDialog h2{font-size:22px}#firstTurnDialog [hidden]{display:none!important}#firstTurnChoices button{margin:5px}#firstTurnChoices button[aria-pressed=true]{outline:2px solid #ffe09a;background:#43513b}
