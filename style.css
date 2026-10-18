@@ -42,3 +42,5 @@
 #treasurePanel{padding:16px;margin-bottom:16px;border:1px solid #6e6849;border-radius:8px;background:#202820}#treasurePanel[hidden]{display:none}#treasureLayer{position:absolute;inset:0;pointer-events:none}.treasure-token{position:absolute;display:grid;place-items:center;width:5%;aspect-ratio:1;transform:translate(-50%,-50%);border:2px solid #ffe3a0;border-radius:50%;background:#8b621d;color:#fff1c9;font:bold 22px system-ui;line-height:1;box-shadow:0 2px 7px #000}polygon.treasure-legal{fill:#ffe29b24;stroke:#ffe29b66;stroke-width:2}#board.placing-treasures #tokens{display:none}
 
 .aqua-token{background:#1d657f;border-color:#9ae6ed;color:#d6ffff;font-size:28px}
+
+svg#treasureLayer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.hex-token circle{fill:#8b621d;stroke:#ffe3a0;stroke-width:4}.hex-token text{fill:#fff1c9;font:bold 40px system-ui}.hex-aqua circle{fill:#1d657f;stroke:#9ae6ed}.hex-aqua text{fill:#d6ffff}
