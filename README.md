@@ -1,41 +1,21 @@
-# WHU Online — prototyp v2: sólo
+# WHU Online v3 — výběr part
 
-## Spuštění
-Rozbalte celý ZIP. Otevřete index.html v moderním prohlížeči (Chrome, Edge, Firefox). Složku assets ponechte vedle index.html. Není třeba nic instalovat.
+Tento krok přidává nezávislý výběr Ironsoul’s Condemnors (3 bojovníci) a Sons of Velmorn (5 bojovníků) pro oba hráče. Lze vybrat stejnou partu proti sobě. Před potvrzením je vidět seznam bojovníků a náhled warscrollu. Na pracovním stole se načtou správné karty, obě strany, warscroll a žetony každé party.
 
-## Ovládání
-- Kliknutím vyberte žeton a potom klikněte na cílový hex. Funguje také přetažení.
-- Kartu otevřete tlačítkem Karta v přehledu nebo dvojklikem na žeton.
-- Otočit / inspirovat přepíná strany karty; inspirovaný žeton má zlatý okraj.
-- Zranění přidávejte a ubírejte ručně.
-- Warscroll otevře společnou kartu party.
-- Zvolte 1 až 20 útočných či obranných kostek a klikněte na Hodit.
-- Výsledky vyberte kliknutím a použijte Přehodit vybrané. Symboly mají textovou legendu; jde o náhradní grafiku.
-- Zpět vrací poslední herní změnu v aktuálním otevření stránky.
-- Nový stůl obnoví výchozí rozmístění.
+## Spuštění a aktualizace
+Rozbalte ZIP a otevřete index.html. Na GitHubu nahraďte index.html, app.js, style.css a README.md. Do existující složky assets přidejte všech 11 obrázků sons-of-velmorn-*.png. Původní obrázky ponechte. Poté Ctrl+F5.
 
-## GitHub Pages
-Nahrajte index.html, style.css, app.js a celou složku assets do kořene repozitáře. V Settings → Pages zvolte Deploy from a branch, větev main a složku / (root). Tento balíček neobsahuje automatické nasazení ani přístupové údaje.
+## Co vyzkoušet
+1. Ironsoul’s proti Sons of Velmorn: na stole musí být 3 a 5 bojovníků.
+2. Přepněte hráče a otevřete warscroll, karty a jejich inspirované strany.
+3. Založte nový stůl s opačným výběrem a potom se stejnou partou proti sobě.
+4. Změna inspirace a zranění jedné kopie nesmí ovlivnit druhou.
+5. Obnovte stránku: zvolená kombinace a změny se mají načíst z místního uložení.
 
 ## Rozsah
-Jde o lokální sólo prototyp se dvěma kopiemi Ironsoul’s Condemnors. Při prvním otevření vyplňte jména a založte partii. Přepínačem Hráč 1 / Hráč 2 ovládáte příslušné tři bojovníky. Obě strany mají nezávislá zranění i inspiraci. Barva okraje a číslo na žetonu určují stranu. Kartu soupeře lze prohlédnout. Po obnovení stránky se pokračuje v uloženém stavu. Nový stůl otevře formulář nové partie; stávající stůl se přepíše až po potvrzení. Není propojený s Firebase: online soupeř, chat, balíčky a soukromé ruce přijdou v dalším kroku. Hody probíhají lokálně pomocí Web Crypto; pro sdílenou hru je bude třeba přesunout na serverovou funkci.
+Pouze sólo pracovní stůl. Balíčky, úvodní ruka, rozhoz o desku a herní rozmístění zatím nejsou implementované. Deska a výchozí pozice slouží k testu výběru part. Nejde o dokončenou přípravu podle pravidel. Pohyb, zranění, inspiraci a opravy řídí hráč. Karty a warscroll soupeře lze prohlížet. Žetony zůstávají barevně odlišené podle hráče.
 
-Pravidla nejsou automatizovaná. Aplikace nekontroluje pohyb, obsazení hexu ani vyřazení. Zranění jsou počítadlem utrženého poškození. Rozmístění slouží k testu ovládání.
+V3 používá samostatný klíč localStorage; uloženou v2 nepřepisuje. Ukládání závisí na podpoře prohlížeče, zvláště při otevření ze souboru. Online propojení není připojeno.
 
-Stav se ukládá v localStorage, pokud jej prohlížeč povoluje; při otevření souboru přímo z disku závisí zachování na prohlížeči a umístění souboru. Ukládání je místní, není to záloha ani online synchronizace.
-
-Podklady: uživatelem dodaná deska The Verdant Maw, warscroll a šest stran karet Ironsoul’s Condemnors. Hexová síť je kalibrovaná pro tento konkrétní obrázek.
-
-## Soubory
-index.html — rozložení stolu
-style.css — vzhled a responzivní rozložení
-app.js — stav, přesouvání, karty, kostky, místní ukládání
-assets/ — původní obrazové podklady
-
-## Ověření této verze
-Zkontrolována syntaxe JavaScriptu, existence obrazových podkladů a geometrie výchozích pozic. Interakce nebyly ověřeny automatizovaným testem v prohlížeči; první spuštění slouží také k uživatelskému ověření zarovnání a ovládání.
-
-## Aktualizace z v1 na GitHubu
-Nahraďte index.html, style.css, app.js a README.md. Obrázky ve složce assets jsou stejné. Místní uložení v1 zůstane zachované samostatně; v2 založí novou partii. Po nasazení použijte Ctrl+F5.
-
-V2: syntaxe a automatická kontrola s náhradním DOM ověřily založení partie, jména, přepínání stran, oddělenou inspiraci, oprávnění k přesunu a hody. Vizuální rozložení a přetahování vyžadují ověření ve skutečném prohlížeči.
+## Ověření
+Syntaxe JavaScriptu a automatické ověření všech čtyř kombinací part, mapování obrázků, nezávislé inspirace a obnovení uložení. Interakce s náhradním DOM nenahrazují vizuální test ve skutečném prohlížeči.
