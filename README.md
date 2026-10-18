@@ -19,3 +19,6 @@ V3 používá samostatný klíč localStorage; uloženou v2 nepřepisuje. Uklád
 
 ## Ověření
 Syntaxe JavaScriptu a automatické ověření všech čtyř kombinací part, mapování obrázků, nezávislé inspirace a obnovení uložení. Interakce s náhradním DOM nenahrazují vizuální test ve skutečném prohlížeči.
+
+## Oprava v3.1
+Detail karty slouží pouze k prohlížení. Tlačítko inspirace bylo odstraněno. Otočení zůstává v přehledu aktivní party. Funkce inspirace odmítne bojovníka jiné strany. Uložení v3 zůstává zachované. Nahraďte pouze index.html a app.js; obrázky se nemění.
