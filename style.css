@@ -32,3 +32,5 @@
  #setup .setupPlayers{display:block}
  #setup .warband-preview{max-width:150px}
 }
+
+#startingHands{width:min(1120px,95vw);max-height:92vh;overflow:auto} .opening-cards{display:flex;gap:12px;flex-wrap:wrap}.opening-card{display:flex;flex-direction:column;gap:6px;width:calc(20% - 12px);min-width:120px;padding:6px;font-size:12px}.opening-card img{width:100%;height:auto}.opening-options{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0}.opening-options input{width:auto}#startingHands [hidden]{display:none!important}@media(max-width:650px){.opening-card{width:calc(50% - 12px)}}

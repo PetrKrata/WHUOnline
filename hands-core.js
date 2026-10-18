@@ -1,0 +1,6 @@
+'use strict';
+const WHUHands={
+ shuffle(cards){const a=cards.slice();for(let i=a.length-1;i>0;i--){const limit=Math.floor(4294967296/(i+1))*(i+1),r=new Uint32Array(1);do{crypto.getRandomValues(r);}while(r[0]>=limit);const j=r[0]%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;},
+ create(deck,catalog){const objective=deck.ids.filter(id=>catalog[id]?.type==='Objective'),power=deck.ids.filter(id=>catalog[id]&&catalog[id].type!=='Objective');if(objective.length<3||power.length<5)throw Error('Pro úvodní ruku potřebuje každý hráč alespoň 3 Objective a 5 Power karet.');const o=this.shuffle(objective),p=this.shuffle(power);return {objective:o.splice(0,3),power:p.splice(0,5),objectiveDraw:o,powerDraw:p,objectiveDiscard:[],powerDiscard:[],redrawn:false,confirmed:false};},
+ redraw(hand,objective,power){if(hand.confirmed||hand.redrawn||(!objective&&!power))throw Error('Výměna není dostupná.');for(const type of ['objective','power'])if((type==='objective'?objective:power)&&hand[type+'Draw'].length<hand[type].length)throw Error('V balíčku není dost karet pro výměnu celé skupiny.');for(const type of ['objective','power'])if(type==='objective'?objective:power){const old=hand[type];hand[type]=hand[type+'Draw'].splice(0,old.length);hand[type+'Draw']=this.shuffle(hand[type+'Draw'].concat(old));}hand.redrawn=true;}
+};
