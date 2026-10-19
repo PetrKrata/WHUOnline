@@ -3,7 +3,8 @@ const $=id=>document.getElementById(id);
 const warbands={
  ironsouls:{title:'Ironsoul’s Condemnors',prefix:'ironsouls-condemners',names:['Ironsoul','Tavian','Brodus']},
  velmorn:{title:'Sons of Velmorn',prefix:'sons-of-velmorn',names:['Morlak','Jedran','Thain','Helmar','Faulk']},
- krew:{title:'Da Kunnin’ Krew',prefix:'da-kunnin-krew',names:['Mannok','Torka','Krookgrin','Shank','Gikkit']}
+ krew:{title:'Da Kunnin’ Krew',prefix:'da-kunnin-krew',names:['Mannok','Torka','Krookgrin','Shank','Gikkit']},
+ ephilim:{title:'Ephilim’s Pandaemonium',prefix:'ephilims-pandaemonium',names:['Ephilim','Spawnmaw','Flamespooler','Apo’trax','Kindlefinger']}
 };
 function initial(choices=['ironsouls','velmorn']){return {version:4,decks:[null,null],warbands:choices,players:['Hráč 1','Hráč 2'],active:1,started:false,fighters:[1,2].flatMap(player=>warbands[choices[player-1]].names.map((name,i)=>({name,player,id:(player-1)*10+i+1,card:i+1,warband:choices[player-1],x:280+i*330,y:player===1?1248:480,inspired:false,wounds:0}))),log:[],rolls:{attack:[],defence:[]}};}
 let state;try{state=JSON.parse(localStorage.getItem('whu-online-v4'));if(!state||state.version!==4)throw Error();}catch{state=initial();}
