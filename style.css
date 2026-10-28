@@ -111,3 +111,8 @@ body.playing #leftWarbandPanel,body.playing #rightWarbandPanel>section,body.play
 #grid polygon.feature-aqua-cover{fill:#31c5d840;stroke:#76eff5;stroke-width:6;stroke-dasharray:none}
 .feature-control-row.feature-cover{border-color:#f5cf73;background:#edbf5117}
 .feature-control-row.feature-aqua-cover{border-color:#76eff5;background:#31c5d81a}
+
+/* Wide feature control between Glory and the right warband. */
+main>#manageFeatures{grid-column:3;grid-row:1;align-self:start;justify-self:stretch;width:100%;z-index:2;padding:12px 18px;min-height:44px;border:1px solid #d2b574;background:#66532d;color:#fff0ca;font-weight:700;box-shadow:0 2px 7px #0004}main>#manageFeatures:hover{background-color:#7a6336}
+@media(max-width:850px) and (min-width:501px){main>#manageFeatures{grid-column:2;grid-row:3;margin-top:0!important}main>#leftWarbandPanel,main>#rightWarbandPanel{grid-row:4}}
+@media(max-width:500px){main>#manageFeatures{grid-column:1;grid-row:4;margin-top:0!important}main>#leftWarbandPanel{grid-row:5}main>#rightWarbandPanel{grid-row:6}}
