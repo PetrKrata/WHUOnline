@@ -97,3 +97,17 @@ body.playing #leftWarbandPanel,body.playing #rightWarbandPanel>section,body.play
 .token::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;backdrop-filter:grayscale(1);-webkit-backdrop-filter:grayscale(1);transition:opacity .15s ease}
 @media(hover:hover){.token:hover::before{opacity:1}}
 @media(prefers-reduced-motion:reduce){.token::before{transition:none}}
+
+/* Feature hex outlines remain visible around occupying fighters. */
+#grid polygon.feature-treasure{fill:#edbf5133;stroke:#f5cf73;stroke-width:6}
+#grid polygon.feature-cover{fill:#6a99b64d;stroke:#b1d1e8;stroke-width:6}
+#grid polygon.feature-aqua{fill:#31c5d840;stroke:#76eff5;stroke-width:6}
+#grid polygon.feature-aqua-cover{fill:#a064c94d;stroke:#dda4ff;stroke-width:6;stroke-dasharray:12 5}
+#grid polygon.feature-treasure:hover,#grid polygon.feature-cover:hover,#grid polygon.feature-aqua:hover,#grid polygon.feature-aqua-cover:hover{stroke-width:8}
+#featureDialog{width:min(650px,94vw);padding:20px;line-height:1.5}.feature-control-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px;margin:9px 0;border-left:5px solid #f5cf73;background:#edbf5117;border-radius:5px}.feature-control-row.feature-cover{border-color:#b1d1e8;background:#6a99b61c}.feature-control-row.feature-aqua{border-color:#76eff5;background:#31c5d81a}.feature-control-row.feature-aqua-cover{border-color:#dda4ff;background:#a064c91c}.feature-control-row button{flex-shrink:0}#manageFeatures[hidden]{display:none!important}@media(max-width:500px){.feature-control-row{align-items:stretch;flex-direction:column}.toolbar{flex-wrap:wrap}}
+
+/* Both sides retain their feature colour; flipped sides have no label. */
+#grid polygon.feature-cover{fill:#edbf5133;stroke:#f5cf73;stroke-width:6}
+#grid polygon.feature-aqua-cover{fill:#31c5d840;stroke:#76eff5;stroke-width:6;stroke-dasharray:none}
+.feature-control-row.feature-cover{border-color:#f5cf73;background:#edbf5117}
+.feature-control-row.feature-aqua-cover{border-color:#76eff5;background:#31c5d81a}
