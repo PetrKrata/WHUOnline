@@ -123,3 +123,8 @@ main>#manageFeatures{grid-column:3;grid-row:1;align-self:start;justify-self:stre
 .token .upgrade-marker{left:-15px;top:-12px}
 .token .status-token-marker{left:-17px;top:calc(50% - 13px)}
 .token .wounds{width:28px;height:28px;line-height:28px;font-size:15px;right:-12px;top:-12px}
+
+/* Subtle colour accents on fighter tokens and upgrades. */
+.fighter-token-tag{background:#69bfee18;border-color:#69bfee66;color:#c3e7fa}
+.upgrade-entry{padding:5px 7px;background:#e8c36912;border-left:2px solid #c9a95d;border-radius:4px}
+.fighter-upgrades>small{color:#edce87}.upgrade-card-link{background-color:#e8c3690d;border-color:#b79b545c}
