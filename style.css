@@ -86,3 +86,9 @@ main{grid-template-columns:300px minmax(450px,1fr) 300px}#leftWarbandPanel{grid-
 /* Shared gold outline for game windows. */
 body.playing #leftWarbandPanel,body.playing #rightWarbandPanel>section,body.playing .corner-panel,body.playing #turnPanel,body.playing #dicePanel,body.playing #handPlayPanel,body.playing .table>section,body.playing #board{border:1px solid #b3a06a;border-radius:9px}body.playing .table>section{padding:16px;background:#1b2521}body.playing #roster .warband-group{border:0}
 .glory-player{padding:8px 10px;border-left:3px solid #66b7fa;border-radius:4px;background:#66b7fa0b}.glory-player+.glory-player{margin-top:14px;padding-top:14px;border-top:1px solid #b3a06a}.glory-player-2{border-left-color:#ee817b;background:#ee817b0b}.glory-player h3{margin:0 0 9px}.plot-card-link img{display:block;width:100%;max-width:130px;height:auto;margin:0 auto 7px}.plot-card-link{text-align:center}
+
+/* Board portraits: inspiration, Upgrade and token indicators. */
+.token.inspired,.token.inspired.selected{outline:5px solid #ffd269;outline-offset:2px}
+.token .board-status-marker{position:absolute;display:flex;align-items:center;justify-content:center;width:18px;height:18px;border:1px solid #15201b;border-radius:50%;font:700 10px/1 system-ui;box-shadow:0 1px 3px #0008;pointer-events:none}
+.token .upgrade-marker{left:-9px;top:-7px;background:#e8c369;color:#30240e}
+.token .status-token-marker{left:-11px;top:calc(50% - 9px);background:#69bfee;color:#102d40}
