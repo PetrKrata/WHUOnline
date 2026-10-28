@@ -77,3 +77,8 @@ main{grid-template-columns:300px minmax(450px,1fr) 300px}#leftWarbandPanel{grid-
 #nextBattleRound.round-ready:not(:disabled){background:#66532d;border-color:#d2b574;color:#fff0ca}#nextBattleRound.round-ready:not(:disabled):hover{background:#7a6336}
 
 .inspiration-toggle.is-inspired{background:#665831;border-color:#cdb777;color:#fff1bb}.inspiration-toggle.is-inspired:hover{background:#79683b}
+
+/* Corner panels above each warband, beside round and dice. */
+.corner-panel{background:#1b2521;border:1px solid #35423a;border-radius:10px;padding:14px;overflow:auto;min-width:0;align-self:start;z-index:1}.corner-panel[hidden]{display:none!important}main>#deckPloyPanel{grid-column:1;grid-row:1}main>#gloryCounterPanel{grid-column:3;grid-row:1}.corner-panel h3{font-size:13px;margin:12px 0 7px}.glory-counter-row{display:flex;align-items:center;gap:7px;margin:6px 0}.glory-counter-row>span{flex:1}.glory-counter-row b{min-width:24px;text-align:center}.glory-counter-row button{padding:4px 9px}.corner-panel summary{cursor:pointer;font-size:13px;line-height:1.5}.corner-panel details{margin:9px 0}.corner-card-link{display:block;width:100%;text-align:left;font-size:12px;margin:5px 0;padding:6px 8px}
+@media(max-width:850px){main>#deckPloyPanel{grid-column:1;grid-row:2}main>#gloryCounterPanel{grid-column:2;grid-row:2}main>#leftWarbandPanel{grid-row:3}main>#rightWarbandPanel{grid-row:3}.corner-panel{max-height:300px!important}}
+@media(max-width:500px){main>#deckPloyPanel{grid-column:1;grid-row:2}main>#gloryCounterPanel{grid-column:1;grid-row:3}main>#leftWarbandPanel{grid-row:4}main>#rightWarbandPanel{grid-column:1;grid-row:5}}
