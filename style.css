@@ -116,3 +116,10 @@ body.playing #leftWarbandPanel,body.playing #rightWarbandPanel>section,body.play
 main>#manageFeatures{grid-column:3;grid-row:1;align-self:start;justify-self:stretch;width:100%;z-index:2;padding:12px 18px;min-height:44px;border:1px solid #d2b574;background:#66532d;color:#fff0ca;font-weight:700;box-shadow:0 2px 7px #0004}main>#manageFeatures:hover{background-color:#7a6336}
 @media(max-width:850px) and (min-width:501px){main>#manageFeatures{grid-column:2;grid-row:3;margin-top:0!important}main>#leftWarbandPanel,main>#rightWarbandPanel{grid-row:4}}
 @media(max-width:500px){main>#manageFeatures{grid-column:1;grid-row:4;margin-top:0!important}main>#leftWarbandPanel{grid-row:5}main>#rightWarbandPanel{grid-row:6}}
+
+/* Link the selected board portrait to its warband entry. */
+.fighter.fighter-selected{background:#d6b76118;outline:2px solid #d2b574;outline-offset:3px;border-radius:6px;box-shadow:0 0 12px #d2b57420}
+.token .board-status-marker{width:26px;height:26px;font-size:14px;border-width:2px}
+.token .upgrade-marker{left:-15px;top:-12px}
+.token .status-token-marker{left:-17px;top:calc(50% - 13px)}
+.token .wounds{width:28px;height:28px;line-height:28px;font-size:15px;right:-12px;top:-12px}
