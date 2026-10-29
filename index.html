@@ -3,14 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>WHU Online · Firebase</title>
+  <title>WHU Online · Lobby</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="shell">
-    <small>WHU ONLINE</small>
-    <h1>Online herna</h1>
-    <p>Čistá samostatná ONLINE větev připravená pro Firebase / Firestore.</p>
+  <header class="topbar">
+    <div>
+      <small>WHU ONLINE</small>
+      <h1>Online herna</h1>
+    </div>
+    <div id="authStatus" class="status">Připojuji k Firebase…</div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel controls">
+      <h2>Hráč</h2>
+      <label for="nick">Nick</label>
+      <input id="nick" maxlength="24" placeholder="Např. Petr">
+      <button id="saveNick" type="button">Uložit nick</button>
+      <hr>
+      <button id="newTable" class="primary" type="button" disabled>+ Nový stůl</button>
+      <p class="hint">Po vytvoření se stůl objeví ostatním hráčům v lobby.</p>
+    </aside>
+
+    <section class="panel lobby">
+      <div class="section-head">
+        <div>
+          <small>LOBBY</small>
+          <h2>Herní stoly</h2>
+        </div>
+        <span id="lobbyStatus">Čekám na připojení…</span>
+      </div>
+      <div id="tables" class="tables"></div>
+      <p id="emptyState" class="empty">Zatím tu není žádný stůl.</p>
+    </section>
   </main>
+
+  <dialog id="joinDialog">
+    <form method="dialog" class="dialog-card">
+      <h2>Připojit se ke stolu</h2>
+      <p id="joinText"></p>
+      <div class="dialog-actions">
+        <button value="cancel">Zrušit</button>
+        <button id="confirmJoin" value="default" class="primary">Připojit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="lobby.js"></script>
 </body>
 </html>
