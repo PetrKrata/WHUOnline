@@ -13,7 +13,6 @@ service cloud.firestore {
 
       allow update: if request.auth != null
         && (
-          // Druhý hráč může obsadit volné místo u čekajícího stolu.
           (
             resource.data.status == "waiting"
             && resource.data.guestUid == null
@@ -24,7 +23,6 @@ service cloud.firestore {
               .hasOnly(["guestUid", "guestNick", "status", "updatedAt"])
           )
           ||
-          // Hráč 1 smí měnit jen svůj veřejný setup a spustit hru.
           (
             resource.data.hostUid == request.auth.uid
             && request.resource.data.hostUid == resource.data.hostUid
@@ -33,6 +31,7 @@ service cloud.firestore {
               .hasOnly([
                 "hostWarband",
                 "hostDeckUrl",
+                "hostRivalsDecks",
                 "hostReady",
                 "gameStarted",
                 "status",
@@ -51,7 +50,6 @@ service cloud.firestore {
             )
           )
           ||
-          // Hráč 2 smí měnit jen svůj veřejný setup.
           (
             resource.data.guestUid == request.auth.uid
             && request.resource.data.hostUid == resource.data.hostUid
@@ -60,6 +58,7 @@ service cloud.firestore {
               .hasOnly([
                 "guestWarband",
                 "guestDeckUrl",
+                "guestRivalsDecks",
                 "guestReady",
                 "updatedAt"
               ])
@@ -67,7 +66,10 @@ service cloud.firestore {
         );
 
       allow delete: if request.auth != null
-        && resource.data.hostUid == request.auth.uid;
+        && (
+          resource.data.hostUid == request.auth.uid
+          || resource.data.guestUid == request.auth.uid
+        );
     }
   }
 }
