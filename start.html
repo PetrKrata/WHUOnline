@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WHU Online · Start</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;background:#111817;color:#edece3}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at top,#1f2b27 0,#111817 58%)}
+    .shell{width:min(820px,calc(100% - 32px));padding:44px;border:1px solid #b3a06a;border-radius:16px;background:#1b2521;box-shadow:0 20px 60px #0007;text-align:center}
+    small{display:block;color:#d2b574;letter-spacing:.18em;margin-bottom:8px}
+    h1{margin:0 0 8px;font-size:42px}
+    h1 em{font-weight:300;color:#d2b574}
+    p{color:#b8c1b8;margin:0 auto 30px;max-width:620px;line-height:1.6}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    a{display:block;padding:24px 20px;border:1px solid #5c6956;border-radius:12px;background:#26322c;color:#fff;text-decoration:none;font-size:20px;font-weight:700;transition:.15s ease}
+    a:hover{transform:translateY(-2px);background:#35443c;border-color:#d2b574}
+    a span{display:block;margin-top:6px;font-size:12px;font-weight:400;color:#aeb8ac}
+    .online{border-color:#b3a06a}
+    .note{margin-top:24px;font-size:12px;color:#8f9a91}
+    @media(max-width:650px){.actions{grid-template-columns:1fr}.shell{padding:28px}h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <small>VIRTUÁLNÍ HERNÍ STŮL</small>
+    <h1>WHU <em>Online</em></h1>
+    <p>Vyber režim hry. Původní offline verze zůstává samostatná a beze změn.</p>
+    <div class="actions">
+      <a href="./">OFFLINE HRA<span>Současná lokální verze</span></a>
+      <a class="online" href="https://whu-online.web.app/">ONLINE HRA<span>Firebase lobby a hra přes internet</span></a>
+    </div>
+    <div class="note">ONLINE tlačítko začne fungovat po nasazení aplikace na Firebase Hosting.</div>
+  </main>
+</body>
+</html>
