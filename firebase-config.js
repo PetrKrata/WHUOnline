@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-  apiKey: "PASTE_API_KEY_HERE",
-  authDomain: "PASTE_AUTH_DOMAIN_HERE",
-  projectId: "PASTE_PROJECT_ID_HERE",
-  storageBucket: "PASTE_STORAGE_BUCKET_HERE",
-  messagingSenderId: "PASTE_MESSAGING_SENDER_ID_HERE",
-  appId: "PASTE_APP_ID_HERE"
+  apiKey: "AIzaSyDjZjj...zIuDSu",
+  authDomain: "whu-online.firebaseapp.com",
+  projectId: "whu-online",
+  storageBucket: "whu-online.firebasestorage.app",
+  messagingSenderId: "41780072302",
+  appId: "1:41780072302:web:6975b8a0db81992ab77b7f"
 };
