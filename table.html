@@ -47,9 +47,15 @@
             <input id="myDeckUrl" type="url" placeholder="https://underworldsdb.com/...">
           </div>
 
+          <div class="setup-field">
+            <label for="myRivalsDecks">Rivals balíčky</label>
+            <input id="myRivalsDecks" maxlength="100" placeholder="Např. Raging Slayers + Nexus of Power">
+          </div>
+
           <div class="setup-actions compact-actions">
             <button id="mySave" type="button">Uložit výběr</button>
             <button id="myReady" class="primary" type="button">Jsem připraven</button>
+            <button id="endTable" class="danger" type="button">Smazat stůl</button>
           </div>
         </section>
 
@@ -61,6 +67,18 @@
             </div>
             <span id="opponentReadyBadge" class="ready-badge">Nepřipraven</span>
           </div>
+
+          <dl class="opponent-summary">
+            <div>
+              <dt>Warbanda</dt>
+              <dd id="opponentWarband">—</dd>
+            </div>
+            <div>
+              <dt>Balíčky</dt>
+              <dd id="opponentRivalsDecks">—</dd>
+            </div>
+          </dl>
+
           <p id="opponentStatus" class="opponent-status">Čekám na stav protihráče.</p>
         </section>
       </div>
@@ -74,10 +92,6 @@
       <div class="game-start-row">
         <div id="gameStatus" class="game-status">Čekám, až budou připraveni oba hráči.</div>
         <button id="startGame" class="primary" type="button" hidden disabled>Spustit hru</button>
-      </div>
-
-      <div id="hostActions" class="table-host-actions" hidden>
-        <button id="endTable" class="danger" type="button">Ukončit stůl</button>
       </div>
     </section>
   </main>
