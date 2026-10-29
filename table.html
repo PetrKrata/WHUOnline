@@ -25,18 +25,63 @@
         <span id="roleBadge" class="badge">Načítám roli…</span>
       </div>
 
-      <div class="table-role-grid">
-        <div class="role-card">
-          <span class="role-label">Hráč 1</span>
-          <strong id="hostName">—</strong>
-        </div>
-        <div class="role-card">
-          <span class="role-label">Hráč 2</span>
-          <strong id="guestName">—</strong>
-        </div>
+      <div id="tableMessage" class="table-message">Připojuji k Firebase…</div>
+
+      <div class="setup-grid">
+        <section class="setup-player-card" id="hostSetupCard">
+          <div class="setup-player-head">
+            <div>
+              <span class="role-label">Hráč 1</span>
+              <strong id="hostName">—</strong>
+            </div>
+            <span id="hostReadyBadge" class="ready-badge">Nepřipraven</span>
+          </div>
+
+          <label for="hostWarband">Warbanda</label>
+          <input id="hostWarband" list="warbandSuggestions" maxlength="80" placeholder="Např. Ironsoul’s Condemnors">
+
+          <label for="hostDeckUrl">Nemesis deck</label>
+          <input id="hostDeckUrl" type="url" placeholder="https://underworldsdb.com/...">
+
+          <div class="setup-actions">
+            <button id="hostSave" type="button">Uložit výběr</button>
+            <button id="hostReady" class="primary" type="button">Jsem připraven</button>
+          </div>
+        </section>
+
+        <section class="setup-player-card" id="guestSetupCard">
+          <div class="setup-player-head">
+            <div>
+              <span class="role-label">Hráč 2</span>
+              <strong id="guestName">—</strong>
+            </div>
+            <span id="guestReadyBadge" class="ready-badge">Nepřipraven</span>
+          </div>
+
+          <label for="guestWarband">Warbanda</label>
+          <input id="guestWarband" list="warbandSuggestions" maxlength="80" placeholder="Např. Sons of Velmorn">
+
+          <label for="guestDeckUrl">Nemesis deck</label>
+          <input id="guestDeckUrl" type="url" placeholder="https://underworldsdb.com/...">
+
+          <div class="setup-actions">
+            <button id="guestSave" type="button">Uložit výběr</button>
+            <button id="guestReady" class="primary" type="button">Jsem připraven</button>
+          </div>
+        </section>
       </div>
 
-      <div id="tableMessage" class="table-message">Připojuji k Firebase…</div>
+      <datalist id="warbandSuggestions">
+        <option value="Ironsoul’s Condemnors"></option>
+        <option value="Sons of Velmorn"></option>
+        <option value="The Emberwatch"></option>
+      </datalist>
+
+      <div class="game-start-row">
+        <div id="gameStatus" class="game-status">Čekám, až budou připraveni oba hráči.</div>
+        <button id="startGame" class="primary" type="button" hidden disabled>Spustit hru</button>
+      </div>
+
       <div id="hostActions" class="table-host-actions" hidden>
         <button id="endTable" class="danger" type="button">Ukončit stůl</button>
       </div>
