@@ -4,6 +4,7 @@ import {
   addDoc,
   doc,
   updateDoc,
+  deleteDoc,
   serverTimestamp,
   onSnapshot,
   query,
@@ -97,6 +98,16 @@ confirmJoin.addEventListener('click', async event => {
   }
 });
 
+async function removeTable(tableId) {
+  if (!confirm('Opravdu chceš tento stůl ukončit a odstranit z lobby?')) return;
+  try {
+    await deleteDoc(doc(db, 'tables', tableId));
+  } catch (error) {
+    console.error(error);
+    alert('Stůl se nepodařilo odstranit. Smazat ho může pouze hostitel.');
+  }
+}
+
 function renderTable(item) {
   const data = item.data();
   const card = document.createElement('article');
@@ -134,6 +145,14 @@ function renderTable(item) {
     enter.textContent = 'Vstoupit ke stolu';
     enter.addEventListener('click', () => openTable(item.id, 'player'));
     actions.append(enter);
+  }
+
+  if (isHost) {
+    const remove = document.createElement('button');
+    remove.className = 'danger';
+    remove.textContent = 'Smazat stůl';
+    remove.addEventListener('click', () => removeTable(item.id));
+    actions.append(remove);
   }
 
   if (!isPlayer) {
