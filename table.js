@@ -1,7 +1,8 @@
 import { db, ensureAnonymousAuth } from './firebase.js';
 import {
   doc,
-  onSnapshot
+  onSnapshot,
+  deleteDoc
 } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';
 
 const tableTitle = document.getElementById('tableTitle');
@@ -9,16 +10,34 @@ const roleBadge = document.getElementById('roleBadge');
 const hostName = document.getElementById('hostName');
 const guestName = document.getElementById('guestName');
 const tableMessage = document.getElementById('tableMessage');
+const hostActions = document.getElementById('hostActions');
+const endTable = document.getElementById('endTable');
 
 const params = new URLSearchParams(window.location.search);
 const tableId = params.get('table');
 const requestedMode = params.get('mode');
 
+let tableRef = null;
+let isCurrentUserHost = false;
+
 function setError(message) {
   tableTitle.textContent = 'Stůl nelze otevřít';
   roleBadge.textContent = 'Chyba';
   tableMessage.textContent = message;
+  hostActions.hidden = true;
 }
+
+endTable.addEventListener('click', async () => {
+  if (!tableRef || !isCurrentUserHost) return;
+  if (!confirm('Opravdu chceš ukončit tento stůl? Bude odstraněn z lobby.')) return;
+  try {
+    await deleteDoc(tableRef);
+    window.location.href = 'index.html';
+  } catch (error) {
+    console.error(error);
+    alert('Stůl se nepodařilo ukončit.');
+  }
+});
 
 if (!tableId) {
   setError('Chybí identifikátor stolu. Vrať se do lobby a otevři stůl znovu.');
@@ -26,9 +45,9 @@ if (!tableId) {
   (async function boot() {
     try {
       const user = await ensureAnonymousAuth();
-      const ref = doc(db, 'tables', tableId);
+      tableRef = doc(db, 'tables', tableId);
 
-      onSnapshot(ref, snapshot => {
+      onSnapshot(tableRef, snapshot => {
         if (!snapshot.exists()) {
           setError('Tento stůl už neexistuje.');
           return;
@@ -41,6 +60,8 @@ if (!tableId) {
 
         const isHost = data.hostUid === user.uid;
         const isGuest = data.guestUid === user.uid;
+        isCurrentUserHost = isHost;
+        hostActions.hidden = !isHost;
 
         if (isHost) {
           roleBadge.textContent = 'Hráč 1';
