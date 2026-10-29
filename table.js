@@ -10,7 +10,6 @@ import {
 const tableTitle = document.getElementById('tableTitle');
 const roleBadge = document.getElementById('roleBadge');
 const tableMessage = document.getElementById('tableMessage');
-const hostActions = document.getElementById('hostActions');
 const endTable = document.getElementById('endTable');
 const startGame = document.getElementById('startGame');
 const gameStatus = document.getElementById('gameStatus');
@@ -21,6 +20,7 @@ const myName = document.getElementById('myName');
 const myReadyBadge = document.getElementById('myReadyBadge');
 const myWarband = document.getElementById('myWarband');
 const myDeckUrl = document.getElementById('myDeckUrl');
+const myRivalsDecks = document.getElementById('myRivalsDecks');
 const mySave = document.getElementById('mySave');
 const myReady = document.getElementById('myReady');
 
@@ -28,6 +28,8 @@ const opponentCard = document.getElementById('opponentCard');
 const opponentName = document.getElementById('opponentName');
 const opponentReadyBadge = document.getElementById('opponentReadyBadge');
 const opponentStatus = document.getElementById('opponentStatus');
+const opponentWarband = document.getElementById('opponentWarband');
+const opponentRivalsDecks = document.getElementById('opponentRivalsDecks');
 
 const params = new URLSearchParams(window.location.search);
 const tableId = params.get('table');
@@ -42,7 +44,6 @@ function setError(message) {
   tableTitle.textContent = 'Stůl nelze otevřít';
   roleBadge.textContent = 'Chyba';
   tableMessage.textContent = message;
-  hostActions.hidden = true;
   startGame.hidden = true;
   mySetupCard.hidden = true;
   opponentCard.hidden = true;
@@ -70,6 +71,7 @@ function getMySetup(data) {
     return {
       warband: data.hostWarband || '',
       deckUrl: data.hostDeckUrl || '',
+      rivalsDecks: data.hostRivalsDecks || '',
       ready: data.hostReady === true
     };
   }
@@ -77,14 +79,28 @@ function getMySetup(data) {
     return {
       warband: data.guestWarband || '',
       deckUrl: data.guestDeckUrl || '',
+      rivalsDecks: data.guestRivalsDecks || '',
       ready: data.guestReady === true
     };
   }
-  return { warband: '', deckUrl: '', ready: false };
+  return { warband: '', deckUrl: '', rivalsDecks: '', ready: false };
 }
 
-function getOpponentReady(data) {
-  return role === 'host' ? data.guestReady === true : data.hostReady === true;
+function getOpponentSetup(data) {
+  if (role === 'host') {
+    return {
+      name: data.guestNick || 'Čeká na hráče',
+      warband: data.guestWarband || '—',
+      rivalsDecks: data.guestRivalsDecks || '—',
+      ready: data.guestReady === true
+    };
+  }
+  return {
+    name: data.hostNick || '—',
+    warband: data.hostWarband || '—',
+    rivalsDecks: data.hostRivalsDecks || '—',
+    ready: data.hostReady === true
+  };
 }
 
 async function saveSetup() {
@@ -99,12 +115,14 @@ async function saveSetup() {
     ? {
         hostWarband: myWarband.value.trim(),
         hostDeckUrl: myDeckUrl.value.trim(),
+        hostRivalsDecks: myRivalsDecks.value.trim(),
         hostReady: false,
         updatedAt: serverTimestamp()
       }
     : {
         guestWarband: myWarband.value.trim(),
         guestDeckUrl: myDeckUrl.value.trim(),
+        guestRivalsDecks: myRivalsDecks.value.trim(),
         guestReady: false,
         updatedAt: serverTimestamp()
       };
@@ -156,20 +174,20 @@ startGame.addEventListener('click', async () => {
 });
 
 endTable.addEventListener('click', async () => {
-  if (!tableRef || role !== 'host') return;
-  if (!confirm('Opravdu chceš ukončit tento stůl? Bude odstraněn z lobby.')) return;
+  if (!tableRef || !['host', 'guest'].includes(role)) return;
+  if (!confirm('Opravdu chceš smazat tento stůl? Bude odstraněn oběma hráčům.')) return;
   try {
     await deleteDoc(tableRef);
     window.location.href = 'index.html';
   } catch (error) {
     console.error(error);
-    alert('Stůl se nepodařilo ukončit.');
+    alert('Stůl se nepodařilo smazat.');
   }
 });
 
-function renderPlayerView(data, isHost, isGuest) {
+function renderPlayerView(data, isHost) {
   const mine = getMySetup(data);
-  const opponentReady = getOpponentReady(data);
+  const opponent = getOpponentSetup(data);
 
   mySetupCard.hidden = false;
   opponentCard.hidden = false;
@@ -178,24 +196,31 @@ function renderPlayerView(data, isHost, isGuest) {
   myName.textContent = isHost ? (data.hostNick || '—') : (data.guestNick || '—');
   myWarband.value = mine.warband;
   myDeckUrl.value = mine.deckUrl;
+  myRivalsDecks.value = mine.rivalsDecks;
   renderReadyBadge(myReadyBadge, mine.ready);
   myReady.textContent = mine.ready ? 'Zrušit připravenost' : 'Jsem připraven';
 
-  opponentName.textContent = isHost ? (data.guestNick || 'Čeká na hráče') : (data.hostNick || '—');
-  renderReadyBadge(opponentReadyBadge, opponentReady);
-  opponentStatus.textContent = opponentReady ? 'Protihráč je připraven.' : 'Protihráč zatím není připraven.';
+  opponentName.textContent = opponent.name;
+  opponentWarband.textContent = opponent.warband;
+  opponentRivalsDecks.textContent = opponent.rivalsDecks;
+  renderReadyBadge(opponentReadyBadge, opponent.ready);
+  opponentStatus.textContent = opponent.ready ? 'Protihráč je připraven.' : 'Protihráč zatím není připraven.';
 
   const editable = !data.gameStarted;
   myWarband.disabled = !editable;
   myDeckUrl.disabled = !editable;
+  myRivalsDecks.disabled = !editable;
   mySave.hidden = !editable;
   myReady.hidden = !editable;
+  endTable.hidden = false;
 }
 
 function renderSpectatorView(data) {
   mySetupCard.hidden = true;
   opponentCard.hidden = false;
   opponentName.textContent = `${data.hostNick || 'Hráč 1'} vs. ${data.guestNick || 'Hráč 2'}`;
+  opponentWarband.textContent = `${data.hostWarband || '—'} / ${data.guestWarband || '—'}`;
+  opponentRivalsDecks.textContent = 'Veřejný náhled';
   const bothReady = data.hostReady === true && data.guestReady === true;
   renderReadyBadge(opponentReadyBadge, bothReady);
   opponentStatus.textContent = bothReady ? 'Oba hráči jsou připraveni.' : 'Příprava hráčů ještě není dokončena.';
@@ -209,17 +234,16 @@ function render(data) {
   const isGuest = data.guestUid === currentUser.uid;
   role = isHost ? 'host' : isGuest ? 'guest' : 'spectator';
 
-  hostActions.hidden = !isHost;
   startGame.hidden = !isHost;
 
   if (isHost) {
     roleBadge.textContent = 'Hráč 1';
-    tableMessage.textContent = data.gameStarted ? 'Hra byla spuštěna.' : 'Vyber svou warbandu a Nemesis deck, ulož je a potvrď připravenost.';
-    renderPlayerView(data, true, false);
+    tableMessage.textContent = data.gameStarted ? 'Hra byla spuštěna.' : 'Vyber svou warbandu a Nemesis deck, ulož výběr a potvrď připravenost.';
+    renderPlayerView(data, true);
   } else if (isGuest) {
     roleBadge.textContent = 'Hráč 2';
-    tableMessage.textContent = data.gameStarted ? 'Hra byla spuštěna.' : 'Vyber svou warbandu a Nemesis deck, ulož je a potvrď připravenost.';
-    renderPlayerView(data, false, true);
+    tableMessage.textContent = data.gameStarted ? 'Hra byla spuštěna.' : 'Vyber svou warbandu a Nemesis deck, ulož výběr a potvrď připravenost.';
+    renderPlayerView(data, false);
   } else if (requestedMode === 'spectator' && data.spectatorsAllowed) {
     roleBadge.textContent = 'Divák';
     tableMessage.textContent = data.gameStarted ? 'Sleduješ probíhající hru.' : 'Sleduješ pouze stav přípravy hráčů.';
@@ -235,7 +259,7 @@ function render(data) {
   const guestIsReady = data.guestReady === true;
 
   if (data.gameStarted) {
-    gameStatus.textContent = 'Hra probíhá. V dalším kroku sem napojíme vlastní herní plochu.';
+    gameStatus.textContent = 'Hra probíhá.';
     startGame.disabled = true;
     startGame.textContent = 'Hra spuštěna';
   } else if (hostIsReady && guestIsReady) {
