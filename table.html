@@ -27,47 +27,41 @@
 
       <div id="tableMessage" class="table-message">Připojuji k Firebase…</div>
 
-      <div class="setup-grid">
-        <section class="setup-player-card" id="hostSetupCard">
+      <div class="setup-grid compact-setup">
+        <section class="setup-player-card" id="mySetupCard">
           <div class="setup-player-head">
             <div>
-              <span class="role-label">Hráč 1</span>
-              <strong id="hostName">—</strong>
+              <span id="myPlayerLabel" class="role-label">Můj výběr</span>
+              <strong id="myName">—</strong>
             </div>
-            <span id="hostReadyBadge" class="ready-badge">Nepřipraven</span>
+            <span id="myReadyBadge" class="ready-badge">Nepřipraven</span>
           </div>
 
-          <label for="hostWarband">Warbanda</label>
-          <input id="hostWarband" list="warbandSuggestions" maxlength="80" placeholder="Např. Ironsoul’s Condemnors">
+          <div class="setup-field">
+            <label for="myWarband">Warbanda</label>
+            <input id="myWarband" list="warbandSuggestions" maxlength="80" placeholder="Např. Ironsoul’s Condemnors">
+          </div>
 
-          <label for="hostDeckUrl">Nemesis deck</label>
-          <input id="hostDeckUrl" type="url" placeholder="https://underworldsdb.com/...">
+          <div class="setup-field">
+            <label for="myDeckUrl">Nemesis deck</label>
+            <input id="myDeckUrl" type="url" placeholder="https://underworldsdb.com/...">
+          </div>
 
-          <div class="setup-actions">
-            <button id="hostSave" type="button">Uložit výběr</button>
-            <button id="hostReady" class="primary" type="button">Jsem připraven</button>
+          <div class="setup-actions compact-actions">
+            <button id="mySave" type="button">Uložit výběr</button>
+            <button id="myReady" class="primary" type="button">Jsem připraven</button>
           </div>
         </section>
 
-        <section class="setup-player-card" id="guestSetupCard">
+        <section class="setup-player-card opponent-card" id="opponentCard">
           <div class="setup-player-head">
             <div>
-              <span class="role-label">Hráč 2</span>
-              <strong id="guestName">—</strong>
+              <span class="role-label">Protihráč</span>
+              <strong id="opponentName">—</strong>
             </div>
-            <span id="guestReadyBadge" class="ready-badge">Nepřipraven</span>
+            <span id="opponentReadyBadge" class="ready-badge">Nepřipraven</span>
           </div>
-
-          <label for="guestWarband">Warbanda</label>
-          <input id="guestWarband" list="warbandSuggestions" maxlength="80" placeholder="Např. Sons of Velmorn">
-
-          <label for="guestDeckUrl">Nemesis deck</label>
-          <input id="guestDeckUrl" type="url" placeholder="https://underworldsdb.com/...">
-
-          <div class="setup-actions">
-            <button id="guestSave" type="button">Uložit výběr</button>
-            <button id="guestReady" class="primary" type="button">Jsem připraven</button>
-          </div>
+          <p id="opponentStatus" class="opponent-status">Čekám na stav protihráče.</p>
         </section>
       </div>
 
