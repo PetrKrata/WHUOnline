@@ -50,6 +50,8 @@ function openDeckOverview(n){
  document.getElementById('deckOverviewTitle').textContent=name+' — '+deck.name;
  document.getElementById('deckOverviewSummary').textContent=deck.ids.length+' karet · '+deck.format;
  const columns=document.getElementById('deckOverviewColumns');columns.replaceChildren();
+ const plotKeys=deckPlotKeys(deck);if(plotKeys.length){const column=document.createElement('section'),heading=document.createElement('h3');heading.textContent='Plot ('+plotKeys.length+')';column.append(heading);for(const key of plotKeys){const plot=plotCards[key],button=document.createElement('button'),img=document.createElement('img'),label=document.createElement('span');button.type='button';button.className='overview-card';img.src=plot.image;img.alt=plot.name;label.textContent=plot.name;button.append(img,label);button.onclick=()=>openPlotCard(key);column.append(button);}columns.append(column);}columns.classList.toggle('has-plots',!!plotKeys.length);
+
  for(const [title,cards] of Object.entries(groupDeckCards(deck))){
   const column=document.createElement('section'),heading=document.createElement('h3');heading.textContent=title+' ('+cards.length+')';column.append(heading);
   if(!cards.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='Žádné karty';column.append(empty);}
