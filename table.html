@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WHU Online · Herní stůl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <small>WHU ONLINE</small>
+      <h1>Herní stůl</h1>
+    </div>
+    <a class="button-link" href="index.html">← Zpět do lobby</a>
+  </header>
+
+  <main class="table-view-wrap">
+    <section class="panel table-view">
+      <div class="section-head">
+        <div>
+          <small>STŮL</small>
+          <h2 id="tableTitle">Načítám stůl…</h2>
+        </div>
+        <span id="roleBadge" class="badge">Načítám roli…</span>
+      </div>
+
+      <div class="table-role-grid">
+        <div class="role-card">
+          <span class="role-label">Hráč 1</span>
+          <strong id="hostName">—</strong>
+        </div>
+        <div class="role-card">
+          <span class="role-label">Hráč 2</span>
+          <strong id="guestName">—</strong>
+        </div>
+      </div>
+
+      <div id="tableMessage" class="table-message">Připojuji k Firebase…</div>
+    </section>
+  </main>
+
+  <script type="module" src="table.js"></script>
+</body>
+</html>
