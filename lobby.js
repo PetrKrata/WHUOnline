@@ -36,6 +36,11 @@ function updateControls() {
   newTable.disabled = !(currentUser && validNick(nick));
 }
 
+function openTable(tableId, mode) {
+  const params = new URLSearchParams({ table: tableId, mode });
+  window.location.href = `table.html?${params.toString()}`;
+}
+
 saveNick.addEventListener('click', () => {
   const value = nickInput.value.trim();
   if (!validNick(value)) {
@@ -83,7 +88,9 @@ confirmJoin.addEventListener('click', async event => {
       updatedAt: serverTimestamp()
     });
     joinDialog.close();
+    const tableId = selectedTable.id;
     selectedTable = null;
+    openTable(tableId, 'player');
   } catch (error) {
     console.error(error);
     alert('Ke stolu se nepodařilo připojit.');
@@ -106,7 +113,11 @@ function renderTable(item) {
   const actions = document.createElement('div');
   actions.className = 'table-actions';
 
-  if (data.status === 'waiting' && data.hostUid !== currentUser?.uid) {
+  const isHost = data.hostUid === currentUser?.uid;
+  const isGuest = data.guestUid === currentUser?.uid;
+  const isPlayer = isHost || isGuest;
+
+  if (data.status === 'waiting' && !isHost) {
     const join = document.createElement('button');
     join.textContent = '+ Připojit';
     join.addEventListener('click', () => {
@@ -117,11 +128,21 @@ function renderTable(item) {
     actions.append(join);
   }
 
-  const preview = document.createElement('button');
-  preview.textContent = 'Náhled';
-  preview.disabled = !data.spectatorsAllowed;
-  preview.title = 'Režim diváka doplníme v dalším kroku.';
-  actions.append(preview);
+  if (isPlayer && data.status === 'ready') {
+    const enter = document.createElement('button');
+    enter.className = 'primary';
+    enter.textContent = 'Vstoupit ke stolu';
+    enter.addEventListener('click', () => openTable(item.id, 'player'));
+    actions.append(enter);
+  }
+
+  if (!isPlayer) {
+    const preview = document.createElement('button');
+    preview.textContent = 'Náhled';
+    preview.disabled = !data.spectatorsAllowed;
+    preview.addEventListener('click', () => openTable(item.id, 'spectator'));
+    actions.append(preview);
+  }
 
   card.append(info, actions);
   return card;
