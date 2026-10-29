@@ -9,25 +9,25 @@ import {
 
 const tableTitle = document.getElementById('tableTitle');
 const roleBadge = document.getElementById('roleBadge');
-const hostName = document.getElementById('hostName');
-const guestName = document.getElementById('guestName');
 const tableMessage = document.getElementById('tableMessage');
 const hostActions = document.getElementById('hostActions');
 const endTable = document.getElementById('endTable');
 const startGame = document.getElementById('startGame');
 const gameStatus = document.getElementById('gameStatus');
 
-const hostWarband = document.getElementById('hostWarband');
-const hostDeckUrl = document.getElementById('hostDeckUrl');
-const hostSave = document.getElementById('hostSave');
-const hostReady = document.getElementById('hostReady');
-const hostReadyBadge = document.getElementById('hostReadyBadge');
+const mySetupCard = document.getElementById('mySetupCard');
+const myPlayerLabel = document.getElementById('myPlayerLabel');
+const myName = document.getElementById('myName');
+const myReadyBadge = document.getElementById('myReadyBadge');
+const myWarband = document.getElementById('myWarband');
+const myDeckUrl = document.getElementById('myDeckUrl');
+const mySave = document.getElementById('mySave');
+const myReady = document.getElementById('myReady');
 
-const guestWarband = document.getElementById('guestWarband');
-const guestDeckUrl = document.getElementById('guestDeckUrl');
-const guestSave = document.getElementById('guestSave');
-const guestReady = document.getElementById('guestReady');
-const guestReadyBadge = document.getElementById('guestReadyBadge');
+const opponentCard = document.getElementById('opponentCard');
+const opponentName = document.getElementById('opponentName');
+const opponentReadyBadge = document.getElementById('opponentReadyBadge');
+const opponentStatus = document.getElementById('opponentStatus');
 
 const params = new URLSearchParams(window.location.search);
 const tableId = params.get('table');
@@ -44,6 +44,8 @@ function setError(message) {
   tableMessage.textContent = message;
   hostActions.hidden = true;
   startGame.hidden = true;
+  mySetupCard.hidden = true;
+  opponentCard.hidden = true;
 }
 
 function validSetup(warband, deckUrl) {
@@ -58,38 +60,51 @@ function validSetup(warband, deckUrl) {
   }
 }
 
-function setReadOnly(input, buttonSave, buttonReady, editable) {
-  input.disabled = !editable;
-  buttonSave.hidden = !editable;
-  buttonReady.hidden = !editable;
-}
-
 function renderReadyBadge(el, ready) {
   el.textContent = ready ? 'Připraven' : 'Nepřipraven';
   el.classList.toggle('is-ready', ready);
 }
 
-async function saveSetup(player) {
-  if (!tableRef || !currentUser) return;
-  const isHost = player === 'host';
-  const warbandInput = isHost ? hostWarband : guestWarband;
-  const deckInput = isHost ? hostDeckUrl : guestDeckUrl;
+function getMySetup(data) {
+  if (role === 'host') {
+    return {
+      warband: data.hostWarband || '',
+      deckUrl: data.hostDeckUrl || '',
+      ready: data.hostReady === true
+    };
+  }
+  if (role === 'guest') {
+    return {
+      warband: data.guestWarband || '',
+      deckUrl: data.guestDeckUrl || '',
+      ready: data.guestReady === true
+    };
+  }
+  return { warband: '', deckUrl: '', ready: false };
+}
 
-  if (!validSetup(warbandInput.value, deckInput.value)) {
+function getOpponentReady(data) {
+  return role === 'host' ? data.guestReady === true : data.hostReady === true;
+}
+
+async function saveSetup() {
+  if (!tableRef || !currentUser || !['host', 'guest'].includes(role)) return;
+
+  if (!validSetup(myWarband.value, myDeckUrl.value)) {
     alert('Vyplň warbandu a platný odkaz na Nemesis deck.');
     return;
   }
 
-  const payload = isHost
+  const payload = role === 'host'
     ? {
-        hostWarband: warbandInput.value.trim(),
-        hostDeckUrl: deckInput.value.trim(),
+        hostWarband: myWarband.value.trim(),
+        hostDeckUrl: myDeckUrl.value.trim(),
         hostReady: false,
         updatedAt: serverTimestamp()
       }
     : {
-        guestWarband: warbandInput.value.trim(),
-        guestDeckUrl: deckInput.value.trim(),
+        guestWarband: myWarband.value.trim(),
+        guestDeckUrl: myDeckUrl.value.trim(),
         guestReady: false,
         updatedAt: serverTimestamp()
       };
@@ -102,22 +117,19 @@ async function saveSetup(player) {
   }
 }
 
-async function toggleReady(player) {
-  if (!tableRef || !currentData) return;
-  const isHost = player === 'host';
-  const warband = isHost ? currentData.hostWarband : currentData.guestWarband;
-  const deckUrl = isHost ? currentData.hostDeckUrl : currentData.guestDeckUrl;
-  const ready = isHost ? currentData.hostReady === true : currentData.guestReady === true;
+async function toggleReady() {
+  if (!tableRef || !currentData || !['host', 'guest'].includes(role)) return;
 
-  if (!validSetup(warband || '', deckUrl || '')) {
+  const mine = getMySetup(currentData);
+  if (!validSetup(mine.warband, mine.deckUrl)) {
     alert('Nejdřív ulož warbandu a Nemesis deck.');
     return;
   }
 
   try {
-    await updateDoc(tableRef, isHost
-      ? { hostReady: !ready, updatedAt: serverTimestamp() }
-      : { guestReady: !ready, updatedAt: serverTimestamp() }
+    await updateDoc(tableRef, role === 'host'
+      ? { hostReady: !mine.ready, updatedAt: serverTimestamp() }
+      : { guestReady: !mine.ready, updatedAt: serverTimestamp() }
     );
   } catch (error) {
     console.error(error);
@@ -125,10 +137,8 @@ async function toggleReady(player) {
   }
 }
 
-hostSave.addEventListener('click', () => saveSetup('host'));
-guestSave.addEventListener('click', () => saveSetup('guest'));
-hostReady.addEventListener('click', () => toggleReady('host'));
-guestReady.addEventListener('click', () => toggleReady('guest'));
+mySave.addEventListener('click', saveSetup);
+myReady.addEventListener('click', toggleReady);
 
 startGame.addEventListener('click', async () => {
   if (!tableRef || role !== 'host' || !currentData?.hostReady || !currentData?.guestReady) return;
@@ -157,10 +167,42 @@ endTable.addEventListener('click', async () => {
   }
 });
 
+function renderPlayerView(data, isHost, isGuest) {
+  const mine = getMySetup(data);
+  const opponentReady = getOpponentReady(data);
+
+  mySetupCard.hidden = false;
+  opponentCard.hidden = false;
+
+  myPlayerLabel.textContent = isHost ? 'Hráč 1 · můj výběr' : 'Hráč 2 · můj výběr';
+  myName.textContent = isHost ? (data.hostNick || '—') : (data.guestNick || '—');
+  myWarband.value = mine.warband;
+  myDeckUrl.value = mine.deckUrl;
+  renderReadyBadge(myReadyBadge, mine.ready);
+  myReady.textContent = mine.ready ? 'Zrušit připravenost' : 'Jsem připraven';
+
+  opponentName.textContent = isHost ? (data.guestNick || 'Čeká na hráče') : (data.hostNick || '—');
+  renderReadyBadge(opponentReadyBadge, opponentReady);
+  opponentStatus.textContent = opponentReady ? 'Protihráč je připraven.' : 'Protihráč zatím není připraven.';
+
+  const editable = !data.gameStarted;
+  myWarband.disabled = !editable;
+  myDeckUrl.disabled = !editable;
+  mySave.hidden = !editable;
+  myReady.hidden = !editable;
+}
+
+function renderSpectatorView(data) {
+  mySetupCard.hidden = true;
+  opponentCard.hidden = false;
+  opponentName.textContent = `${data.hostNick || 'Hráč 1'} vs. ${data.guestNick || 'Hráč 2'}`;
+  const bothReady = data.hostReady === true && data.guestReady === true;
+  renderReadyBadge(opponentReadyBadge, bothReady);
+  opponentStatus.textContent = bothReady ? 'Oba hráči jsou připraveni.' : 'Příprava hráčů ještě není dokončena.';
+}
+
 function render(data) {
   currentData = data;
-  hostName.textContent = data.hostNick || '—';
-  guestName.textContent = data.guestNick || 'Čeká na hráče';
   tableTitle.textContent = data.guestNick ? `${data.hostNick} vs. ${data.guestNick}` : data.hostNick;
 
   const isHost = data.hostUid === currentUser.uid;
@@ -170,36 +212,27 @@ function render(data) {
   hostActions.hidden = !isHost;
   startGame.hidden = !isHost;
 
-  hostWarband.value = data.hostWarband || '';
-  hostDeckUrl.value = data.hostDeckUrl || '';
-  guestWarband.value = data.guestWarband || '';
-  guestDeckUrl.value = data.guestDeckUrl || '';
-
-  const hostIsReady = data.hostReady === true;
-  const guestIsReady = data.guestReady === true;
-  renderReadyBadge(hostReadyBadge, hostIsReady);
-  renderReadyBadge(guestReadyBadge, guestIsReady);
-  hostReady.textContent = hostIsReady ? 'Zrušit připravenost' : 'Jsem připraven';
-  guestReady.textContent = guestIsReady ? 'Zrušit připravenost' : 'Jsem připraven';
-
-  setReadOnly(hostWarband, hostSave, hostReady, isHost && !data.gameStarted);
-  hostDeckUrl.disabled = !(isHost && !data.gameStarted);
-  setReadOnly(guestWarband, guestSave, guestReady, isGuest && !data.gameStarted);
-  guestDeckUrl.disabled = !(isGuest && !data.gameStarted);
-
   if (isHost) {
     roleBadge.textContent = 'Hráč 1';
     tableMessage.textContent = data.gameStarted ? 'Hra byla spuštěna.' : 'Vyber svou warbandu a Nemesis deck, ulož je a potvrď připravenost.';
+    renderPlayerView(data, true, false);
   } else if (isGuest) {
     roleBadge.textContent = 'Hráč 2';
     tableMessage.textContent = data.gameStarted ? 'Hra byla spuštěna.' : 'Vyber svou warbandu a Nemesis deck, ulož je a potvrď připravenost.';
+    renderPlayerView(data, false, true);
   } else if (requestedMode === 'spectator' && data.spectatorsAllowed) {
     roleBadge.textContent = 'Divák';
-    tableMessage.textContent = data.gameStarted ? 'Sleduješ probíhající hru.' : 'Sleduješ přípravu hráčů. Údaje jsou pouze ke čtení.';
+    tableMessage.textContent = data.gameStarted ? 'Sleduješ probíhající hru.' : 'Sleduješ pouze stav přípravy hráčů.';
+    renderSpectatorView(data);
   } else {
     roleBadge.textContent = 'Bez přístupu';
     tableMessage.textContent = 'Nejsi hráčem tohoto stolu a režim Náhled není dostupný.';
+    mySetupCard.hidden = true;
+    opponentCard.hidden = true;
   }
+
+  const hostIsReady = data.hostReady === true;
+  const guestIsReady = data.guestReady === true;
 
   if (data.gameStarted) {
     gameStatus.textContent = 'Hra probíhá. V dalším kroku sem napojíme vlastní herní plochu.';
