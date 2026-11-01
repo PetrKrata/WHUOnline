@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WHU Online · Hra</title>
+  <link rel="stylesheet" href="style.css?v=20261101-2">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <small>WHU ONLINE</small>
+      <h1>Hra</h1>
+    </div>
+    <a class="button-link" href="index.html">← Zpět do lobby</a>
+  </header>
+
+  <main class="game-wrap">
+    <section class="panel game-shell">
+      <div class="section-head">
+        <div>
+          <small>ONLINE HRA</small>
+          <h2 id="gameTitle">Načítám hru…</h2>
+        </div>
+        <span id="gameRoleBadge" class="badge">Načítám roli…</span>
+      </div>
+
+      <div id="gameConnection" class="table-message">Připojuji k Firebase…</div>
+
+      <div class="game-player-grid">
+        <section class="game-player-card is-me" id="myGameCard">
+          <span class="role-label">Moje strana</span>
+          <h3 id="myGameName">—</h3>
+          <dl class="game-summary-list">
+            <div><dt>Warbanda</dt><dd id="myGameWarband">—</dd></div>
+            <div><dt>Rivals balíčky</dt><dd id="myGameDecks">—</dd></div>
+          </dl>
+        </section>
+
+        <section class="game-player-card" id="opponentGameCard">
+          <span class="role-label">Protihráč</span>
+          <h3 id="opponentGameName">—</h3>
+          <dl class="game-summary-list">
+            <div><dt>Warbanda</dt><dd id="opponentGameWarband">—</dd></div>
+            <div><dt>Rivals balíčky</dt><dd id="opponentGameDecks">—</dd></div>
+          </dl>
+        </section>
+      </div>
+
+      <section class="game-stage-placeholder">
+        <div>
+          <span class="role-label">Herní plocha</span>
+          <h3>Online hra je spuštěna</h3>
+          <p id="gameStageText">Oba hráči jsou připojeni ke stejnému stolu. V dalším kroku sem přeneseme herní setup, karty a průběh kola.</p>
+        </div>
+        <div class="game-live-dot"><span></span> synchronizováno</div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="game.js?v=20261101-1"></script>
+</body>
+</html>
