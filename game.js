@@ -25,19 +25,9 @@ function showError(message) {
   opponentGameCard.hidden = true;
 }
 
-function render(data, user) {
-  const isHost = data.hostUid === user.uid;
-  const isGuest = data.guestUid === user.uid;
-  const isPlayer = isHost || isGuest;
-
-  gameTitle.textContent = `${data.hostNick || 'Hráč 1'} vs. ${data.guestNick || 'Hráč 2'}`;
-
-  if (!data.gameStarted || data.status !== 'playing') {
-    gameRoleBadge.textContent = isHost ? 'Hráč 1' : isGuest ? 'Hráč 2' : 'Divák';
-    gameConnection.textContent = 'Hra ještě nebyla spuštěna. Vrať se ke stolu a dokonči přípravu.';
-    gameStageText.textContent = 'Čekám na spuštění hry hostitelem.';
-    return;
-  }
+function fillPlayerCards(data, isHost, isGuest) {
+  myGameCard.hidden = false;
+  opponentGameCard.hidden = false;
 
   if (isHost) {
     gameRoleBadge.textContent = 'Hráč 1';
@@ -47,7 +37,10 @@ function render(data, user) {
     opponentGameName.textContent = data.guestNick || 'Hráč 2';
     opponentGameWarband.textContent = data.guestWarband || '—';
     opponentGameDecks.textContent = data.guestRivalsDecks || '—';
-  } else if (isGuest) {
+    return;
+  }
+
+  if (isGuest) {
     gameRoleBadge.textContent = 'Hráč 2';
     myGameName.textContent = data.guestNick || 'Hráč 2';
     myGameWarband.textContent = data.guestWarband || '—';
@@ -55,7 +48,10 @@ function render(data, user) {
     opponentGameName.textContent = data.hostNick || 'Hráč 1';
     opponentGameWarband.textContent = data.hostWarband || '—';
     opponentGameDecks.textContent = data.hostRivalsDecks || '—';
-  } else if (data.spectatorsAllowed) {
+    return;
+  }
+
+  if (data.spectatorsAllowed) {
     gameRoleBadge.textContent = 'Divák';
     myGameCard.querySelector('.role-label').textContent = 'Hráč 1';
     opponentGameCard.querySelector('.role-label').textContent = 'Hráč 2';
@@ -65,14 +61,31 @@ function render(data, user) {
     opponentGameName.textContent = data.guestNick || 'Hráč 2';
     opponentGameWarband.textContent = data.guestWarband || '—';
     opponentGameDecks.textContent = data.guestRivalsDecks || '—';
-  } else {
-    showError('Nejsi hráčem tohoto stolu a sledování není povoleno.');
     return;
   }
 
-  gameConnection.textContent = isPlayer
-    ? 'Připojeno · hra probíhá · stav se synchronizuje přes Firebase.'
-    : 'Připojeno jako divák · pouze náhled.';
+  showError('Nejsi hráčem tohoto stolu a sledování není povoleno.');
+}
+
+function render(data, user) {
+  const isHost = data.hostUid === user.uid;
+  const isGuest = data.guestUid === user.uid;
+  const isPlayer = isHost || isGuest;
+
+  gameTitle.textContent = `${data.hostNick || 'Hráč 1'} vs. ${data.guestNick || 'Hráč 2'}`;
+  fillPlayerCards(data, isHost, isGuest);
+
+  if (!isPlayer && !data.spectatorsAllowed) return;
+
+  if (data.gameStarted === true && data.status === 'playing') {
+    gameConnection.textContent = isPlayer
+      ? 'Připojeno · hra probíhá · stav se synchronizuje přes Firebase.'
+      : 'Připojeno jako divák · pouze náhled.';
+    gameStageText.textContent = 'Hra byla spuštěna. Dalším krokem doplníme herní setup, karty a průběh kola.';
+  } else {
+    gameConnection.textContent = `Připojeno · stůl je ve stavu „${data.status || 'neuvedeno'}“ · hra ještě nebyla spuštěna.`;
+    gameStageText.textContent = 'Vrať se ke stolu a spusť hru jako Hráč 1, až budou oba hráči připraveni.';
+  }
 }
 
 if (!tableId) {
