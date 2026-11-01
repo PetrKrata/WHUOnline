@@ -218,7 +218,7 @@ myDeckUrl.addEventListener('input', () => {
 });
 
 startGame.addEventListener('click', async () => {
-  if (!tableRef || role !== 'host' || !currentData?.hostReady || !currentData?.guestReady) return;
+  if (!tableRef || !['host', 'guest'].includes(role) || !currentData?.hostReady || !currentData?.guestReady) return;
   try {
     await updateDoc(tableRef, {
       gameStarted: true,
@@ -294,7 +294,7 @@ function render(data) {
   const isGuest = data.guestUid === currentUser.uid;
   role = isHost ? 'host' : isGuest ? 'guest' : 'spectator';
 
-  startGame.hidden = !isHost;
+  startGame.hidden = !(isHost || isGuest);
 
   if (isHost) {
     roleBadge.textContent = 'Hráč 1';
@@ -324,7 +324,7 @@ function render(data) {
     startGame.textContent = 'Hra spuštěna';
   } else if (hostIsReady && guestIsReady) {
     gameStatus.textContent = 'Oba hráči jsou připraveni.';
-    startGame.disabled = !isHost;
+    startGame.disabled = !(isHost || isGuest);
     startGame.textContent = 'Spustit hru';
   } else {
     gameStatus.textContent = 'Čekám, až budou připraveni oba hráči.';
