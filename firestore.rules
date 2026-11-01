@@ -83,6 +83,46 @@ service cloud.firestore {
           resource.data.hostUid == request.auth.uid
           || resource.data.guestUid == request.auth.uid
         );
+
+      match /private/{uid} {
+        function tableData() {
+          return get(/databases/$(database)/documents/tables/$(tableId)).data;
+        }
+
+        function isOwnPlayerDocument() {
+          return request.auth != null
+            && request.auth.uid == uid
+            && (
+              tableData().hostUid == request.auth.uid
+              || tableData().guestUid == request.auth.uid
+            );
+        }
+
+        allow read: if isOwnPlayerDocument();
+
+        allow create: if isOwnPlayerDocument()
+          && request.resource.data.keys().hasOnly([
+            "objectiveHandIds",
+            "objectiveDeckIds",
+            "powerHandIds",
+            "powerDeckIds",
+            "objectiveMulliganUsed",
+            "powerMulliganUsed",
+            "initializedAt",
+            "updatedAt"
+          ]);
+
+        allow update: if isOwnPlayerDocument()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+            "objectiveHandIds",
+            "objectiveDeckIds",
+            "powerHandIds",
+            "powerDeckIds",
+            "objectiveMulliganUsed",
+            "powerMulliganUsed",
+            "updatedAt"
+          ]);
+      }
     }
   }
 }
