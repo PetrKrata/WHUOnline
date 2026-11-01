@@ -1,6 +1,12 @@
 import { db, ensureAnonymousAuth } from './firebase.js';
 import { doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';
 import { loadDeck } from './online-deck.js';
+import {
+  ensureOpeningHand,
+  watchOpeningHand,
+  mulliganObjectives,
+  mulliganPower
+} from './online-hand.js';
 
 const params = new URLSearchParams(window.location.search);
 const tableId = params.get('table');
@@ -18,6 +24,13 @@ const opponentGameWarband = document.getElementById('opponentGameWarband');
 const opponentGameDecks = document.getElementById('opponentGameDecks');
 const gameStageText = document.getElementById('gameStageText');
 
+const openingHandSection = document.getElementById('openingHandSection');
+const openingHandStatus = document.getElementById('openingHandStatus');
+const objectiveHandCards = document.getElementById('objectiveHandCards');
+const powerHandCards = document.getElementById('powerHandCards');
+const mulliganObjectivesButton = document.getElementById('mulliganObjectives');
+const mulliganPowerButton = document.getElementById('mulliganPower');
+
 const myDeckSection = document.getElementById('myDeckSection');
 const myDeckStatus = document.getElementById('myDeckStatus');
 const objectiveCards = document.getElementById('objectiveCards');
@@ -28,6 +41,11 @@ const ployCount = document.getElementById('ployCount');
 const upgradeCount = document.getElementById('upgradeCount');
 
 let loadedDeckUrl = '';
+let currentDeck = null;
+let currentUser = null;
+let currentHand = null;
+let handWatcherStarted = false;
+let gameIsActive = false;
 
 function showError(message) {
   gameTitle.textContent = 'Hru nelze otevřít';
@@ -35,6 +53,7 @@ function showError(message) {
   gameConnection.textContent = message;
   myGameCard.hidden = true;
   opponentGameCard.hidden = true;
+  openingHandSection.hidden = true;
   myDeckSection.hidden = true;
 }
 
@@ -104,6 +123,27 @@ function makeCardRow(card) {
   return item;
 }
 
+function makeHandCard(card) {
+  const item = document.createElement('article');
+  item.className = 'opening-hand-card';
+
+  const image = document.createElement('img');
+  image.src = card.image;
+  image.alt = card.name;
+  image.loading = 'lazy';
+
+  const meta = document.createElement('div');
+  const code = document.createElement('span');
+  code.className = 'private-card-code';
+  code.textContent = `${card.id} · ${card.type}`;
+  const name = document.createElement('strong');
+  name.textContent = card.name;
+  meta.append(code, name);
+
+  item.append(image, meta);
+  return item;
+}
+
 function renderDeckGroup(container, cards) {
   container.replaceChildren();
   if (!cards.length) {
@@ -115,6 +155,73 @@ function renderDeckGroup(container, cards) {
   }
   for (const card of cards) container.append(makeCardRow(card));
 }
+
+function cardById(id) {
+  return currentDeck?.cards.find(card => card.id === id) || null;
+}
+
+function renderOpeningHand(state) {
+  currentHand = state;
+  openingHandSection.hidden = false;
+
+  const objectiveHand = (state.objectiveHandIds || []).map(cardById).filter(Boolean);
+  const powerHand = (state.powerHandIds || []).map(cardById).filter(Boolean);
+
+  objectiveHandCards.replaceChildren(...objectiveHand.map(makeHandCard));
+  powerHandCards.replaceChildren(...powerHand.map(makeHandCard));
+
+  mulliganObjectivesButton.disabled = state.objectiveMulliganUsed === true;
+  mulliganPowerButton.disabled = state.powerMulliganUsed === true;
+  mulliganObjectivesButton.textContent = state.objectiveMulliganUsed ? 'Objectives vyměněny' : 'Vyměnit Objectives';
+  mulliganPowerButton.textContent = state.powerMulliganUsed ? 'Power vyměněny' : 'Vyměnit Power';
+
+  const notes = [];
+  if (state.objectiveMulliganUsed) notes.push('Objective mulligan použit');
+  if (state.powerMulliganUsed) notes.push('Power mulligan použit');
+  openingHandStatus.textContent = notes.length ? notes.join(' · ') : '3 Objective + 5 Power · mulligan je k dispozici';
+}
+
+async function prepareOpeningHand(deck) {
+  if (!gameIsActive || !currentUser || handWatcherStarted) return;
+  handWatcherStarted = true;
+  openingHandSection.hidden = false;
+  openingHandStatus.textContent = 'Připravuji úvodní ruku…';
+
+  try {
+    await ensureOpeningHand(tableId, currentUser.uid, deck);
+    watchOpeningHand(tableId, currentUser.uid, renderOpeningHand, error => {
+      console.error(error);
+      openingHandStatus.textContent = 'Soukromou ruku se nepodařilo načíst.';
+    });
+  } catch (error) {
+    console.error(error);
+    openingHandStatus.textContent = error.message || 'Úvodní ruku se nepodařilo připravit.';
+  }
+}
+
+mulliganObjectivesButton.addEventListener('click', async () => {
+  if (!currentUser || !currentHand || currentHand.objectiveMulliganUsed) return;
+  mulliganObjectivesButton.disabled = true;
+  try {
+    await mulliganObjectives(tableId, currentUser.uid, currentHand);
+  } catch (error) {
+    console.error(error);
+    openingHandStatus.textContent = 'Objective mulligan se nepodařil.';
+    mulliganObjectivesButton.disabled = false;
+  }
+});
+
+mulliganPowerButton.addEventListener('click', async () => {
+  if (!currentUser || !currentHand || currentHand.powerMulliganUsed) return;
+  mulliganPowerButton.disabled = true;
+  try {
+    await mulliganPower(tableId, currentUser.uid, currentHand);
+  } catch (error) {
+    console.error(error);
+    openingHandStatus.textContent = 'Power mulligan se nepodařil.';
+    mulliganPowerButton.disabled = false;
+  }
+});
 
 async function renderPrivateDeck(deckUrl) {
   if (!deckUrl) {
@@ -129,13 +236,18 @@ async function renderPrivateDeck(deckUrl) {
     return;
   }
 
-  if (deckUrl === loadedDeckUrl) return;
+  if (deckUrl === loadedDeckUrl && currentDeck) {
+    if (gameIsActive) prepareOpeningHand(currentDeck);
+    return;
+  }
+
   loadedDeckUrl = deckUrl;
   myDeckSection.hidden = false;
   myDeckStatus.textContent = 'Načítám karty…';
 
   try {
     const deck = await loadDeck(deckUrl);
+    currentDeck = deck;
     objectiveCount.textContent = String(deck.groups.objectives.length);
     ployCount.textContent = String(deck.groups.ploys.length);
     upgradeCount.textContent = String(deck.groups.upgrades.length);
@@ -143,11 +255,11 @@ async function renderPrivateDeck(deckUrl) {
     renderDeckGroup(ployCards, deck.groups.ploys);
     renderDeckGroup(upgradeCards, deck.groups.upgrades);
 
-    if (deck.unknown.length) {
-      myDeckStatus.textContent = `${deck.cards.length}/${deck.ids.length} karet načteno · neznámé: ${deck.unknown.join(', ')}`;
-    } else {
-      myDeckStatus.textContent = `${deck.ids.length} karet načteno · ${deck.format}`;
-    }
+    myDeckStatus.textContent = deck.unknown.length
+      ? `${deck.cards.length}/${deck.ids.length} karet načteno · neznámé: ${deck.unknown.join(', ')}`
+      : `${deck.ids.length} karet načteno · ${deck.format}`;
+
+    if (gameIsActive) prepareOpeningHand(deck);
   } catch (error) {
     console.error(error);
     myDeckStatus.textContent = error.message || 'Balíček se nepodařilo načíst.';
@@ -158,6 +270,7 @@ function render(data, user) {
   const isHost = data.hostUid === user.uid;
   const isGuest = data.guestUid === user.uid;
   const isPlayer = isHost || isGuest;
+  gameIsActive = data.gameStarted === true && data.status === 'playing';
 
   gameTitle.textContent = `${data.hostNick || 'Hráč 1'} vs. ${data.guestNick || 'Hráč 2'}`;
   const myDeckUrl = fillPlayerCards(data, isHost, isGuest);
@@ -167,17 +280,19 @@ function render(data, user) {
   if (isPlayer) {
     renderPrivateDeck(myDeckUrl);
   } else {
+    openingHandSection.hidden = true;
     myDeckSection.hidden = true;
   }
 
-  if (data.gameStarted === true && data.status === 'playing') {
+  if (gameIsActive) {
     gameConnection.textContent = isPlayer
       ? 'Připojeno · hra probíhá · stav se synchronizuje přes Firebase.'
       : 'Připojeno jako divák · pouze náhled.';
-    gameStageText.textContent = 'Hra byla spuštěna. Můj Nemesis balíček je načtený; dalším krokem připravíme úvodní ruku.';
+    gameStageText.textContent = 'Hra byla spuštěna. Úvodní ruka je soukromá a po obnovení stránky zůstane zachována.';
   } else {
+    openingHandSection.hidden = true;
     gameConnection.textContent = `Připojeno · stůl je ve stavu „${data.status || 'neuvedeno'}“ · hra ještě nebyla spuštěna.`;
-    gameStageText.textContent = 'Vrať se ke stolu a spusť hru jako Hráč 1, až budou oba hráči připraveni.';
+    gameStageText.textContent = 'Vrať se ke stolu a spusť hru, až budou oba hráči připraveni.';
   }
 }
 
@@ -186,7 +301,7 @@ if (!tableId) {
 } else {
   (async function boot() {
     try {
-      const user = await ensureAnonymousAuth();
+      currentUser = await ensureAnonymousAuth();
       const tableRef = doc(db, 'tables', tableId);
 
       onSnapshot(tableRef, snapshot => {
@@ -194,7 +309,7 @@ if (!tableId) {
           showError('Tento stůl už neexistuje.');
           return;
         }
-        render(snapshot.data(), user);
+        render(snapshot.data(), currentUser);
       }, error => {
         console.error(error);
         showError('Herní stav se nepodařilo načíst z Firestore.');
