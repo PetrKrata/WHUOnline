@@ -76,32 +76,40 @@ function validSetup(warband, deckUrl) {
   }
 }
 
-function detectRivalsDecks(deckUrl) {
-  try {
-    const raw = deckUrl.trim();
-    const decoded = decodeURIComponent(raw.replace(/\+/g, ' '));
-    const names = [];
-
-    const cardMatches = decoded.matchAll(/(?:^|[=,&?])([A-Za-z]{2,4})\d+(?=$|[,&?#])/g);
-    for (const match of cardMatches) {
-      const prefix = match[1].toUpperCase();
-      const name = RIVALS_DECK_BY_PREFIX[prefix];
-      if (name && !names.includes(name)) names.push(name);
+function decodeRepeatedly(value) {
+  let result = value;
+  for (let i = 0; i < 3; i += 1) {
+    try {
+      const decoded = decodeURIComponent(result);
+      if (decoded === result) break;
+      result = decoded;
+    } catch {
+      break;
     }
-
-    if (names.length < 2) {
-      const fallbackMatches = decoded.matchAll(/\b([A-Za-z]{2,4})\d+\b/g);
-      for (const match of fallbackMatches) {
-        const prefix = match[1].toUpperCase();
-        const name = RIVALS_DECK_BY_PREFIX[prefix];
-        if (name && !names.includes(name)) names.push(name);
-      }
-    }
-
-    return names.slice(0, 2);
-  } catch {
-    return [];
   }
+  return result;
+}
+
+function detectRivalsDecks(deckUrl) {
+  const source = decodeRepeatedly(String(deckUrl || '').trim());
+  const names = [];
+  const cardPattern = /\b([A-Za-z]{2})\d+\b/g;
+  let match;
+
+  while ((match = cardPattern.exec(source)) !== null) {
+    const prefix = match[1].toUpperCase();
+    const name = RIVALS_DECK_BY_PREFIX[prefix];
+    if (name && !names.includes(name)) names.push(name);
+    if (names.length === 2) break;
+  }
+
+  return names;
+}
+
+function rivalsTextFrom(deckUrl, storedValue = '') {
+  const stored = String(storedValue || '').trim();
+  if (stored) return stored;
+  return detectRivalsDecks(deckUrl).join(' + ');
 }
 
 function renderReadyBadge(el, ready) {
@@ -114,7 +122,7 @@ function getMySetup(data) {
     return {
       warband: data.hostWarband || '',
       deckUrl: data.hostDeckUrl || '',
-      rivalsDecks: data.hostRivalsDecks || '',
+      rivalsDecks: rivalsTextFrom(data.hostDeckUrl, data.hostRivalsDecks),
       ready: data.hostReady === true
     };
   }
@@ -122,7 +130,7 @@ function getMySetup(data) {
     return {
       warband: data.guestWarband || '',
       deckUrl: data.guestDeckUrl || '',
-      rivalsDecks: data.guestRivalsDecks || '',
+      rivalsDecks: rivalsTextFrom(data.guestDeckUrl, data.guestRivalsDecks),
       ready: data.guestReady === true
     };
   }
@@ -134,14 +142,14 @@ function getOpponentSetup(data) {
     return {
       name: data.guestNick || 'Čeká na hráče',
       warband: data.guestWarband || '—',
-      rivalsDecks: data.guestRivalsDecks || '—',
+      rivalsDecks: rivalsTextFrom(data.guestDeckUrl, data.guestRivalsDecks) || '—',
       ready: data.guestReady === true
     };
   }
   return {
     name: data.hostNick || '—',
     warband: data.hostWarband || '—',
-    rivalsDecks: data.hostRivalsDecks || '—',
+    rivalsDecks: rivalsTextFrom(data.hostDeckUrl, data.hostRivalsDecks) || '—',
     ready: data.hostReady === true
   };
 }
@@ -156,29 +164,20 @@ async function saveSetup() {
 
   const detectedDecks = detectRivalsDecks(myDeckUrl.value);
   const rivalsText = detectedDecks.join(' + ');
-
-  if (detectedDecks.length === 2) {
-    myRivalsDecks.value = rivalsText;
-  } else if (detectedDecks.length === 1) {
-    myRivalsDecks.value = `${rivalsText} · druhý balíček nerozpoznán`;
-  } else {
-    myRivalsDecks.value = 'Balíčky se nepodařilo rozpoznat';
-  }
-
-  const storedRivalsText = detectedDecks.length ? rivalsText : '';
+  myRivalsDecks.value = rivalsText || 'Balíčky se nepodařilo rozpoznat';
 
   const payload = role === 'host'
     ? {
         hostWarband: myWarband.value.trim(),
         hostDeckUrl: myDeckUrl.value.trim(),
-        hostRivalsDecks: storedRivalsText,
+        hostRivalsDecks: rivalsText,
         hostReady: false,
         updatedAt: serverTimestamp()
       }
     : {
         guestWarband: myWarband.value.trim(),
         guestDeckUrl: myDeckUrl.value.trim(),
-        guestRivalsDecks: storedRivalsText,
+        guestRivalsDecks: rivalsText,
         guestReady: false,
         updatedAt: serverTimestamp()
       };
@@ -213,6 +212,10 @@ async function toggleReady() {
 
 mySave.addEventListener('click', saveSetup);
 myReady.addEventListener('click', toggleReady);
+myDeckUrl.addEventListener('input', () => {
+  const detected = detectRivalsDecks(myDeckUrl.value);
+  myRivalsDecks.value = detected.length ? detected.join(' + ') : '';
+});
 
 startGame.addEventListener('click', async () => {
   if (!tableRef || role !== 'host' || !currentData?.hostReady || !currentData?.guestReady) return;
@@ -275,7 +278,9 @@ function renderSpectatorView(data) {
   opponentCard.hidden = false;
   opponentName.textContent = `${data.hostNick || 'Hráč 1'} vs. ${data.guestNick || 'Hráč 2'}`;
   opponentWarband.textContent = `${data.hostWarband || '—'} / ${data.guestWarband || '—'}`;
-  opponentRivalsDecks.textContent = 'Veřejný náhled';
+  const hostDecks = rivalsTextFrom(data.hostDeckUrl, data.hostRivalsDecks) || '—';
+  const guestDecks = rivalsTextFrom(data.guestDeckUrl, data.guestRivalsDecks) || '—';
+  opponentRivalsDecks.textContent = `${hostDecks} / ${guestDecks}`;
   const bothReady = data.hostReady === true && data.guestReady === true;
   renderReadyBadge(opponentReadyBadge, bothReady);
   opponentStatus.textContent = bothReady ? 'Oba hráči jsou připraveni.' : 'Příprava hráčů ještě není dokončena.';
