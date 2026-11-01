@@ -78,18 +78,24 @@ function validSetup(warband, deckUrl) {
 
 function detectRivalsDecks(deckUrl) {
   try {
-    const parsed = new URL(deckUrl.trim());
-    const deckParam = parsed.searchParams.get('deck') || '';
+    const raw = deckUrl.trim();
+    const decoded = decodeURIComponent(raw.replace(/\+/g, ' '));
     const names = [];
 
-    for (const cardId of deckParam.split(',')) {
-      const id = cardId.trim();
-      if (!id || id === '0') continue;
-      const match = id.match(/^([A-Za-z]+)\d+$/);
-      if (!match) continue;
+    const cardMatches = decoded.matchAll(/(?:^|[=,&?])([A-Za-z]{2,4})\d+(?=$|[,&?#])/g);
+    for (const match of cardMatches) {
       const prefix = match[1].toUpperCase();
       const name = RIVALS_DECK_BY_PREFIX[prefix];
       if (name && !names.includes(name)) names.push(name);
+    }
+
+    if (names.length < 2) {
+      const fallbackMatches = decoded.matchAll(/\b([A-Za-z]{2,4})\d+\b/g);
+      for (const match of fallbackMatches) {
+        const prefix = match[1].toUpperCase();
+        const name = RIVALS_DECK_BY_PREFIX[prefix];
+        if (name && !names.includes(name)) names.push(name);
+      }
     }
 
     return names.slice(0, 2);
@@ -150,33 +156,35 @@ async function saveSetup() {
 
   const detectedDecks = detectRivalsDecks(myDeckUrl.value);
   const rivalsText = detectedDecks.join(' + ');
-  myRivalsDecks.value = rivalsText;
+
+  if (detectedDecks.length === 2) {
+    myRivalsDecks.value = rivalsText;
+  } else if (detectedDecks.length === 1) {
+    myRivalsDecks.value = `${rivalsText} · druhý balíček nerozpoznán`;
+  } else {
+    myRivalsDecks.value = 'Balíčky se nepodařilo rozpoznat';
+  }
+
+  const storedRivalsText = detectedDecks.length ? rivalsText : '';
 
   const payload = role === 'host'
     ? {
         hostWarband: myWarband.value.trim(),
         hostDeckUrl: myDeckUrl.value.trim(),
-        hostRivalsDecks: rivalsText,
+        hostRivalsDecks: storedRivalsText,
         hostReady: false,
         updatedAt: serverTimestamp()
       }
     : {
         guestWarband: myWarband.value.trim(),
         guestDeckUrl: myDeckUrl.value.trim(),
-        guestRivalsDecks: rivalsText,
+        guestRivalsDecks: storedRivalsText,
         guestReady: false,
         updatedAt: serverTimestamp()
       };
 
   try {
     await updateDoc(tableRef, payload);
-    if (detectedDecks.length === 2) {
-      myRivalsDecks.value = rivalsText;
-    } else if (detectedDecks.length === 1) {
-      myRivalsDecks.value = `${rivalsText} · druhý balíček nerozpoznán`;
-    } else {
-      myRivalsDecks.value = 'Balíčky se nepodařilo rozpoznat';
-    }
   } catch (error) {
     console.error(error);
     alert('Výběr se nepodařilo uložit. Zkontroluj Firestore Rules.');
