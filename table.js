@@ -35,6 +35,21 @@ const params = new URLSearchParams(window.location.search);
 const tableId = params.get('table');
 const requestedMode = params.get('mode');
 
+const RIVALS_DECK_BY_PREFIX = {
+  RF: 'Reckless Fury',
+  WR: 'Wrack and Ruin',
+  RG: 'Raging Slayers',
+  RS: 'Realmstone Raiders',
+  NP: 'Nexus of Power',
+  PL: 'Pillage and Plunder',
+  ES: 'Emberstone Sentinels',
+  CC: 'Countdown to Cataclysm',
+  DY: 'Deadly Synergy',
+  EK: 'Edge of the Knife',
+  BL: 'Blazing Assault',
+  HG: 'Hunting Grounds'
+};
+
 let tableRef = null;
 let currentUser = null;
 let currentData = null;
@@ -58,6 +73,28 @@ function validSetup(warband, deckUrl) {
     return parsed.protocol === 'https:' || parsed.protocol === 'http:';
   } catch {
     return false;
+  }
+}
+
+function detectRivalsDecks(deckUrl) {
+  try {
+    const parsed = new URL(deckUrl.trim());
+    const deckParam = parsed.searchParams.get('deck') || '';
+    const names = [];
+
+    for (const cardId of deckParam.split(',')) {
+      const id = cardId.trim();
+      if (!id || id === '0') continue;
+      const match = id.match(/^([A-Za-z]+)\d+$/);
+      if (!match) continue;
+      const prefix = match[1].toUpperCase();
+      const name = RIVALS_DECK_BY_PREFIX[prefix];
+      if (name && !names.includes(name)) names.push(name);
+    }
+
+    return names.slice(0, 2);
+  } catch {
+    return [];
   }
 }
 
@@ -111,24 +148,35 @@ async function saveSetup() {
     return;
   }
 
+  const detectedDecks = detectRivalsDecks(myDeckUrl.value);
+  const rivalsText = detectedDecks.join(' + ');
+  myRivalsDecks.value = rivalsText;
+
   const payload = role === 'host'
     ? {
         hostWarband: myWarband.value.trim(),
         hostDeckUrl: myDeckUrl.value.trim(),
-        hostRivalsDecks: myRivalsDecks.value.trim(),
+        hostRivalsDecks: rivalsText,
         hostReady: false,
         updatedAt: serverTimestamp()
       }
     : {
         guestWarband: myWarband.value.trim(),
         guestDeckUrl: myDeckUrl.value.trim(),
-        guestRivalsDecks: myRivalsDecks.value.trim(),
+        guestRivalsDecks: rivalsText,
         guestReady: false,
         updatedAt: serverTimestamp()
       };
 
   try {
     await updateDoc(tableRef, payload);
+    if (detectedDecks.length === 2) {
+      myRivalsDecks.value = rivalsText;
+    } else if (detectedDecks.length === 1) {
+      myRivalsDecks.value = `${rivalsText} · druhý balíček nerozpoznán`;
+    } else {
+      myRivalsDecks.value = 'Balíčky se nepodařilo rozpoznat';
+    }
   } catch (error) {
     console.error(error);
     alert('Výběr se nepodařilo uložit. Zkontroluj Firestore Rules.');
@@ -209,7 +257,6 @@ function renderPlayerView(data, isHost) {
   const editable = !data.gameStarted;
   myWarband.disabled = !editable;
   myDeckUrl.disabled = !editable;
-  myRivalsDecks.disabled = !editable;
   mySave.hidden = !editable;
   myReady.hidden = !editable;
   endTable.hidden = false;
