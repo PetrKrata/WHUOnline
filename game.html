@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>WHU Online · Hra</title>
-  <link rel="stylesheet" href="style.css?v=20261101-2">
+  <link rel="stylesheet" href="style.css?v=20261101-3">
 </head>
 <body>
   <header class="topbar">
@@ -47,6 +47,31 @@
         </section>
       </div>
 
+      <section id="myDeckSection" class="private-deck-section" hidden>
+        <div class="private-deck-head">
+          <div>
+            <span class="role-label">Soukromé · pouze můj pohled</span>
+            <h3>Můj Nemesis balíček</h3>
+          </div>
+          <div id="myDeckStatus" class="deck-load-status">Načítám karty…</div>
+        </div>
+
+        <div class="private-deck-columns">
+          <section>
+            <h4>Objectives <span id="objectiveCount">0</span></h4>
+            <div id="objectiveCards" class="private-card-list"></div>
+          </section>
+          <section>
+            <h4>Ploys <span id="ployCount">0</span></h4>
+            <div id="ployCards" class="private-card-list"></div>
+          </section>
+          <section>
+            <h4>Upgrades <span id="upgradeCount">0</span></h4>
+            <div id="upgradeCards" class="private-card-list"></div>
+          </section>
+        </div>
+      </section>
+
       <section class="game-stage-placeholder">
         <div>
           <span class="role-label">Herní plocha</span>
@@ -58,6 +83,6 @@
     </section>
   </main>
 
-  <script type="module" src="game.js?v=20261101-2"></script>
+  <script type="module" src="game.js?v=20261101-3"></script>
 </body>
 </html>
