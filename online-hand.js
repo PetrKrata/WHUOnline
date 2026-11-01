@@ -59,15 +59,13 @@ export function watchOpeningHand(tableId, uid, onData, onError) {
 
 export async function mulliganObjectives(tableId, uid, state) {
   if (state.objectiveMulliganUsed) return;
-
-  const pool = shuffled([
-    ...(state.objectiveDeckIds || []),
-    ...(state.objectiveHandIds || [])
-  ]);
-
+  const drawPile = shuffled(state.objectiveDeckIds || []);
+  if (drawPile.length < 3) return;
+  const newHand = drawPile.slice(0, 3);
+  const newDeck = shuffled([...drawPile.slice(3), ...(state.objectiveHandIds || [])]);
   await updateDoc(handRef(tableId, uid), {
-    objectiveHandIds: pool.slice(0, 3),
-    objectiveDeckIds: pool.slice(3),
+    objectiveHandIds: newHand,
+    objectiveDeckIds: newDeck,
     objectiveMulliganUsed: true,
     updatedAt: serverTimestamp()
   });
@@ -75,15 +73,13 @@ export async function mulliganObjectives(tableId, uid, state) {
 
 export async function mulliganPower(tableId, uid, state) {
   if (state.powerMulliganUsed) return;
-
-  const pool = shuffled([
-    ...(state.powerDeckIds || []),
-    ...(state.powerHandIds || [])
-  ]);
-
+  const drawPile = shuffled(state.powerDeckIds || []);
+  if (drawPile.length < 5) return;
+  const newHand = drawPile.slice(0, 5);
+  const newDeck = shuffled([...drawPile.slice(5), ...(state.powerHandIds || [])]);
   await updateDoc(handRef(tableId, uid), {
-    powerHandIds: pool.slice(0, 5),
-    powerDeckIds: pool.slice(5),
+    powerHandIds: newHand,
+    powerDeckIds: newDeck,
     powerMulliganUsed: true,
     updatedAt: serverTimestamp()
   });
