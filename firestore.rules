@@ -123,6 +123,51 @@ service cloud.firestore {
           )
           ||
           (
+            // The second player confirms and advances the phase in a single update.
+            resource.data.gameStarted == true
+            && resource.data.status == "playing"
+            && (
+              (
+                resource.data.hostUid == request.auth.uid
+                && resource.data.get("hostPhaseReady", false) == false
+                && resource.data.get("guestPhaseReady", false) == true
+              )
+              ||
+              (
+                resource.data.guestUid == request.auth.uid
+                && resource.data.get("guestPhaseReady", false) == false
+                && resource.data.get("hostPhaseReady", false) == true
+              )
+            )
+            && request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(["gamePhase", "hostPhaseReady", "guestPhaseReady", "updatedAt"])
+            && request.resource.data.diff(resource.data).affectedKeys().hasAll(["gamePhase", "hostPhaseReady", "guestPhaseReady"])
+            && request.resource.data.hostPhaseReady == false
+            && request.resource.data.guestPhaseReady == false
+            && (
+              (
+                resource.data.get("gamePhase", "opening") == "opening"
+                && request.resource.data.gamePhase == "boards"
+                && exists(/databases/$(database)/documents/tables/$(tableId)/private/$(request.auth.uid))
+                && get(/databases/$(database)/documents/tables/$(tableId)/private/$(request.auth.uid)).data.get("openingConfirmed", false) == true
+              )
+              ||
+              (resource.data.get("gamePhase", "opening") == "boards"
+                && request.resource.data.gamePhase == "tokens"
+                && validBoardChoice(resource.data))
+              ||
+              (resource.data.get("gamePhase", "opening") == "tokens"
+                && request.resource.data.gamePhase == "deployment")
+              ||
+              (resource.data.get("gamePhase", "opening") == "deployment"
+                && request.resource.data.gamePhase == "first-turn")
+              ||
+              (resource.data.get("gamePhase", "opening") == "first-turn"
+                && request.resource.data.gamePhase == "round-one")
+            )
+          )
+          ||
+          (
             resource.data.gameStarted == true
             && resource.data.status == "playing"
             && (resource.data.hostUid == request.auth.uid || resource.data.guestUid == request.auth.uid)
