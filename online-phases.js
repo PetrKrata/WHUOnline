@@ -35,7 +35,19 @@ export async function confirmPhase(tableId, role, phase) {
     if (!data.gameStarted || data.status !== 'playing' || normalizedGamePhase(data) !== phase) {
       throw new Error('Fáze se mezitím změnila. Obnov stav hry.');
     }
-    if (data[field] !== true) transaction.update(ref, { [field]: true, updatedAt: serverTimestamp() });
+    if (data[field] === true) return data;
+    const otherField = role === 'host' ? 'guestPhaseReady' : 'hostPhaseReady';
+    if (data[otherField] === true) {
+      // The second confirmation moves both players atomically; no follow-up client update.
+      transaction.update(ref, {
+        gamePhase: nextGamePhase(phase),
+        hostPhaseReady: false,
+        guestPhaseReady: false,
+        updatedAt: serverTimestamp()
+      });
+    } else {
+      transaction.update(ref, { [field]: true, updatedAt: serverTimestamp() });
+    }
     return data;
   });
   return snapshot;
