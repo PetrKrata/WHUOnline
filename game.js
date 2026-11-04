@@ -519,7 +519,9 @@ function render(data, user) {
       : 'Připojeno jako divák · pouze náhled.';
     gameStageText.textContent = normalizedGamePhase(data) === 'opening'
       ? 'Oba hráči potvrdí úvodní ruku a kliknou Pokračovat.'
-      : 'Společná příprava: ' + (GAME_PHASES.find(p => p.id === normalizedGamePhase(data))?.title || 'další fáze') + '. Interaktivní herní plán a tahy ještě připravujeme.';
+      : normalizedGamePhase(data) === 'boards'
+        ? 'Oba hráči hodí kostkou; vítěz vybere plán, orientaci a území. Poté oba kliknou na pokračování.'
+        : 'Společná příprava: ' + (GAME_PHASES.find(p => p.id === normalizedGamePhase(data))?.title || 'další fáze') + '. Další prvky hry postupně doplníme.';
   } else {
     openingHandSection.hidden = true;
     nextPhaseSection.hidden = true;
