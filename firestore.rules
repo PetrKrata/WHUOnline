@@ -76,6 +76,52 @@ service cloud.firestore {
               )
             )
           )
+          ||
+          (
+            resource.data.gameStarted == true
+            && resource.data.status == "playing"
+            && (
+              (resource.data.hostUid == request.auth.uid
+                && request.resource.data.diff(resource.data).affectedKeys()
+                  .hasOnly(["hostPhaseReady", "updatedAt"])
+                && resource.data.get("hostPhaseReady", false) == false
+                && request.resource.data.hostPhaseReady == true)
+              ||
+              (resource.data.guestUid == request.auth.uid
+                && request.resource.data.diff(resource.data).affectedKeys()
+                  .hasOnly(["guestPhaseReady", "updatedAt"])
+                && resource.data.get("guestPhaseReady", false) == false
+                && request.resource.data.guestPhaseReady == true)
+            )
+            && (
+              resource.data.get("gamePhase", "opening") != "opening"
+              || (
+                exists(/databases/$(database)/documents/tables/$(tableId)/private/$(request.auth.uid))
+                && get(/databases/$(database)/documents/tables/$(tableId)/private/$(request.auth.uid)).data.get("openingConfirmed", false) == true
+              )
+            )
+          )
+          ||
+          (
+            resource.data.gameStarted == true
+            && resource.data.status == "playing"
+            && (resource.data.hostUid == request.auth.uid || resource.data.guestUid == request.auth.uid)
+            && resource.data.get("hostPhaseReady", false) == true
+            && resource.data.get("guestPhaseReady", false) == true
+            && request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(["gamePhase", "hostPhaseReady", "guestPhaseReady", "updatedAt"])
+            && request.resource.data.diff(resource.data).affectedKeys()
+              .hasAll(["gamePhase", "hostPhaseReady", "guestPhaseReady"])
+            && request.resource.data.hostPhaseReady == false
+            && request.resource.data.guestPhaseReady == false
+            && (
+              (resource.data.get("gamePhase", "opening") == "opening" && request.resource.data.gamePhase == "boards")
+              || (resource.data.gamePhase == "boards" && request.resource.data.gamePhase == "tokens")
+              || (resource.data.gamePhase == "tokens" && request.resource.data.gamePhase == "deployment")
+              || (resource.data.gamePhase == "deployment" && request.resource.data.gamePhase == "first-turn")
+              || (resource.data.gamePhase == "first-turn" && request.resource.data.gamePhase == "round-one")
+            )
+          )
         );
 
       allow delete: if request.auth != null
@@ -108,6 +154,7 @@ service cloud.firestore {
             "powerDeckIds",
             "objectiveMulliganUsed",
             "powerMulliganUsed",
+            "openingConfirmed",
             "initializedAt",
             "updatedAt"
           ]);
@@ -120,8 +167,27 @@ service cloud.firestore {
             "powerDeckIds",
             "objectiveMulliganUsed",
             "powerMulliganUsed",
+            "openingConfirmed",
             "updatedAt"
-          ]);
+          ])
+          && (
+            !request.resource.data.diff(resource.data).affectedKeys().hasAny(["openingConfirmed"])
+            || (
+              resource.data.get("openingConfirmed", false) == false
+              && request.resource.data.openingConfirmed == true
+            )
+          )
+          && (
+            resource.data.get("openingConfirmed", false) == false
+            || !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+              "objectiveHandIds",
+              "objectiveDeckIds",
+              "powerHandIds",
+              "powerDeckIds",
+              "objectiveMulliganUsed",
+              "powerMulliganUsed"
+            ])
+          );
       }
     }
   }
