@@ -11,3 +11,28 @@
 .phase-roadmap li{border:1px solid #39433d;border-radius:7px;padding:10px;font-size:.82rem;color:#abb7ad}
 .phase-roadmap li.is-current{border-color:#b99a52;color:#f2f0e8;background:#273329}
 [hidden]{display:none!important}
+
+/* Online board selection: dice, shared plan and winner's territory */
+.board-setup-section{margin-top:28px;padding:20px;border:1px solid #7f7146;border-radius:12px;background:#17201c}
+.board-setup-section h3{margin:7px 0 0}
+.board-roll-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.board-roll-player{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:13px 15px;border:1px solid #4c5850;border-radius:10px;background:#202b26}
+.board-roll-player strong{min-width:100px;font-size:.93rem}
+.board-die-face{display:grid;place-items:center;width:52px;height:52px;border:1px solid #8b7b50;border-radius:9px;background:#151d1a;font-size:1.8rem}
+.board-roll-player button,.board-roll-actions button,.board-controls button{padding:7px 11px;font-size:.86rem}
+.board-roll-actions{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 0 20px}
+.board-roll-actions p{margin:0}
+.board-selection-grid{display:grid;grid-template-columns:minmax(220px,.82fr) minmax(0,1.4fr);gap:20px}
+.board-controls{display:flex;flex-direction:column;align-items:stretch;gap:9px;padding:16px;border:1px solid #4c5850;border-radius:10px;background:#202b26}
+.board-controls h4{margin:0 0 6px}
+.board-controls label{font-size:.85rem;color:#b9c1b7;margin-top:8px}
+.board-controls select{font:inherit;font-size:.88rem;width:100%;padding:8px 10px;border:1px solid #59645b;border-radius:7px;color:#f2f0e8;background:#25312b}
+.board-controls select:disabled{opacity:.75}
+.board-controls button{margin-top:12px}
+.board-controls p{font-size:.83rem;margin:5px 0 0}
+.board-preview-panel{display:flex;flex-direction:column;gap:12px;min-width:0}
+.board-preview{display:flex;align-items:center;justify-content:center;min-height:260px;aspect-ratio:1887/1730;border:1px solid #46534b;border-radius:10px;background:#101614;overflow:hidden}
+.board-preview img{display:block;max-width:100%;max-height:440px;width:100%;height:100%;object-fit:contain}
+.board-preview.is-portrait img{width:80%;height:80%;transform:rotate(90deg)}
+.board-territory-labels{display:flex;justify-content:space-between;gap:12px;color:#d4b96f;font-size:.84rem}
+@media(max-width:800px){.board-selection-grid,.board-roll-grid{grid-template-columns:1fr}.board-preview{min-height:200px}.board-territory-labels{flex-direction:column}}
