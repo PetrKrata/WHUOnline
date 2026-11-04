@@ -4,6 +4,23 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     match /tables/{tableId} {
+      function attackRank(face) {
+        return face == "💥" ? 4
+          : face == "⚔" ? 3
+          : face == "⚒" ? 2
+          : face == "●" ? 1
+          : face == "◐" ? 0 : -1;
+      }
+
+      function validBoardChoice(data) {
+        return data.get("boardChoice", "") in ["verdant", "whispering", "blazing", "haven"]
+          && data.get("boardOrientation", "") in ["landscape", "portrait"]
+          && data.get("boardWinnerSide", "") in ["top", "bottom"]
+          && attackRank(data.get("hostBoardRoll", "")) >= 0
+          && attackRank(data.get("guestBoardRoll", "")) >= 0
+          && attackRank(data.hostBoardRoll) != attackRank(data.guestBoardRoll);
+      }
+
       allow read: if request.auth != null;
 
       allow create: if request.auth != null
@@ -94,7 +111,10 @@ service cloud.firestore {
                 && request.resource.data.guestPhaseReady == true)
             )
             && (
-              resource.data.get("gamePhase", "opening") != "opening"
+              (
+                resource.data.get("gamePhase", "opening") != "opening"
+                && (resource.data.gamePhase != "boards" || validBoardChoice(resource.data))
+              )
               || (
                 exists(/databases/$(database)/documents/tables/$(tableId)/private/$(request.auth.uid))
                 && get(/databases/$(database)/documents/tables/$(tableId)/private/$(request.auth.uid)).data.get("openingConfirmed", false) == true
@@ -116,10 +136,61 @@ service cloud.firestore {
             && request.resource.data.guestPhaseReady == false
             && (
               (resource.data.get("gamePhase", "opening") == "opening" && request.resource.data.gamePhase == "boards")
-              || (resource.data.gamePhase == "boards" && request.resource.data.gamePhase == "tokens")
+              || (resource.data.gamePhase == "boards" && request.resource.data.gamePhase == "tokens"
+                  && validBoardChoice(resource.data))
               || (resource.data.gamePhase == "tokens" && request.resource.data.gamePhase == "deployment")
               || (resource.data.gamePhase == "deployment" && request.resource.data.gamePhase == "first-turn")
               || (resource.data.gamePhase == "first-turn" && request.resource.data.gamePhase == "round-one")
+            )
+          )
+          ||
+          (
+            resource.data.gameStarted == true
+            && resource.data.status == "playing"
+            && resource.data.get("gamePhase", "opening") == "boards"
+            && resource.data.get("hostPhaseReady", false) == false
+            && resource.data.get("guestPhaseReady", false) == false
+            && (
+              (
+                resource.data.hostUid == request.auth.uid
+                && resource.data.get("hostBoardRoll", "") == ""
+                && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["hostBoardRoll", "updatedAt"])
+                && request.resource.data.hostBoardRoll in ["💥", "⚒", "⚔", "◐", "●"]
+              )
+              ||
+              (
+                resource.data.guestUid == request.auth.uid
+                && resource.data.get("guestBoardRoll", "") == ""
+                && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["guestBoardRoll", "updatedAt"])
+                && request.resource.data.guestBoardRoll in ["💥", "⚒", "⚔", "◐", "●"]
+              )
+              ||
+              (
+                (resource.data.hostUid == request.auth.uid || resource.data.guestUid == request.auth.uid)
+                && resource.data.get("hostBoardRoll", "") != ""
+                && resource.data.get("guestBoardRoll", "") != ""
+                && resource.data.hostBoardRoll == resource.data.guestBoardRoll
+                && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["hostBoardRoll", "guestBoardRoll", "updatedAt"])
+                && request.resource.data.hostBoardRoll == ""
+                && request.resource.data.guestBoardRoll == ""
+              )
+              ||
+              (
+                validBoardChoice(request.resource.data)
+                && (
+                  (
+                    attackRank(resource.data.hostBoardRoll) > attackRank(resource.data.guestBoardRoll)
+                    && resource.data.hostUid == request.auth.uid
+                  )
+                  ||
+                  (
+                    attackRank(resource.data.guestBoardRoll) > attackRank(resource.data.hostBoardRoll)
+                    && resource.data.guestUid == request.auth.uid
+                  )
+                )
+                && request.resource.data.diff(resource.data).affectedKeys()
+                  .hasOnly(["boardChoice", "boardOrientation", "boardWinnerSide", "updatedAt"])
+              )
             )
           )
         );
