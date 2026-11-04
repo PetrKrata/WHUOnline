@@ -141,7 +141,7 @@ service cloud.firestore {
             )
             && request.resource.data.diff(resource.data).affectedKeys()
               .hasOnly(["gamePhase", "hostPhaseReady", "guestPhaseReady", "updatedAt"])
-            && request.resource.data.diff(resource.data).affectedKeys().hasAll(["gamePhase", "hostPhaseReady", "guestPhaseReady"])
+            && request.resource.data.gamePhase != resource.data.get("gamePhase", "opening")
             && request.resource.data.hostPhaseReady == false
             && request.resource.data.guestPhaseReady == false
             && (
