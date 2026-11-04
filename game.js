@@ -480,7 +480,7 @@ function renderGamePhase(data, isPlayer) {
 
   if (isPlayer && currentHand && phase === 'opening') renderOpeningHand(currentHand);
 
-  if (bothConfirmed && isPlayer && gameIsActive && nextGamePhase(phase) && !phaseAdvanceInFlight) {
+  if (bothConfirmed && isPlayer && gameIsActive && nextGamePhase(phase) && !phaseAdvanceInFlight && lastAdvanceAttemptPhase !== phase) {
     phaseAdvanceInFlight = true;
     lastAdvanceAttemptPhase = phase;
     advancePhaseIfReady(tableId, phase)
