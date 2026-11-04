@@ -3,7 +3,7 @@ import { doc, runTransaction, updateDoc, serverTimestamp } from 'https://www.gst
 
 export const GAME_PHASES = [
   { id: 'opening', title: 'Úvodní ruka', detail: 'Rozdej 3 Objective a 5 Power, případně využij mulligan a potvrď ruku.' },
-  { id: 'boards', title: 'Herní plány', detail: 'Připravit výběr a orientaci herních plánů. Interaktivní pokládání doplníme později.' },
+  { id: 'boards', title: 'Herní plány', detail: 'Oba hráči hodí útočnou kostkou. Vítěz vybere společný plán, orientaci a své území.' },
   { id: 'tokens', title: 'Žetony', detail: 'Připravit rozmístění žetonů a dalších prvků podle pravidel. Interaktivní rozmístění připravujeme.' },
   { id: 'deployment', title: 'Nasazení bojovníků', detail: 'Připravit nasazení jednotlivých bojovníků na herní plán. Zatím jen potvrzení fáze.' },
   { id: 'first-turn', title: 'Určení prvního hráče', detail: 'Připravit hod o první tah a vyznačení začínajícího hráče. Zatím jen potvrzení fáze.' },
