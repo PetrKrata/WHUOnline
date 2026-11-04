@@ -1,14 +1,14 @@
 import { db, ensureAnonymousAuth } from './firebase.js';
 import { doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';
 import { loadDeck } from './online-deck.js';
-import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js';
+import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js?v=20261104-6';
 import {
   ensureOpeningHand,
   watchOpeningHand,
   mulliganObjectives,
   mulliganPower,
   confirmOpeningHand
-} from './online-hand.js';
+} from './online-hand.js?v=20261104-6';
 
 const params = new URLSearchParams(window.location.search);
 const tableId = params.get('table');
