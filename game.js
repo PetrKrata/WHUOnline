@@ -5,8 +5,8 @@ import {
   BOARDS, BOARD_ASSET_ROOT, DICE_LABELS,
   rollOutcome, rollForBoard, rerollBoardTie,
   selectBoard, boardSelectionComplete
-} from './online-boards.js?v=20261104-7';
-import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js?v=20261104-7';
+} from './online-boards.js?v=20261104-8';
+import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js?v=20261104-8';
 import {
   ensureOpeningHand,
   watchOpeningHand,
@@ -443,7 +443,12 @@ function renderGamePhase(data, isPlayer) {
   if (bothConfirmed && isPlayer && gameIsActive && nextGamePhase(phase) && !phaseAdvanceInFlight) {
     phaseAdvanceInFlight = true;
     advancePhaseIfReady(tableId, phase)
-      .catch(error => console.error('Přechod mezi fázemi:', error))
+      .catch(error => {
+        console.error('Přechod mezi fázemi:', error);
+        const message = 'Přechod do další fáze nebyl uložen (' + (error.code || error.message || 'chyba') + ').';
+        if (phase === 'opening') openingActionHint.textContent = message;
+        else phaseWaitingText.textContent = message;
+      })
       .finally(() => { phaseAdvanceInFlight = false; });
   }
 }
