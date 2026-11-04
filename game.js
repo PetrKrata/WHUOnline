@@ -1,11 +1,13 @@
 import { db, ensureAnonymousAuth } from './firebase.js';
 import { doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';
 import { loadDeck } from './online-deck.js';
+import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js';
 import {
   ensureOpeningHand,
   watchOpeningHand,
   mulliganObjectives,
-  mulliganPower
+  mulliganPower,
+  confirmOpeningHand
 } from './online-hand.js';
 
 const params = new URLSearchParams(window.location.search);
@@ -31,6 +33,17 @@ const powerHandCards = document.getElementById('powerHandCards');
 const mulliganObjectivesButton = document.getElementById('mulliganObjectives');
 const mulliganPowerButton = document.getElementById('mulliganPower');
 
+const keepOpeningHandButton = document.getElementById('keepOpeningHand');
+const continueOpeningHandButton = document.getElementById('continueOpeningHand');
+const openingActionHint = document.getElementById('openingActionHint');
+const nextPhaseSection = document.getElementById('nextPhaseSection');
+const currentPhaseTitle = document.getElementById('currentPhaseTitle');
+const currentPhaseStatus = document.getElementById('currentPhaseStatus');
+const currentPhaseDescription = document.getElementById('currentPhaseDescription');
+const confirmGamePhaseButton = document.getElementById('confirmGamePhase');
+const phaseWaitingText = document.getElementById('phaseWaitingText');
+const phaseRoadmap = document.getElementById('phaseRoadmap');
+
 const myDeckSection = document.getElementById('myDeckSection');
 const myDeckStatus = document.getElementById('myDeckStatus');
 const objectiveCards = document.getElementById('objectiveCards');
@@ -46,6 +59,9 @@ let currentUser = null;
 let currentHand = null;
 let handWatcherStarted = false;
 let gameIsActive = false;
+let currentRole = 'spectator';
+let currentTableData = null;
+let phaseAdvanceInFlight = false;
 
 function showError(message) {
   gameTitle.textContent = 'Hru nelze otevřít';
@@ -54,6 +70,7 @@ function showError(message) {
   myGameCard.hidden = true;
   opponentGameCard.hidden = true;
   openingHandSection.hidden = true;
+  nextPhaseSection.hidden = true;
   myDeckSection.hidden = true;
 }
 
@@ -170,15 +187,24 @@ function renderOpeningHand(state) {
   objectiveHandCards.replaceChildren(...objectiveHand.map(makeHandCard));
   powerHandCards.replaceChildren(...powerHand.map(makeHandCard));
 
-  mulliganObjectivesButton.disabled = state.objectiveMulliganUsed === true;
-  mulliganPowerButton.disabled = state.powerMulliganUsed === true;
+  const confirmed = state.openingConfirmed === true;
+  mulliganObjectivesButton.disabled = state.objectiveMulliganUsed === true || confirmed || normalizedGamePhase(currentTableData) !== 'opening';
+  mulliganPowerButton.disabled = state.powerMulliganUsed === true || confirmed || normalizedGamePhase(currentTableData) !== 'opening';
+  keepOpeningHandButton.disabled = confirmed;
+  keepOpeningHandButton.textContent = confirmed ? 'Ruka potvrzena' : 'Nic neměnit';
+  continueOpeningHandButton.disabled = !confirmed || isMyPhaseReady() || normalizedGamePhase(currentTableData) !== 'opening';
+  openingActionHint.textContent = !confirmed
+    ? 'Pokud nechceš nic měnit, klikni Nic neměnit. Po výměně můžeš také potvrdit ruku.'
+    : isMyPhaseReady() ? 'Čekám na potvrzení protihráče.' : 'Ruka je potvrzena. Můžeš pokračovat.';
   mulliganObjectivesButton.textContent = state.objectiveMulliganUsed ? 'Objectives vyměněny' : 'Vyměnit Objectives';
   mulliganPowerButton.textContent = state.powerMulliganUsed ? 'Power vyměněny' : 'Vyměnit Power';
 
   const notes = [];
   if (state.objectiveMulliganUsed) notes.push('Objective mulligan použit');
   if (state.powerMulliganUsed) notes.push('Power mulligan použit');
-  openingHandStatus.textContent = notes.length ? notes.join(' · ') : '3 Objective + 5 Power · mulligan je k dispozici';
+  openingHandStatus.textContent = confirmed
+    ? 'Úvodní ruka potvrzena'
+    : notes.length ? notes.join(' · ') : '3 Objective + 5 Power · můžeš vyměnit část ruky nebo ji potvrdit';
 }
 
 async function prepareOpeningHand(deck) {
@@ -200,7 +226,7 @@ async function prepareOpeningHand(deck) {
 }
 
 mulliganObjectivesButton.addEventListener('click', async () => {
-  if (!currentUser || !currentHand || currentHand.objectiveMulliganUsed) return;
+  if (!currentUser || !currentHand || currentHand.objectiveMulliganUsed || currentHand.openingConfirmed || normalizedGamePhase(currentTableData) !== 'opening') return;
   mulliganObjectivesButton.disabled = true;
   try {
     await mulliganObjectives(tableId, currentUser.uid, currentHand);
@@ -212,7 +238,7 @@ mulliganObjectivesButton.addEventListener('click', async () => {
 });
 
 mulliganPowerButton.addEventListener('click', async () => {
-  if (!currentUser || !currentHand || currentHand.powerMulliganUsed) return;
+  if (!currentUser || !currentHand || currentHand.powerMulliganUsed || currentHand.openingConfirmed || normalizedGamePhase(currentTableData) !== 'opening') return;
   mulliganPowerButton.disabled = true;
   try {
     await mulliganPower(tableId, currentUser.uid, currentHand);
@@ -222,6 +248,91 @@ mulliganPowerButton.addEventListener('click', async () => {
     mulliganPowerButton.disabled = false;
   }
 });
+
+function isMyPhaseReady() {
+  if (currentRole === 'host') return currentTableData?.hostPhaseReady === true;
+  if (currentRole === 'guest') return currentTableData?.guestPhaseReady === true;
+  return false;
+}
+
+async function commitOpeningDecision() {
+  if (!currentUser || !currentHand || !gameIsActive || normalizedGamePhase(currentTableData) !== 'opening') return;
+  keepOpeningHandButton.disabled = true;
+  try {
+    await confirmOpeningHand(tableId, currentUser.uid);
+  } catch (error) {
+    console.error(error);
+    openingActionHint.textContent = 'Potvrzení ruky se nezdařilo.';
+    keepOpeningHandButton.disabled = false;
+  }
+}
+
+keepOpeningHandButton.addEventListener('click', commitOpeningDecision);
+
+continueOpeningHandButton.addEventListener('click', async () => {
+  if (!currentHand?.openingConfirmed || isMyPhaseReady() || normalizedGamePhase(currentTableData) !== 'opening') return;
+  continueOpeningHandButton.disabled = true;
+  try {
+    await confirmPhase(tableId, currentRole, 'opening');
+  } catch (error) {
+    console.error(error);
+    openingActionHint.textContent = error.message || 'Nepodařilo se pokračovat.';
+    continueOpeningHandButton.disabled = false;
+  }
+});
+
+confirmGamePhaseButton.addEventListener('click', async () => {
+  const phase = normalizedGamePhase(currentTableData);
+  if (phase === 'opening' || !nextGamePhase(phase) || isMyPhaseReady()) return;
+  confirmGamePhaseButton.disabled = true;
+  try {
+    await confirmPhase(tableId, currentRole, phase);
+  } catch (error) {
+    console.error(error);
+    phaseWaitingText.textContent = error.message || 'Potvrzení se nezdařilo.';
+    confirmGamePhaseButton.disabled = false;
+  }
+});
+
+function renderGamePhase(data, isPlayer) {
+  const phase = normalizedGamePhase(data);
+  const bothConfirmed = data.hostPhaseReady === true && data.guestPhaseReady === true;
+  const myConfirmed = isMyPhaseReady();
+  const current = GAME_PHASES.find(item => item.id === phase);
+  openingHandSection.hidden = !isPlayer || !gameIsActive || phase !== 'opening';
+  nextPhaseSection.hidden = !gameIsActive || phase === 'opening';
+
+  if (phase !== 'opening' && gameIsActive) {
+    currentPhaseTitle.textContent = current.title;
+    currentPhaseDescription.textContent = current.detail;
+    const next = nextGamePhase(phase);
+    currentPhaseStatus.textContent = next ? 'Příprava další fáze' : 'Připraveno pro implementaci herních tahů';
+    confirmGamePhaseButton.hidden = !isPlayer || !next;
+    confirmGamePhaseButton.disabled = !isPlayer || myConfirmed || !next;
+    confirmGamePhaseButton.textContent = myConfirmed ? 'Potvrzeno' : 'Potvrdit fázi a pokračovat';
+    phaseWaitingText.textContent = !next
+      ? 'Další krok bude interaktivní herní plocha.'
+      : myConfirmed ? 'Čekám na potvrzení protihráče.' : 'Až budou připraveni oba hráči, přejdeme dále.';
+    phaseRoadmap.replaceChildren();
+    GAME_PHASES.forEach(item => {
+      const li = document.createElement('li');
+      const currentIndex = GAME_PHASES.findIndex(p => p.id === phase);
+      const itemIndex = GAME_PHASES.findIndex(p => p.id === item.id);
+      li.textContent = item.title + (itemIndex < currentIndex ? ' ✓' : itemIndex === currentIndex ? ' · nyní' : '');
+      if (itemIndex === currentIndex) li.className = 'is-current';
+      phaseRoadmap.append(li);
+    });
+  }
+
+  if (isPlayer && currentHand) renderOpeningHand(currentHand);
+
+  if (bothConfirmed && isPlayer && gameIsActive && nextGamePhase(phase) && !phaseAdvanceInFlight) {
+    phaseAdvanceInFlight = true;
+    advancePhaseIfReady(tableId, phase)
+      .catch(error => console.error('Přechod mezi fázemi:', error))
+      .finally(() => { phaseAdvanceInFlight = false; });
+  }
+}
 
 async function renderPrivateDeck(deckUrl) {
   if (!deckUrl) {
@@ -271,6 +382,8 @@ function render(data, user) {
   const isGuest = data.guestUid === user.uid;
   const isPlayer = isHost || isGuest;
   gameIsActive = data.gameStarted === true && data.status === 'playing';
+  currentTableData = data;
+  currentRole = isHost ? 'host' : isGuest ? 'guest' : 'spectator';
 
   gameTitle.textContent = `${data.hostNick || 'Hráč 1'} vs. ${data.guestNick || 'Hráč 2'}`;
   const myDeckUrl = fillPlayerCards(data, isHost, isGuest);
@@ -284,13 +397,18 @@ function render(data, user) {
     myDeckSection.hidden = true;
   }
 
+  renderGamePhase(data, isPlayer);
+
   if (gameIsActive) {
     gameConnection.textContent = isPlayer
       ? 'Připojeno · hra probíhá · stav se synchronizuje přes Firebase.'
       : 'Připojeno jako divák · pouze náhled.';
-    gameStageText.textContent = 'Hra byla spuštěna. Úvodní ruka je soukromá a po obnovení stránky zůstane zachována.';
+    gameStageText.textContent = normalizedGamePhase(data) === 'opening'
+      ? 'Oba hráči potvrdí úvodní ruku a kliknou Pokračovat.'
+      : 'Společná příprava: ' + (GAME_PHASES.find(p => p.id === normalizedGamePhase(data))?.title || 'další fáze') + '. Interaktivní herní plán a tahy ještě připravujeme.';
   } else {
     openingHandSection.hidden = true;
+    nextPhaseSection.hidden = true;
     gameConnection.textContent = `Připojeno · stůl je ve stavu „${data.status || 'neuvedeno'}“ · hra ještě nebyla spuštěna.`;
     gameStageText.textContent = 'Vrať se ke stolu a spusť hru, až budou oba hráči připraveni.';
   }
