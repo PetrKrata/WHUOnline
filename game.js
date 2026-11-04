@@ -1,7 +1,12 @@
 import { db, ensureAnonymousAuth } from './firebase.js';
 import { doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';
 import { loadDeck } from './online-deck.js';
-import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js?v=20261104-6';
+import {
+  BOARDS, BOARD_ASSET_ROOT, DICE_LABELS,
+  rollOutcome, rollForBoard, rerollBoardTie,
+  selectBoard, boardSelectionComplete
+} from './online-boards.js?v=20261104-7';
+import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js?v=20261104-7';
 import {
   ensureOpeningHand,
   watchOpeningHand,
@@ -36,6 +41,24 @@ const mulliganPowerButton = document.getElementById('mulliganPower');
 const keepOpeningHandButton = document.getElementById('keepOpeningHand');
 const continueOpeningHandButton = document.getElementById('continueOpeningHand');
 const openingActionHint = document.getElementById('openingActionHint');
+const boardSetupSection = document.getElementById('boardSetupSection');
+const boardRollStatus = document.getElementById('boardRollStatus');
+const hostRollName = document.getElementById('hostRollName');
+const guestRollName = document.getElementById('guestRollName');
+const hostRollFace = document.getElementById('hostRollFace');
+const guestRollFace = document.getElementById('guestRollFace');
+const rollMyBoardDieButton = document.getElementById('rollMyBoardDie');
+const rerollBoardTieButton = document.getElementById('rerollBoardTie');
+const boardRollMessage = document.getElementById('boardRollMessage');
+const boardChoiceOnline = document.getElementById('boardChoiceOnline');
+const boardOrientationOnline = document.getElementById('boardOrientationOnline');
+const boardSideOnline = document.getElementById('boardSideOnline');
+const saveBoardSelectionButton = document.getElementById('saveBoardSelection');
+const boardSelectionStatus = document.getElementById('boardSelectionStatus');
+const boardPreviewImage = document.getElementById('boardPreviewImage');
+const boardPreview = document.getElementById('boardPreview');
+const boardTopOwner = document.getElementById('boardTopOwner');
+const boardBottomOwner = document.getElementById('boardBottomOwner');
 const nextPhaseSection = document.getElementById('nextPhaseSection');
 const currentPhaseTitle = document.getElementById('currentPhaseTitle');
 const currentPhaseStatus = document.getElementById('currentPhaseStatus');
@@ -71,6 +94,7 @@ function showError(message) {
   opponentGameCard.hidden = true;
   openingHandSection.hidden = true;
   nextPhaseSection.hidden = true;
+  boardSetupSection.hidden = true;
   myDeckSection.hidden = true;
 }
 
@@ -294,6 +318,93 @@ confirmGamePhaseButton.addEventListener('click', async () => {
   }
 });
 
+function updateBoardPreview(key, orientation, side, winner, data) {
+  if (BOARDS[key]) {
+    boardPreviewImage.src = BOARD_ASSET_ROOT + BOARDS[key].image;
+    boardPreviewImage.alt = BOARDS[key].title;
+    boardPreviewImage.hidden = false;
+  } else {
+    boardPreviewImage.removeAttribute('src');
+    boardPreviewImage.hidden = true;
+  }
+  boardPreview.classList.toggle('is-portrait', orientation === 'portrait');
+  const winnerName = winner === 'host' ? (data.hostNick || 'Hráč 1') : (data.guestNick || 'Hráč 2');
+  const loserName = winner === 'host' ? (data.guestNick || 'Hráč 2') : (data.hostNick || 'Hráč 1');
+  boardTopOwner.textContent = side ? ('Horní území: ' + (side === 'top' ? winnerName : loserName)) : 'Horní území';
+  boardBottomOwner.textContent = side ? ('Dolní území: ' + (side === 'bottom' ? winnerName : loserName)) : 'Dolní území';
+}
+
+function renderBoardSetup(data, isPlayer) {
+  const active = gameIsActive && normalizedGamePhase(data) === 'boards';
+  boardSetupSection.hidden = !active;
+  if (!active) return;
+  const result = rollOutcome(data);
+  const myField = currentRole === 'host' ? 'hostBoardRoll' : 'guestBoardRoll';
+  const myRolled = Boolean(data[myField]);
+  const winnerName = result.winner === 'host' ? data.hostNick : data.guestNick;
+  hostRollName.textContent = data.hostNick || 'Hráč 1';
+  guestRollName.textContent = data.guestNick || 'Hráč 2';
+  hostRollFace.textContent = data.hostBoardRoll || '?';
+  guestRollFace.textContent = data.guestBoardRoll || '?';
+  hostRollFace.title = DICE_LABELS[data.hostBoardRoll] || 'Čeká na hod';
+  guestRollFace.title = DICE_LABELS[data.guestBoardRoll] || 'Čeká na hod';
+  boardRollStatus.textContent = result.status === 'waiting' ? 'Čekám na oba hody'
+    : result.status === 'tie' ? 'Remíza · nový hod' : 'Vyhrává ' + winnerName;
+  boardRollMessage.textContent = result.status === 'tie'
+    ? 'Stejná síla výsledků. Oba hráči musí hodit znovu.'
+    : result.status === 'winner' ? winnerName + ' vybírá společný plán, orientaci a své území.'
+    : 'Každý hráč hodí jednou útočnou kostkou.';
+  rollMyBoardDieButton.hidden = !isPlayer || myRolled || result.status !== 'waiting';
+  rollMyBoardDieButton.disabled = !isPlayer || myRolled || result.status !== 'waiting';
+  rerollBoardTieButton.hidden = !isPlayer || result.status !== 'tie';
+  rerollBoardTieButton.disabled = !isPlayer || result.status !== 'tie';
+
+  const winnerCanEdit = isPlayer && result.winner === currentRole &&
+    !data.hostPhaseReady && !data.guestPhaseReady;
+  boardChoiceOnline.disabled = !winnerCanEdit;
+  boardOrientationOnline.disabled = !winnerCanEdit;
+  boardSideOnline.disabled = !winnerCanEdit;
+  saveBoardSelectionButton.hidden = !winnerCanEdit;
+  boardChoiceOnline.value = data.boardChoice || '';
+  boardOrientationOnline.value = data.boardOrientation || 'landscape';
+  boardSideOnline.value = data.boardWinnerSide || '';
+  saveBoardSelectionButton.disabled = !boardChoiceOnline.value || !boardSideOnline.value || !winnerCanEdit;
+  updateBoardPreview(data.boardChoice, boardOrientationOnline.value, data.boardWinnerSide, result.winner, data);
+  boardSelectionStatus.textContent = boardSelectionComplete(data)
+    ? 'Plán a území uloženy. Oba hráči mohou potvrdit fázi.'
+    : winnerCanEdit ? 'Vyber plán, orientaci a území a klikni Uložit plán a území.'
+    : result.status === 'winner' ? 'Čekám na výběr vítěze hodu.' : 'Nejprve dokončete hod.';
+}
+
+rollMyBoardDieButton.addEventListener('click', async () => {
+  rollMyBoardDieButton.disabled = true;
+  try { await rollForBoard(tableId, currentRole); }
+  catch (error) { console.error(error); boardRollMessage.textContent = error.message || 'Hod selhal.'; rollMyBoardDieButton.disabled = false; }
+});
+rerollBoardTieButton.addEventListener('click', async () => {
+  rerollBoardTieButton.disabled = true;
+  try { await rerollBoardTie(tableId); }
+  catch (error) { console.error(error); boardRollMessage.textContent = error.message || 'Opakování hodu selhalo.'; rerollBoardTieButton.disabled = false; }
+});
+function previewBoardDraft() {
+  const data = currentTableData;
+  if (!data) return;
+  updateBoardPreview(boardChoiceOnline.value, boardOrientationOnline.value, boardSideOnline.value, rollOutcome(data).winner, data);
+  saveBoardSelectionButton.disabled = !boardChoiceOnline.value || !boardSideOnline.value;
+}
+[boardChoiceOnline, boardOrientationOnline, boardSideOnline].forEach(el => el.addEventListener('change', previewBoardDraft));
+saveBoardSelectionButton.addEventListener('click', async () => {
+  if (!currentTableData || !boardChoiceOnline.value || !boardSideOnline.value) return;
+  saveBoardSelectionButton.disabled = true;
+  try {
+    await selectBoard(tableId, currentRole, boardChoiceOnline.value, boardOrientationOnline.value, boardSideOnline.value);
+  } catch (error) {
+    console.error(error);
+    boardSelectionStatus.textContent = error.message || 'Výběr nešlo uložit.';
+    saveBoardSelectionButton.disabled = false;
+  }
+});
+
 function renderGamePhase(data, isPlayer) {
   const phase = normalizedGamePhase(data);
   const bothConfirmed = data.hostPhaseReady === true && data.guestPhaseReady === true;
@@ -301,6 +412,7 @@ function renderGamePhase(data, isPlayer) {
   const current = GAME_PHASES.find(item => item.id === phase);
   openingHandSection.hidden = !isPlayer || !gameIsActive || phase !== 'opening';
   nextPhaseSection.hidden = !gameIsActive || phase === 'opening';
+  renderBoardSetup(data, isPlayer);
 
   if (phase !== 'opening' && gameIsActive) {
     currentPhaseTitle.textContent = current.title;
@@ -308,10 +420,12 @@ function renderGamePhase(data, isPlayer) {
     const next = nextGamePhase(phase);
     currentPhaseStatus.textContent = next ? 'Příprava další fáze' : 'Připraveno pro implementaci herních tahů';
     confirmGamePhaseButton.hidden = !isPlayer || !next;
-    confirmGamePhaseButton.disabled = !isPlayer || myConfirmed || !next;
+    confirmGamePhaseButton.disabled = !isPlayer || myConfirmed || !next ||
+      (phase === 'boards' && !boardSelectionComplete(data));
     confirmGamePhaseButton.textContent = myConfirmed ? 'Potvrzeno' : 'Potvrdit fázi a pokračovat';
-    phaseWaitingText.textContent = !next
-      ? 'Další krok bude interaktivní herní plocha.'
+    phaseWaitingText.textContent = phase === 'boards' && !boardSelectionComplete(data)
+      ? 'Nejprve dokončete hod a výběr herního plánu.'
+      : !next ? 'Další krok bude interaktivní herní plocha.'
       : myConfirmed ? 'Čekám na potvrzení protihráče.' : 'Až budou připraveni oba hráči, přejdeme dále.';
     phaseRoadmap.replaceChildren();
     GAME_PHASES.forEach(item => {
@@ -409,6 +523,7 @@ function render(data, user) {
   } else {
     openingHandSection.hidden = true;
     nextPhaseSection.hidden = true;
+    boardSetupSection.hidden = true;
     gameConnection.textContent = `Připojeno · stůl je ve stavu „${data.status || 'neuvedeno'}“ · hra ještě nebyla spuštěna.`;
     gameStageText.textContent = 'Vrať se ke stolu a spusť hru, až budou oba hráči připraveni.';
   }
