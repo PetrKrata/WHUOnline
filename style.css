@@ -36,3 +36,7 @@
 .board-preview.is-portrait img{width:80%;height:80%;transform:rotate(90deg)}
 .board-territory-labels{display:flex;justify-content:space-between;gap:12px;color:#d4b96f;font-size:.84rem}
 @media(max-width:800px){.board-selection-grid,.board-roll-grid{grid-template-columns:1fr}.board-preview{min-height:200px}.board-territory-labels{flex-direction:column}}
+
+.phase-diagnostics{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:-16px 0 26px;padding:10px 13px;border:1px solid #52634f;border-radius:9px;background:#1e2c24;color:#d9e4d7;font-size:.84rem;line-height:1.5}
+.phase-diagnostics button{margin-left:auto;padding:6px 10px;font-size:.81rem}
+.phase-diagnostics strong{white-space:nowrap}
