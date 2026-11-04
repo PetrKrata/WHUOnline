@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>WHU Online · Hra</title>
-  <link rel="stylesheet" href="style.css?v=20261104-6">
+  <link rel="stylesheet" href="style.css?v=20261104-7">
 </head>
 <body>
   <header class="topbar">
@@ -19,7 +19,7 @@
     <section class="panel game-shell">
       <div class="section-head">
         <div>
-          <small>ONLINE HRA · VERZE 6</small>
+          <small>ONLINE HRA · VERZE 7</small>
           <h2 id="gameTitle">Načítám hru…</h2>
         </div>
         <span id="gameRoleBadge" class="badge">Načítám roli…</span>
@@ -80,6 +80,66 @@
         </div>
       </section>
 
+      <section id="boardSetupSection" class="board-setup-section" hidden>
+        <div class="private-deck-head">
+          <div>
+            <span class="role-label">Příprava území · oběma hráčům společná</span>
+            <h3>Hod o výběr herního plánu</h3>
+          </div>
+          <span id="boardRollStatus" class="deck-load-status">Čekám na hod…</span>
+        </div>
+        <div class="board-roll-grid">
+          <div class="board-roll-player">
+            <strong id="hostRollName">Hráč 1</strong>
+            <div id="hostRollFace" class="board-die-face">?</div>
+            <button id="rollMyBoardDie" type="button" hidden>Hodit útočnou kostkou</button>
+          </div>
+          <div class="board-roll-player">
+            <strong id="guestRollName">Hráč 2</strong>
+            <div id="guestRollFace" class="board-die-face">?</div>
+          </div>
+        </div>
+        <div class="board-roll-actions">
+          <p id="boardRollMessage" class="hint"></p>
+          <button id="rerollBoardTie" type="button" hidden>Přehodit oba</button>
+        </div>
+        <div class="board-selection-grid">
+          <div class="board-controls">
+            <h4>Výběr vítěze hodu</h4>
+            <label for="boardChoiceOnline">Herní plán</label>
+            <select id="boardChoiceOnline">
+              <option value="">Vyber plán…</option>
+              <option value="verdant">The Verdant Maw</option>
+              <option value="whispering">Whispering Root-Hollow</option>
+              <option value="blazing">The Blazing Bastion</option>
+              <option value="haven">Haven of the Hated</option>
+            </select>
+            <label for="boardOrientationOnline">Orientace</label>
+            <select id="boardOrientationOnline">
+              <option value="landscape">Na šířku</option>
+              <option value="portrait">Na výšku</option>
+            </select>
+            <label for="boardSideOnline">Území vítěze</label>
+            <select id="boardSideOnline">
+              <option value="">Vyber území…</option>
+              <option value="top">Horní území</option>
+              <option value="bottom">Dolní území</option>
+            </select>
+            <button id="saveBoardSelection" class="primary" type="button">Uložit plán a území</button>
+            <p id="boardSelectionStatus" class="hint">O výběru rozhodne vítěz hodu.</p>
+          </div>
+          <div class="board-preview-panel">
+            <div id="boardPreview" class="board-preview">
+              <img id="boardPreviewImage" alt="Náhled herního plánu">
+            </div>
+            <div class="board-territory-labels">
+              <span id="boardTopOwner">Horní území</span>
+              <span id="boardBottomOwner">Dolní území</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="nextPhaseSection" class="next-phase-section" hidden>
         <div class="private-deck-head">
           <div>
@@ -132,6 +192,6 @@
     </section>
   </main>
 
-  <script type="module" src="game.js?v=20261104-6"></script>
+  <script type="module" src="game.js?v=20261104-7"></script>
 </body>
 </html>
