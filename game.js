@@ -179,7 +179,7 @@ function cardById(id) {
 
 function renderOpeningHand(state) {
   currentHand = state;
-  openingHandSection.hidden = false;
+  openingHandSection.hidden = !gameIsActive || normalizedGamePhase(currentTableData) !== 'opening';
 
   const objectiveHand = (state.objectiveHandIds || []).map(cardById).filter(Boolean);
   const powerHand = (state.powerHandIds || []).map(cardById).filter(Boolean);
@@ -324,7 +324,7 @@ function renderGamePhase(data, isPlayer) {
     });
   }
 
-  if (isPlayer && currentHand) renderOpeningHand(currentHand);
+  if (isPlayer && currentHand && phase === 'opening') renderOpeningHand(currentHand);
 
   if (bothConfirmed && isPlayer && gameIsActive && nextGamePhase(phase) && !phaseAdvanceInFlight) {
     phaseAdvanceInFlight = true;
