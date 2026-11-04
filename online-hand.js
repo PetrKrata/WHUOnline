@@ -43,6 +43,7 @@ export async function ensureOpeningHand(tableId, uid, deck) {
     powerDeckIds: powerIds.slice(5),
     objectiveMulliganUsed: false,
     powerMulliganUsed: false,
+    openingConfirmed: false,
     initializedAt: serverTimestamp(),
     updatedAt: serverTimestamp()
   };
@@ -58,7 +59,7 @@ export function watchOpeningHand(tableId, uid, onData, onError) {
 }
 
 export async function mulliganObjectives(tableId, uid, state) {
-  if (state.objectiveMulliganUsed) return;
+  if (state.objectiveMulliganUsed || state.openingConfirmed) return;
   const drawPile = shuffled(state.objectiveDeckIds || []);
   if (drawPile.length < 3) return;
   const newHand = drawPile.slice(0, 3);
@@ -72,7 +73,7 @@ export async function mulliganObjectives(tableId, uid, state) {
 }
 
 export async function mulliganPower(tableId, uid, state) {
-  if (state.powerMulliganUsed) return;
+  if (state.powerMulliganUsed || state.openingConfirmed) return;
   const drawPile = shuffled(state.powerDeckIds || []);
   if (drawPile.length < 5) return;
   const newHand = drawPile.slice(0, 5);
@@ -83,4 +84,9 @@ export async function mulliganPower(tableId, uid, state) {
     powerMulliganUsed: true,
     updatedAt: serverTimestamp()
   });
+}
+
+export async function confirmOpeningHand(tableId, uid) {
+  const ref = handRef(tableId, uid);
+  await updateDoc(ref, { openingConfirmed: true, updatedAt: serverTimestamp() });
 }
