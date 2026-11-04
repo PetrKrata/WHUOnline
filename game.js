@@ -191,7 +191,7 @@ function renderOpeningHand(state) {
   mulliganObjectivesButton.disabled = state.objectiveMulliganUsed === true || confirmed || normalizedGamePhase(currentTableData) !== 'opening';
   mulliganPowerButton.disabled = state.powerMulliganUsed === true || confirmed || normalizedGamePhase(currentTableData) !== 'opening';
   keepOpeningHandButton.disabled = confirmed;
-  keepOpeningHandButton.textContent = confirmed ? 'Ruka potvrzena' : 'Nic neměnit';
+  keepOpeningHandButton.textContent = confirmed ? 'Ruka potvrzena' : (state.objectiveMulliganUsed || state.powerMulliganUsed ? 'Potvrdit ruku' : 'Nic neměnit');
   continueOpeningHandButton.disabled = !confirmed || isMyPhaseReady() || normalizedGamePhase(currentTableData) !== 'opening';
   openingActionHint.textContent = !confirmed
     ? 'Pokud nechceš nic měnit, klikni Nic neměnit. Po výměně můžeš také potvrdit ruku.'
