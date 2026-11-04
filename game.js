@@ -5,8 +5,8 @@ import {
   BOARDS, BOARD_ASSET_ROOT, DICE_LABELS,
   rollOutcome, rollForBoard, rerollBoardTie,
   selectBoard, boardSelectionComplete
-} from './online-boards.js?v=20261104-8';
-import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js?v=20261104-8';
+} from './online-boards.js?v=20261104-9';
+import { GAME_PHASES, normalizedGamePhase, nextGamePhase, confirmPhase, advancePhaseIfReady } from './online-phases.js?v=20261104-9';
 import {
   ensureOpeningHand,
   watchOpeningHand,
@@ -30,6 +30,8 @@ const opponentGameName = document.getElementById('opponentGameName');
 const opponentGameWarband = document.getElementById('opponentGameWarband');
 const opponentGameDecks = document.getElementById('opponentGameDecks');
 const gameStageText = document.getElementById('gameStageText');
+const phaseDiagnosticsText = document.getElementById('phaseDiagnosticsText');
+const retryPhaseAdvanceButton = document.getElementById('retryPhaseAdvance');
 
 const openingHandSection = document.getElementById('openingHandSection');
 const openingHandStatus = document.getElementById('openingHandStatus');
@@ -85,6 +87,9 @@ let gameIsActive = false;
 let currentRole = 'spectator';
 let currentTableData = null;
 let phaseAdvanceInFlight = false;
+let phaseTransitionError = '';
+let lastObservedPhase = '';
+let lastAdvanceAttemptPhase = '';
 
 function showError(message) {
   gameTitle.textContent = 'Hru nelze otevřít';
@@ -405,11 +410,46 @@ saveBoardSelectionButton.addEventListener('click', async () => {
   }
 });
 
+async function retryPhaseAdvanceNow() {
+  if (!currentTableData || !gameIsActive || !['host','guest'].includes(currentRole)) return;
+  const phase = normalizedGamePhase(currentTableData);
+  if (currentTableData.hostPhaseReady !== true || currentTableData.guestPhaseReady !== true) return;
+  retryPhaseAdvanceButton.disabled = true;
+  phaseDiagnosticsText.textContent = 'Zkouším přechod ' + phase + '…';
+  try {
+    const changed = await advancePhaseIfReady(tableId, phase);
+    if (!changed) phaseTransitionError = 'Stav se změnil nebo chybí některé potvrzení.';
+    else phaseTransitionError = '';
+  } catch (error) {
+    console.error('Ruční přechod:', error);
+    phaseTransitionError = (error.code || 'chyba') + ': ' + (error.message || 'zápis odmítnut');
+  } finally {
+    retryPhaseAdvanceButton.disabled = false;
+    if (phaseTransitionError) {
+      phaseDiagnosticsText.textContent = 'Přechod zablokován: ' + phaseTransitionError;
+    }
+  }
+}
+retryPhaseAdvanceButton.addEventListener('click', retryPhaseAdvanceNow);
+
 function renderGamePhase(data, isPlayer) {
   const phase = normalizedGamePhase(data);
   const bothConfirmed = data.hostPhaseReady === true && data.guestPhaseReady === true;
   const myConfirmed = isMyPhaseReady();
   const current = GAME_PHASES.find(item => item.id === phase);
+  if (phase !== lastObservedPhase) {
+    phaseTransitionError = '';
+    lastObservedPhase = phase;
+    lastAdvanceAttemptPhase = '';
+  }
+  const hostReady = data.hostPhaseReady === true ? 'ano' : 'ne';
+  const guestReady = data.guestPhaseReady === true ? 'ano' : 'ne';
+  phaseDiagnosticsText.textContent = phaseTransitionError
+    ? 'Chyba přechodu: ' + phaseTransitionError
+    : 'Fáze: ' + current.title + ' · Hráč 1 pokračuje: ' + hostReady +
+      ' · Hráč 2 pokračuje: ' + guestReady;
+  retryPhaseAdvanceButton.hidden = !(gameIsActive && isPlayer && bothConfirmed && nextGamePhase(phase));
+
   openingHandSection.hidden = !isPlayer || !gameIsActive || phase !== 'opening';
   nextPhaseSection.hidden = !gameIsActive || phase === 'opening';
   renderBoardSetup(data, isPlayer);
@@ -442,8 +482,12 @@ function renderGamePhase(data, isPlayer) {
 
   if (bothConfirmed && isPlayer && gameIsActive && nextGamePhase(phase) && !phaseAdvanceInFlight) {
     phaseAdvanceInFlight = true;
+    lastAdvanceAttemptPhase = phase;
     advancePhaseIfReady(tableId, phase)
       .catch(error => {
+        phaseTransitionError = (error.code || 'chyba') + ': ' + (error.message || 'Zápis se nezdařil');
+        phaseDiagnosticsText.textContent = 'Chyba přechodu: ' + phaseTransitionError;
+        retryPhaseAdvanceButton.hidden = false;
         console.error('Přechod mezi fázemi:', error);
         const message = 'Přechod do další fáze nebyl uložen (' + (error.code || error.message || 'chyba') + ').';
         if (phase === 'opening') openingActionHint.textContent = message;
